@@ -70,6 +70,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '151024075058',
     projectId: 'squat-bb102',
     storageBucket: 'squat-bb102.appspot.com',
-    iosBundleId: 'com.baraxuntech.laatte',
+    iosBundleId: 'com.relate.laatte',
   );
 }
