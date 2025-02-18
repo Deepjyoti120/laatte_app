@@ -59,9 +59,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       );
       Connectivity().onConnectivityChanged.listen((result) {
         if (result.contains(ConnectivityResult.none)) {
-          scaffoldMessengerKey.currentState!.showSnackBar(noInternetSnackBar);
+          scaffoldMessengerKey.currentState?.showSnackBar(noInternetSnackBar);
         } else {
-          scaffoldMessengerKey.currentState!.hideCurrentSnackBar();
+          scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
         }
       });
     });
