@@ -1,4 +1,4 @@
-# HRMS
+# Laatte
 
 A new Flutter project.
 
