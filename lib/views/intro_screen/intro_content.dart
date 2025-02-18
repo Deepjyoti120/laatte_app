@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:lottie/lottie.dart';
@@ -8,7 +9,7 @@ import '../../utils/design_colors.dart';
 
 class SplashContent extends StatelessWidget {
   final String text, title;
-  final String? json;
+  final String? svg;
   final String? image;
   final bool isAnimate;
   const SplashContent({
@@ -16,7 +17,7 @@ class SplashContent extends StatelessWidget {
     required this.text,
     required this.title,
     this.image,
-    this.json,
+    this.svg,
     this.isAnimate = false,
   }) : super(key: key);
 
@@ -32,9 +33,12 @@ class SplashContent extends StatelessWidget {
                 image!,
                 fit: BoxFit.fill,
               )
-            : LottieBuilder.asset(
-                json!,
-                fit: BoxFit.fill,
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SvgPicture.asset(
+                  svg!,
+                  fit: BoxFit.contain,
+                ),
               ),
         const Spacer(),
         Padding(
@@ -44,7 +48,8 @@ class SplashContent extends StatelessWidget {
               DesignText.title(
                 title,
                 textAlign: TextAlign.center,
-                color: DesignColor.success600,
+                color: DesignColor.primary,
+                fontSize: 24,
               )
                   .animate()
                   .fadeIn(
@@ -61,6 +66,7 @@ class SplashContent extends StatelessWidget {
               DesignText.body(
                 text,
                 textAlign: TextAlign.center,
+                fontSize: 18,
               )
                   .animate()
                   .fadeIn(

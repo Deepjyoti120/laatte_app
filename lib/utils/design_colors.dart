@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DesignColor {
-  static const Color colorPrimary = Color(0xFF30736E);
-  // static const Color colorPrimary = Color(0xFF22C7B8);
+  static const Color primary = Color(0xFFff3d81);
+  // static const Color colorPrimary = Color(0xFF30736E);
   static const Color prepPruple = Color(0xFF2d5dff);
   static const Color lghtBlue = Color(0xFFd5e0ff);
   static const Color orange = Color(0xFFff8d00);
@@ -46,7 +46,7 @@ class DesignColor {
   static const Color prussianBlue = Color(0xFF219ebc);
   static const Color periwinkle = Color(0xFFb8b8ff);
   static const List<Color> colorList = [
-    DesignColor.colorPrimary,
+    DesignColor.primary,
     DesignColor.prepPruple,
     DesignColor.orange,
     DesignColor.grey,

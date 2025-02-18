@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         "Welcome to",
                         fontSize: 32,
                         fontWeight: 500,
-                        color: DesignColor.colorPrimary,
+                        color: DesignColor.primary,
                       ).animate().fadeIn(
                             duration: const Duration(milliseconds: 300),
                             curve: Curves.easeIn,

@@ -2,6 +2,7 @@ import 'package:laatte/views/employee/add_employee.dart';
 import 'package:laatte/views/employee/employee.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
 import 'package:laatte/views/home_controller.dart';
+import 'package:laatte/views/intro_screen/intro_screen.dart';
 import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
 import 'package:laatte/views/splash_screen.dart';
@@ -14,7 +15,7 @@ import 'views/rents/success_failed_screen.dart';
 
 class Routes {
   static const String main = SplashScreen.route;
-  static const String introScreen = IntroHome.route;
+  static const String introScreen = IntroScreen.route;
   static const String homeController = HomeController.route;
   static const String login = Login.route;
   static const String createAccount = CreateAccount.route;

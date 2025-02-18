@@ -5,7 +5,7 @@ import 'package:laatte/views/employee/add_employee.dart';
 import 'package:laatte/views/employee/employee.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
 import 'package:laatte/views/home_controller.dart';
-import 'package:laatte/views/intro/intro_home.dart';
+import 'package:laatte/views/intro_screen/intro_screen.dart'; 
 import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
 import 'package:laatte/views/login/otp_screen.dart';
@@ -28,7 +28,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: Routes.introScreen,
       builder: (context, GoRouterState state) {
-        return const IntroHome();
+        return const IntroScreen();
       },
     ),
     GoRoute(

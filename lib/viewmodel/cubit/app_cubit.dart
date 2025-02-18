@@ -102,10 +102,10 @@ class AppStateCubit extends Cubit<AppStateInitial> {
     emit(state.copyWith(basicInfo: basicInfo));
   }
 
-  List<HomeItem> get activeHomeItems =>
-      HomeCard.items(state.basicInfo?.permissions?.modules)
-          .where((item) => item.isActive)
-          .toList();
+  // List<HomeItem> get activeHomeItems =>
+  //     HomeCard.items(state.basicInfo?.permissions?.modules)
+  //         .where((item) => item.isActive)
+  //         .toList();
 
   // get module & fetures permissions
   bool get hasAddEmployeePermission =>

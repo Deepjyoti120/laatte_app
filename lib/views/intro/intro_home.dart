@@ -217,11 +217,11 @@ class _HomeScreenState extends State<IntroHome>
       //   return WonderIllustration(e.type, config: config);
       // }),
       // Clouds
-      FractionallySizedBox(
-        widthFactor: 1,
-        heightFactor: .5,
-        child: AnimatedClouds(wonderType: currentWonder.type, opacity: 0.6),
-      )
+      // FractionallySizedBox(
+      //   widthFactor: 1,
+      //   heightFactor: .5,
+      //   child: AnimatedClouds(wonderType: currentWonder.type, opacity: 0.6),
+      // )
     ];
   }
 

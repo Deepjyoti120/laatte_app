@@ -25,7 +25,7 @@ class Constants {
     // deviceIpAddress = await Utils.getDeviceIpAddress();
   }
 
-  static const String appName = 'HRMS';
+  static const String appName = 'Laatte';
   // key
   static const String keyLoginButton = "keyLoginButton";
   static const int otpResendSeconds = 120;

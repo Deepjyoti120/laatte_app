@@ -1,24 +1,10 @@
 class AssetsName {
-  static const String appLogo = 'assets/svg/employee-new.svg';
+  static const String appLogo = 'assets/svg/chat.svg';
   static const String jsonSuccess = 'assets/lottie/payment-google.json';
   static const String jsonError = 'assets/lottie/error.json';
   // svg
-  static const String svgCloudy = 'assets/svg/cloudy.svg';
-  static const String svgFlower = 'assets/svg/flower.svg';
-  static const String svgPlanet = 'assets/svg/planet.svg';
-  static const String svgemployeeLeft = 'assets/svg/employee_left.svg';
-  static const String svgOfficeLaptop = 'assets/svg/office-laptop.svg';
-  static const String svgCalenderSolid = 'assets/svg/calendar-check-solid.svg';
-  static const String svgLeave = 'assets/svg/leave.svg';
-  static const String svgEmployees = 'assets/svg/employees.svg';
-  static const String svgTracker = 'assets/svg/tracker.svg';
-  static const String svgFieldForm = 'assets/svg/field-form.svg';
-  static const String svgLocation = 'assets/svg/location.svg';
-  static const String svgResignation = 'assets/svg/resignation.svg';
-  static const String svgBirthday = 'assets/svg/birthday.svg';
-  static const String svgAttendance = 'assets/svg/attendance.svg';
-  static const String svgDoneClick = 'assets/svg/done-click.svg';
-  static const String svgFingerPrint = 'assets/svg/finger-print.svg';
+  static const String svgChat = 'assets/svg/chat.svg'; 
+  static const String svgPerfectMatch = 'assets/svg/perfect-match.svg'; 
   //  svg end
   // png start
 
