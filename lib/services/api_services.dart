@@ -171,7 +171,7 @@ class ApiService {
 
   Future<bool> otpRequest({required String phone}) async {
     try {
-      String apiUrl = 'otp/request';
+      String apiUrl = 'otp-request';
       var dataBody = {"phone": phone};
       Response res = await dio.post(
         apiUrl,
@@ -191,7 +191,7 @@ class ApiService {
     required String otp,
   }) async {
     try {
-      String apiUrl = 'otp/login';
+      String apiUrl = 'login-otp';
       var dataBody = {
         "phone": phone,
         "device_name": await Utils.getDeviceIpAddress(),

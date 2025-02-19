@@ -109,15 +109,14 @@ class _LoginState extends State<Login> {
                               if (formKey.currentState!.validate()) {
                                 setState(() => isloading = true);
                                 final goRouter = GoRouter.of(context);
-                                // ApiService()
-                                //     .login(
-                                //         email: email.text, pwd: password.text)
-                                //     .then((v) {
-                                //   setState(() => isloading = false);
-                                //   if (v) {
+                                ApiService()
+                                    .otpRequest(phone: _phone.text)
+                                    .then((v) {
+                                  setState(() => isloading = false);
+                                  if (v) {
                                 goRouter.go(Routes.otpScreen);
-                                //   }
-                                // });
+                                  }
+                                });
                               }
                             },
                             textLabel: "Continue",
