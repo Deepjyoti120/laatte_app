@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -56,6 +57,15 @@ class _OtpScreenState extends State<OtpScreen> {
   void initState() {
     super.initState();
     startTimer();
+  }
+
+  setDummyLoginDetails() {
+    if (kDebugMode) {
+      for (var i = 0; i < textEditingController.length; i++) {
+        textEditingController[i] = TextEditingController(text: "${i + 1}");
+      }
+    }
+    setState(() {});
   }
 
   @override

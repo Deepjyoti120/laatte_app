@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/main.dart';
 import 'package:laatte/routes.dart';
+import 'package:laatte/services/firebase_service.dart';
 import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/utils/constants.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
@@ -171,7 +172,7 @@ class ApiService {
 
   Future<bool> otpRequest({required String phone}) async {
     try {
-      String apiUrl = 'otp-request';
+      String apiUrl = 'user/otp-request';
       var dataBody = {"phone": phone};
       Response res = await dio.post(
         apiUrl,
@@ -191,22 +192,23 @@ class ApiService {
     required String otp,
   }) async {
     try {
-      String apiUrl = 'login-otp';
+      String apiUrl = 'user/login-otp';
       var dataBody = {
         "phone": phone,
         "device_name": await Utils.getDeviceIpAddress(),
-        "otp": otp,
+        "otp": int.parse(otp),
+        "fcm_token": await FirebaseService().getDeviceToken,
       };
       Response res = await dio.post(
         apiUrl,
         data: dataBody,
       );
-      if (res.statusCode == 201) {
+      if (res.statusCode == 200) {
         if (kDebugMode) {
-          print("res.data['data']['access_token']");
-          print(res.data['data']['access_token']);
+          print("res.data['data']['token']");
+          print(res.data['data']['token']);
         }
-        await TokenHandler.setAccessKey(res.data['data']['access_token']);
+        await TokenHandler.setAccessKey(res.data['data']['token']);
         // await TokenHandler.setAccessKey(res.data['data']['refreshtoken'],
         //     isRefresh: true);
         return true;
@@ -413,8 +415,6 @@ class ApiService {
       Response res = await dio.get(apiUrl);
       if (res.statusCode == 200) {
         final data = BasicInfo.fromJson(res.data['data']);
-        print(res.data['data']['department'][0]['designations']);
-        print(data.department![0].designations);
         await box.put(Constants.basicInfoKey, data);
         appState.basicInfo = data;
         return data;

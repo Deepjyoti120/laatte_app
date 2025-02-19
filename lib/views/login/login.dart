@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/assets_names.dart';
@@ -12,7 +10,6 @@ import '../../common_libs.dart';
 import '../../routes.dart';
 import '../../ui/custom/custom_text_form.dart';
 import '../../ui/theme/buttons.dart';
-import '../../utils/constants.dart';
 import '../../utils/utlis.dart';
 
 class Login extends StatefulWidget {
@@ -113,8 +110,10 @@ class _LoginState extends State<Login> {
                                     .otpRequest(phone: _phone.text)
                                     .then((v) {
                                   setState(() => isloading = false);
-                                  if (v) {
-                                goRouter.go(Routes.otpScreen);
+                                  if (v) { 
+                                    final String route =
+                                        "${Routes.otpScreen}?phone=${_phone.text}";
+                                    goRouter.go(route);
                                   }
                                 });
                               }
