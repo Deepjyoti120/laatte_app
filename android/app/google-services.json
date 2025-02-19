@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "479035682627",
+    "project_id": "relate-5a0f9",
+    "storage_bucket": "relate-5a0f9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479035682627:android:444a439c1094d93717c9f6",
+        "android_client_info": {
+          "package_name": "com.relate.laatte"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479035682627-1pq92epgrkq8g2d1t357t803o4bt5htl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-1MELhsXKM6xFlYpQk7ghmd6BiGkkVlg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479035682627-1pq92epgrkq8g2d1t357t803o4bt5htl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "479035682627-7f5bk9vl99gmrrdentkqe1pebo94nld1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.relate.laatte"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

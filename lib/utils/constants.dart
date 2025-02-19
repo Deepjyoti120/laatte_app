@@ -30,7 +30,7 @@ class Constants {
   static const String keyLoginButton = "keyLoginButton";
   static const int otpResendSeconds = 120;
   // key
-  static const String appFullName = 'Human Resource Management System';
+  static const String appFullName = 'More Than a Swipe, It’s a Thought';
   static const double elevation = 0;
   static const String companyName = 'BaraxunTech';
   static const String companySite = 'https://baraxuntech.com/';

@@ -47,29 +47,31 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAUywMXyx300NlCNbRaoTPUHUy1byzHZxk',
-    appId: '1:151024075058:web:0e997658282d266144972b',
-    messagingSenderId: '151024075058',
-    projectId: 'squat-bb102',
-    authDomain: 'squat-bb102.firebaseapp.com',
-    storageBucket: 'squat-bb102.appspot.com',
-    measurementId: 'G-QF5W0SW9SC',
+    apiKey: 'AIzaSyBN5mNy1ZIeE05upM8ur6hCEPKeqCTsN5U',
+    appId: '1:479035682627:web:b7f1aaff5d68e96917c9f6',
+    messagingSenderId: '479035682627',
+    projectId: 'relate-5a0f9',
+    authDomain: 'relate-5a0f9.firebaseapp.com',
+    storageBucket: 'relate-5a0f9.firebasestorage.app',
+    measurementId: 'G-5X8C7N0FBV',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBTgg2cMSEQU8V0PoDj6YFpTNFYeB_wlEg',
-    appId: '1:151024075058:android:c87fb2d0ed92c81444972b',
-    messagingSenderId: '151024075058',
-    projectId: 'squat-bb102',
-    storageBucket: 'squat-bb102.appspot.com',
+    apiKey: 'AIzaSyB-1MELhsXKM6xFlYpQk7ghmd6BiGkkVlg',
+    appId: '1:479035682627:android:444a439c1094d93717c9f6',
+    messagingSenderId: '479035682627',
+    projectId: 'relate-5a0f9',
+    storageBucket: 'relate-5a0f9.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCj3qVciWk1ZC0N3dPnETK5SsYO4cBFrUY',
-    appId: '1:151024075058:ios:e7e52e66fe21b47644972b',
-    messagingSenderId: '151024075058',
-    projectId: 'squat-bb102',
-    storageBucket: 'squat-bb102.appspot.com',
+    apiKey: 'AIzaSyDC_jg3gDOOMIsg0qFlCqOY6Ovn_q0uVx4',
+    appId: '1:479035682627:ios:8588d9cc835c639617c9f6',
+    messagingSenderId: '479035682627',
+    projectId: 'relate-5a0f9',
+    storageBucket: 'relate-5a0f9.firebasestorage.app',
+    iosClientId: '479035682627-7f5bk9vl99gmrrdentkqe1pebo94nld1.apps.googleusercontent.com',
     iosBundleId: 'com.relate.laatte',
   );
+
 }

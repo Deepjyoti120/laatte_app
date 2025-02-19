@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
@@ -82,7 +83,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                     Hero(
                       tag: AssetsName.appLogo,
-                      child: Image.asset(
+                      child: SvgPicture.asset(
                         AssetsName.appLogo,
                         height: 60,
                       ),
@@ -113,7 +114,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: Hero(
                         tag: Constants.keyLoginButton,
                         child: DesignButtons(
-                          color: DesignColor.backgroundBlack,
+                          color: DesignColor.primary,
                           elevation: 0,
                           fontSize: 16,
                           fontWeight: 500,
