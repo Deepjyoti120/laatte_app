@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:ntp/ntp.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -338,29 +339,29 @@ class Utils {
     return dateTime;
   }
 
-  // static Future openLocationSettings() async {
-  //   Geolocator.openLocationSettings();
-  // }
+  static Future openLocationSettings() async {
+    Geolocator.openLocationSettings();
+  }
 
-  // static Future<bool> isAllowGPS() async {
-  //   final location = await Geolocator.checkPermission();
-  //   if (location == LocationPermission.always ||
-  //       location == LocationPermission.whileInUse) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  static Future<bool> isAllowGPS() async {
+    final location = await Geolocator.checkPermission();
+    if (location == LocationPermission.always ||
+        location == LocationPermission.whileInUse) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-  // static Future<bool> requestLocationPermission() async {
-  //   LocationPermission permission = await Geolocator.requestPermission();
-  //   if (permission == LocationPermission.always ||
-  //       permission == LocationPermission.whileInUse) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  static Future<bool> requestLocationPermission() async {
+    LocationPermission permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   // static Future<String> getLatLngToAddress(LatLng? latLng) async {
   //   if (latLng != null) {
@@ -603,4 +604,7 @@ class Utils {
     int currentYear = DateTime.now().year;
     return List.generate(number, (index) => currentYear - index);
   } 
+  static Future<void> sleep(int seconds) {
+    return Future.delayed(Duration(seconds: seconds));
+  }
 }

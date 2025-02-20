@@ -3,10 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/utils/utlis.dart';
+import '../../ui/custom/confirm_sheet.dart';
 import '../../ui/theme/buttons.dart';
 import '../../ui/theme/text.dart';
 import '../../ui/widgets/progress_circle.dart';
@@ -23,7 +26,7 @@ class OtpScreen extends StatefulWidget {
   State<OtpScreen> createState() => _OtpScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
   List<TextEditingController> textEditingController = [
     TextEditingController(),
     TextEditingController(),
@@ -56,7 +59,9 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     startTimer();
+    verifyGPS();
   }
 
   setDummyLoginDetails() {
@@ -66,12 +71,42 @@ class _OtpScreenState extends State<OtpScreen> {
       }
     }
     setState(() {});
+  } 
+
+
+  Position? _position;
+  bool haspermission = false;  
+
+  verifyGPS() async {
+    haspermission = await Utils.isAllowGPS();
+    if (!haspermission) {
+      bool permissionGranted = await Utils.requestLocationPermission();
+      if (permissionGranted) {
+        _getCurrentLocation();
+      } else {}
+    } else {
+      _getCurrentLocation();
+    }
+    setState(() {});
+  }
+
+  Future<void> _getCurrentLocation() async {
+    _position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      verifyGPS();
+    }
   }
 
   @override
   void dispose() {
-    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -131,6 +166,10 @@ class _OtpScreenState extends State<OtpScreen> {
                           colorText: Colors.white,
                           isTappedNotifier: ValueNotifier<bool>(false),
                           onPressed: () async {
+                            if (!await allowGPS) {
+                              setState(() => isloading = false);
+                              return;
+                            }
                             if (formKey.currentState!.validate()) {
                               setState(() => isloading = true);
                               final goRouter = GoRouter.of(context);
@@ -223,6 +262,31 @@ class _OtpScreenState extends State<OtpScreen> {
             }),
       ),
     );
+  }
+
+  Future<bool> get allowGPS async {
+    return await showModalBottomSheet<bool>(
+          context: context,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
+          isScrollControlled: true,
+          // isDismissible: false,
+          // enableDrag: false,
+          // add linear bounce in animation curve
+          backgroundColor: Colors.transparent,
+          builder: (context) {
+            return ConfirmSheet(
+              title: "Allow location",
+              description: Constants.allowLocation,
+              confirmText: "Allow & Get started",
+              onPressed: () {
+                // Utils.getMonths
+                context.pop(true);
+              },
+            );
+          },
+        ) ??
+        false;
   }
 }
 

@@ -2,10 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/ui/custom/confirm_dialog.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/ui/custom/confirm_sheet.dart';
 import '../../common_libs.dart';
 import '../../routes.dart';
 import '../../ui/custom/custom_text_form.dart';
@@ -69,11 +71,11 @@ class _LoginState extends State<Login> {
                       ),
                       30.height,
                       const DesignText.titleSemiBold(
-                        "Welcome",
+                        "Where people meet thru thoughts ",
                       ),
                       6.height,
                       const DesignText.body(
-                        Constants.appFullName,
+                        'sign-in to experience new way of dating',
                       ),
                       30.height,
                       DesignFormField(
@@ -104,13 +106,17 @@ class _LoginState extends State<Login> {
                             isTappedNotifier: ValueNotifier<bool>(isloading),
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
-                                setState(() => isloading = true);
                                 final goRouter = GoRouter.of(context);
+                                if (!await acceptTermAndCondition) {
+                                  setState(() => isloading = false);
+                                  return;
+                                }
+                                setState(() => isloading = true);
                                 ApiService()
                                     .otpRequest(phone: _phone.text)
                                     .then((v) {
                                   setState(() => isloading = false);
-                                  if (v) { 
+                                  if (v) {
                                     final String route =
                                         "${Routes.otpScreen}?phone=${_phone.text}";
                                     goRouter.go(route);
@@ -144,5 +150,29 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  Future<bool> get acceptTermAndCondition async {
+    return await showModalBottomSheet<bool>(
+          context: context,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
+          isScrollControlled: true,
+          // isDismissible: false,
+          // enableDrag: false,
+          // add linear bounce in animation curve
+          backgroundColor: Colors.transparent,
+          builder: (context) {
+            return ConfirmSheet(
+              title: "Terms&conditions",
+              description: Constants.termAndCondition,
+              confirmText: "Understood",
+              onPressed: () {
+                context.pop(true);
+              },
+            );
+          },
+        ) ??
+        false;
   }
 }
