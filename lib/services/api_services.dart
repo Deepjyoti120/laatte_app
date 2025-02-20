@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/main.dart';
@@ -60,6 +61,7 @@ class ApiService {
           // };
           options.headers['Accept'] = 'application/json';
           String accessToken = await TokenHandler.getToken();
+          print("accessToken: $accessToken");
           if (accessToken.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $accessToken';
           }
@@ -487,6 +489,26 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 201) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
+  }
+
+  Future<bool> updateLocation(Position position) async {
+    String apiUrl = 'user/update-location';
+    try {
+      var dataBody = {
+        "latitude": position.latitude,
+        "longitude": position.longitude,
+      };
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 200) {
         return true;
       }
     } on DioException catch (e) {

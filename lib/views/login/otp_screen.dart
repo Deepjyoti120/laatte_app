@@ -61,7 +61,7 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     startTimer();
-    verifyGPS();
+    setDummyLoginDetails();
   }
 
   setDummyLoginDetails() {
@@ -71,23 +71,25 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
       }
     }
     setState(() {});
-  } 
-
+  }
 
   Position? _position;
-  bool haspermission = false;  
+  bool haspermission = false;
 
-  verifyGPS() async {
+  Future<bool> _verifyGPS() async {
     haspermission = await Utils.isAllowGPS();
     if (!haspermission) {
       bool permissionGranted = await Utils.requestLocationPermission();
       if (permissionGranted) {
-        _getCurrentLocation();
+        await _getCurrentLocation();
+        return true;
       } else {}
     } else {
-      _getCurrentLocation();
+      await _getCurrentLocation();
+      return true;
     }
     setState(() {});
+    return false;
   }
 
   Future<void> _getCurrentLocation() async {
@@ -98,7 +100,7 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      verifyGPS();
+      _verifyGPS();
     }
   }
 
@@ -134,8 +136,15 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
                       ),
                     ),
                     30.height,
-                    const DesignText.titleSemiBold(
-                      "Verify Code",
+                    GestureDetector(
+                      onTap: () {
+                        if (kDebugMode) {
+                          Utils.openLocationSettings();
+                        }
+                      },
+                      child: const DesignText.titleSemiBold(
+                        "Verify Code",
+                      ),
                     ),
                     6.height,
                     DesignText.body(
@@ -166,13 +175,15 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
                           colorText: Colors.white,
                           isTappedNotifier: ValueNotifier<bool>(false),
                           onPressed: () async {
-                            if (!await allowGPS) {
-                              setState(() => isloading = false);
-                              return;
+                            final goRouter = GoRouter.of(context);
+                            if (!await _verifyGPS()) {
+                              if (!await allowGPS) {
+                                setState(() => isloading = false);
+                                return;
+                              }
                             }
                             if (formKey.currentState!.validate()) {
                               setState(() => isloading = true);
-                              final goRouter = GoRouter.of(context);
                               ApiService()
                                   .otpLogin(
                                 otp: textEditingController
@@ -182,18 +193,29 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
                                     .toString(),
                                 phone: widget.phone,
                               )
-                                  .then((value) {
-                                setState(() => isloading = false);
+                                  .then((value) async {
                                 if (value) {
-                                  goRouter.go(Routes.homeController);
-                                } else {
-                                  formKey.currentState!.validate();
-                                  for (var i = 0;
-                                      i < textEditingController.length;
-                                      i++) {
-                                    textEditingController[i] =
-                                        TextEditingController();
+                                  if (_position == null) {
+                                    setState(() => isloading = false);
+                                    Utils.flutterToast(
+                                        'Please allow location service');
+                                    return;
                                   }
+                                  final isUpdateLocation = await ApiService()
+                                      .updateLocation(_position!);
+                                  if (isUpdateLocation) {
+                                    goRouter.go(Routes.homeController);
+                                  } else {
+                                    formKey.currentState?.validate();
+                                    for (var i = 0;
+                                        i < textEditingController.length;
+                                        i++) {
+                                      textEditingController[i] =
+                                          TextEditingController();
+                                    }
+                                  }
+                                } else {
+                                  setState(() => isloading = false);
                                 }
                               });
                             }
@@ -280,8 +302,8 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
               description: Constants.allowLocation,
               confirmText: "Allow & Get started",
               onPressed: () {
-                // Utils.getMonths
-                context.pop(true);
+                final goRouter = GoRouter.of(context);
+                _verifyGPS().then((v) => goRouter.pop(v));
               },
             );
           },
