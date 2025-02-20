@@ -69,7 +69,7 @@ class AppStateCubit extends Cubit<AppStateInitial> {
   }
 
   void initializeCubit() {
-    // initializeHive();
+    initializeHive();
     // getProfile();
   }
 
@@ -110,4 +110,11 @@ class AppStateCubit extends Cubit<AppStateInitial> {
   // get module & fetures permissions
   bool get hasAddEmployeePermission =>
       state.basicInfo?.permissions?.features?.contains("add_employee") ?? false;
+  // get module & fetures permissions End
+
+  Future setCurrentRoute(String route) async {
+    final Box screen = await Hive.openBox('screen');
+    await screen.put('route', route);
+  }
+  // String get currentRoute => 
 }

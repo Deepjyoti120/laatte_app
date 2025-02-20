@@ -36,10 +36,12 @@ class Constants {
   static const String companySite = 'https://baraxuntech.com/';
   static const String currencySymbol = '₹';
   // for Hive
+  static  String storageBox = 'storageBox$buildNumber';
   static String basicInfoBox = 'topicBox$buildNumber';
   static String basicInfoKey = 'basicInfoKey';
   static String profileBox = 'profileBox$buildNumber';
   static String profileKey = 'profileKey';
+  static String currentRouteKey = 'currentRoute';
   // for Hive end
 
   static String termAndCondition = 'By using this app, you agree to our Terms & Conditions, which outline the rules, responsibilities, and guidelines for using our platform. These include details about user conduct, privacy, account management, and dispute resolution. We recommend reviewing the Terms & Conditions to understand your rights and obligations. Your continued use of the app signifies acceptance of these terms.';

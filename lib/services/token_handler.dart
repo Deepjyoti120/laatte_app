@@ -28,16 +28,7 @@ class TokenHandler {
     await Hive.deleteFromDisk();
     await storage.deleteAll();
   }
-
-  // static Future<LoginModel> doctorLoginModel() async {
-  //   String key = await TokenHandler.getToken();
-  //   if (key.isNotEmpty) {
-  //     final data = jsonDecode(key);
-  //     return LoginModel.fromJson(data);
-  //   }
-  //   return LoginModel();
-  // }
-
+ 
   // Validate Toke Start
   static Future<bool> isTokenExpired(String token) async {
     if (token.isEmpty) {

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/app.dart';
 import 'package:laatte/firebase_options.dart';
+import 'package:laatte/services/storage.dart';
 import 'package:laatte/viewmodel/bloc/bloc_observer.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/basic_info.dart';
@@ -29,6 +30,7 @@ void main() async {
   Hive.registerAdapter(DesignationAdapter());
   Hive.registerAdapter(CountryAdapter());
   Hive.registerAdapter(CountryStateAdapter());
+  Storage.init();
   runApp(
     BlocProvider<AppStateCubit>(
       create: (context) => AppStateCubit(context: context),
