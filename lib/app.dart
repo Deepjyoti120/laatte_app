@@ -10,6 +10,7 @@ import 'package:laatte/utils/constants.dart';
 import 'package:laatte/viewmodel/bloc/employee_bloc.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
+import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -94,6 +95,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           ),
           BlocProvider(
             create: (context) => EmployeeBloc(),
+          ),
+          BlocProvider(
+            create: (context) => IntroProfileCubit(),
           ),
         ],
         child: MaterialApp.router(

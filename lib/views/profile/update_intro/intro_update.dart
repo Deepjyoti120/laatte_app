@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:laatte/views/home_controller.dart';
 import 'package:laatte/views/profile/update_intro/gender_form.dart';
 import '../../../utils/design_colors.dart';
@@ -19,7 +20,7 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
   // final PageController _controller = PageController();
 
   List screens = [
-    const GenderForm(title: "2"),
+    const GenderForm(),
     HomeController(),
     HomeController(),
     HomeController(),
@@ -39,7 +40,7 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
   @override
   Widget build(BuildContext context) {
     // return Scaffold();
-    final appState = context.watch<AppStateCubit>();
+    final appState = context.watch<IntroProfileCubit>();
     // PageController controller =
     //     PageController(initialPage: currentPage);
     return Scaffold(
@@ -50,46 +51,49 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
           height: 50,
           color: DesignColor.backgroundColor,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: appState.currentPage != 0
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.end,
             children: [
-              TextButton(
-                onPressed: () {
-                  appState.profileUpdateController.previousPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeIn,
-                  );
-                },
-                child: Row(
-                  children: [
-                    Container(
-                      height: 24,
-                      width: 24,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(60),
-                        color: DesignColor.primary,
+              if (appState.currentPage != 0)
+                TextButton(
+                  onPressed: () {
+                    appState.controller.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeIn,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 24,
+                        width: 24,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(60),
+                          color: DesignColor.primary,
+                        ),
+                        child: const Icon(
+                          FontAwesomeIcons.caretLeft,
+                          color: Colors.white,
+                          size: 16,
+                        ),
                       ),
-                      child: const Icon(
-                        FontAwesomeIcons.caretLeft,
-                        color: Colors.white,
-                        size: 16,
+                      6.width,
+                      const Text(
+                        'Previous',
+                        style: TextStyle(
+                          color: DesignColor.primary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    6.width,
-                    const Text(
-                      'Previous',
-                      style: TextStyle(
-                        color: DesignColor.primary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
               TextButton(
                 onPressed: () {
-                  appState.profileUpdateController.nextPage(
+                  appState.controller.nextPage(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeIn,
                   );
@@ -143,10 +147,10 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
               Expanded(
                 flex: 3,
                 child: PageView.builder(
-                  controller: appState.profileUpdateController,
+                  controller: appState.controller,
                   physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (value) {
-                    appState.updateIntroProfilePage = value;
+                    appState.currentPage = value;
                   },
                   itemCount: screens.length,
                   itemBuilder: (context, index) {
@@ -162,14 +166,14 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
   }
 
   AnimatedContainer buildDot({int? index}) {
-    final appState = context.watch<AppStateCubit>();
+    final appState = context.watch<IntroProfileCubit>().state;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       margin: const EdgeInsets.only(right: 4),
       height: 2,
-      width: appState.introProfile?.currentPage == index ? 14 : 6,
+      width: appState.currentPage == index ? 14 : 6,
       decoration: BoxDecoration(
-        color: appState.introProfile?.currentPage == index
+        color: appState.currentPage == index
             ? const Color(0xFF6F6CD9)
             : const Color(0xFFCDD9E3),
         borderRadius: BorderRadius.circular(6),

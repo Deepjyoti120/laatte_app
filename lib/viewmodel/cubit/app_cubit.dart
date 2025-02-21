@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/viewmodel/model/basic_info.dart';
-import 'package:laatte/viewmodel/model/home_card.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
-
-import '../model/intro_profile.dart';
 part 'app_state.dart';
 
 class AppStateCubit extends Cubit<AppStateInitial> {
@@ -114,18 +110,11 @@ class AppStateCubit extends Cubit<AppStateInitial> {
       state.basicInfo?.permissions?.features?.contains("add_employee") ?? false;
   // get module & fetures permissions End
 
-  final PageController _profileUpdateController = PageController();
-  PageController get profileUpdateController => _profileUpdateController;
+  // final PageController _profileUpdateController = PageController();
+  // PageController get profileUpdateController => _profileUpdateController;
 
   // int get profileUpdateCurrentPage => state.profileUpdateCurrentPage;
   // set profileUpdateCurrentPage(int currentPage) {
   //   emit(state.copyWith(profileUpdateCurrentPage: currentPage));
-  // }
-
-  IntroProfile? get introProfile => state.introProfile;
-  set updateIntroProfilePage(int newPage) {
-    emit(state.copyWith(
-      introProfile: state.introProfile?.copyWith(currentPage: newPage),
-    ));
-  }
+  // } 
 }

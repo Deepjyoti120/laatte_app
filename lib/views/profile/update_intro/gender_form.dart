@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:laatte/ui/theme/container.dart';
+import 'package:laatte/utils/enums.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:provider/provider.dart';
 import '../../../ui/theme/text.dart';
 import '../../../utils/assets_names.dart';
 import '../../../utils/design_colors.dart';
-import '../../../viewmodel/cubit/app_cubit.dart';
 
 class GenderForm extends StatelessWidget {
-  const GenderForm({super.key, required this.title});
-  final String title;
+  const GenderForm({super.key});
   @override
   Widget build(BuildContext context) {
-    final appState = context.watch<AppStateCubit>();
+    final appState = context.watch<IntroProfileCubit>();
     return Column(
       children: [
         30.height,
@@ -50,13 +50,12 @@ class GenderForm extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Text((appState.introProfile?.currentPage ?? 'd').toString()),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // appState.updateIntroProfilePage = "Male"; //#9CD322
+                      appState.gender = GenderTypes.male; //#9CD322
                     },
                     child: Column(
                       children: [
@@ -70,7 +69,7 @@ class GenderForm extends StatelessWidget {
                             child: SvgPicture.asset(
                               AssetsName.svgGenderMale,
                               colorFilter: ColorFilter.mode(
-                                appState.introProfile?.gender == "Male"
+                                appState.gender == GenderTypes.male
                                     ? DesignColor.primary
                                     : DesignColor.backgroundBlack,
                                 BlendMode.srcIn,
@@ -91,7 +90,7 @@ class GenderForm extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          appState.introProfile?.gender = "Female";
+                          appState.gender = GenderTypes.female;
                         },
                         child: DesignContainer(
                           height: 100,
@@ -103,9 +102,9 @@ class GenderForm extends StatelessWidget {
                             child: SvgPicture.asset(
                               AssetsName.svgGenderFemale,
                               colorFilter: ColorFilter.mode(
-                                appState.introProfile?.gender == "Female"
-                                    ? DesignColor.inActive
-                                    : DesignColor.primary,
+                                appState.gender == GenderTypes.female
+                                    ? DesignColor.primary
+                                    : DesignColor.backgroundBlack,
                                 BlendMode.srcIn,
                               ),
                             ),
@@ -125,7 +124,7 @@ class GenderForm extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        appState.introProfile?.gender = "Other";
+                        appState.gender = GenderTypes.other;
                       },
                       child: DesignContainer(
                         height: 100,
@@ -137,7 +136,7 @@ class GenderForm extends StatelessWidget {
                           child: SvgPicture.asset(
                             AssetsName.svgGenderIntersex,
                             colorFilter: ColorFilter.mode(
-                              appState.introProfile?.gender == "Other"
+                              appState.gender == GenderTypes.other
                                   ? DesignColor.primary
                                   : DesignColor.backgroundBlack,
                               BlendMode.srcIn,

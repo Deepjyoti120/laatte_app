@@ -177,7 +177,7 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
                           isTappedNotifier: ValueNotifier<bool>(false),
                           onPressed: () async {
                             final goRouter = GoRouter.of(context);
-                            if (!await _verifyGPS()) {
+                            if (!await Utils.isAllowGPS()) {
                               if (!await allowGPS) {
                                 setState(() => isloading = false);
                                 return;
@@ -196,6 +196,7 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
                               )
                                   .then((user) async {
                                 if (user != null) {
+                                  await _verifyGPS();
                                   if (_position == null) {
                                     setState(() => isloading = false);
                                     Utils.flutterToast(
@@ -206,13 +207,14 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
                                       .updateLocation(_position!);
                                   if (isUpdateLocation) {
                                     if ((user.isProfileDone ?? false)) {
-                                      await Storage.remove(Constants.currentRouteKey);
+                                      await Storage.remove(
+                                          Constants.currentRouteKey);
                                       goRouter.go(Routes.homeController);
                                     } else {
                                       await Storage.set<String>(
                                           Constants.currentRouteKey,
                                           Routes.profileUpdateIntro);
-                                      goRouter.go(Routes.homeController);
+                                      goRouter.go(Routes.profileUpdateIntro);
                                     }
                                   } else {
                                     formKey.currentState?.validate();
