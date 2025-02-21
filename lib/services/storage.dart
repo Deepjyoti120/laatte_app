@@ -33,4 +33,10 @@ class Storage {
   static bool containsKey(String key) {
     return _box.containsKey(key);
   }
+   /// Watch key changes
+  Stream<dynamic> watch(String key) {
+    // assert(_box != null, 'Storage not initialized. Call Storage.initialize() first');
+    // return _box!.watch(key: key).map((event) => event.value);
+    return _box.watch(key: key).map((event) => event.value);
+  }
 }

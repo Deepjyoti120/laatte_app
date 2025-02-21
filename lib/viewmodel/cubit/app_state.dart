@@ -5,6 +5,7 @@ sealed class AppStateState {}
 
 class AppStateInitial extends AppStateState {
   final int currentPage;
+  final IntroProfile? introProfile;
   final bool isDarkMode;
   final bool isSystemDarkMode;
   final bool isOpenDrawer;
@@ -20,6 +21,7 @@ class AppStateInitial extends AppStateState {
     this.userReport,
     // this.activeCards = const [],
     this.basicInfo,
+    this.introProfile,
   });
 
   AppStateInitial copyWith({
@@ -30,6 +32,7 @@ class AppStateInitial extends AppStateState {
     UserReport? userReport,
     // List<String>? activeCards,
     BasicInfo? basicInfo,
+    IntroProfile? introProfile,
   }) {
     return AppStateInitial(
       currentPage: currentPage ?? this.currentPage,
@@ -39,6 +42,7 @@ class AppStateInitial extends AppStateState {
       userReport: userReport ?? this.userReport,
       // activeCards: activeCards ?? this.activeCards,
       basicInfo: basicInfo ?? this.basicInfo,
+      introProfile: introProfile ?? this.introProfile,
     );
   }
 }

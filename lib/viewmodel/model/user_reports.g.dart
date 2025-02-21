@@ -45,13 +45,14 @@ class UserReportAdapter extends TypeAdapter<UserReport> {
       createdAt: fields[25] as String?,
       updatedAt: fields[26] as String?,
       designation: fields[27] as Designation?,
+      isProfileDone: fields[28] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserReport obj) {
     writer
-      ..writeByte(28)
+      ..writeByte(29)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -107,7 +108,9 @@ class UserReportAdapter extends TypeAdapter<UserReport> {
       ..writeByte(26)
       ..write(obj.updatedAt)
       ..writeByte(27)
-      ..write(obj.designation);
+      ..write(obj.designation)
+      ..writeByte(28)
+      ..write(obj.isProfileDone);
   }
 
   @override

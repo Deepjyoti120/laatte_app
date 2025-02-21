@@ -61,6 +61,8 @@ class UserReport {
   String? updatedAt;
   @HiveField(27)
   Designation? designation;
+  @HiveField(28)
+  bool? isProfileDone;
 
   UserReport({
     this.id,
@@ -91,6 +93,7 @@ class UserReport {
     this.createdAt,
     this.updatedAt,
     this.designation,
+    this.isProfileDone,
   });
 
   UserReport.fromJson(Map<String, dynamic> json) {
@@ -124,6 +127,7 @@ class UserReport {
     designation = json['designation'] != null
         ? Designation.fromJson(json['designation'])
         : null;
+    isProfileDone = json['is_profile_done'];
   }
 
   Map<String, dynamic> toJson() {
@@ -158,6 +162,7 @@ class UserReport {
     if (designation != null) {
       data['designation'] = designation!.toJson();
     }
+    data['is_profile_done'] = isProfileDone;
     return data;
   }
 }

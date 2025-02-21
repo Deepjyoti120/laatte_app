@@ -5,6 +5,9 @@ class AssetsName {
   // svg
   static const String svgChat = 'assets/svg/chat.svg'; 
   static const String svgPerfectMatch = 'assets/svg/perfect-match.svg'; 
+  static const String svgGenderMale = 'assets/svg/GenderMale.svg'; 
+  static const String svgGenderFemale = 'assets/svg/GenderFemale.svg'; 
+  static const String svgGenderIntersex = 'assets/svg/GenderIntersex.svg'; 
   //  svg end
   // png start
 

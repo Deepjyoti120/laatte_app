@@ -14,10 +14,8 @@ import 'package:laatte/viewmodel/model/basic_info.dart';
 import 'package:laatte/viewmodel/model/country_state.dart';
 import 'package:laatte/viewmodel/model/department.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
-import 'package:laatte/viewmodel/model/payment_model.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import '../utils/utlis.dart';
-import '../viewmodel/model/rents_model.dart';
 
 typedef OnUploadProgress = void Function(double progressValue);
 
@@ -189,7 +187,7 @@ class ApiService {
     return false;
   }
 
-  Future<bool> otpLogin({
+  Future<UserReport?> otpLogin({
     required String phone,
     required String otp,
   }) async {
@@ -213,12 +211,16 @@ class ApiService {
         await TokenHandler.setAccessKey(res.data['data']['token']);
         // await TokenHandler.setAccessKey(res.data['data']['refreshtoken'],
         //     isRefresh: true);
-        return true;
+        if (res.statusCode == 200) {
+          final data = UserReport.fromJson(res.data['data']);
+          return data;
+        }
+        return null;
       }
     } on DioException catch (e) {
       Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
     }
-    return false;
+    return null;
   }
 
   Future<bool> accountCreate({
@@ -509,6 +511,7 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 200) {
+        //  final data = UserReport.fromJson(res.data['data']);
         return true;
       }
     } on DioException catch (e) {

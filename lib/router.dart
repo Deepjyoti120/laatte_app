@@ -15,6 +15,7 @@ import 'package:laatte/views/splash_screen.dart';
 import 'main.dart';
 import 'views/login/forgot_password.dart';
 import 'views/profile/profile.dart';
+import 'views/profile/update_intro/intro_update.dart';
 
 final GoRouter goRouter = GoRouter(
   navigatorKey: navigatorKey,
@@ -115,6 +116,12 @@ final GoRouter goRouter = GoRouter(
       path: Routes.addEmployee,
       builder: (context, GoRouterState state) {
         return const AddEmployee();
+      },
+    ),
+    GoRoute(
+      path: Routes.profileUpdateIntro,
+      builder: (context, GoRouterState state) {
+        return const ProfileUpdateIntro();
       },
     ),
   ],

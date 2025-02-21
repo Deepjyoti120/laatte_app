@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/services/storage.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
@@ -45,6 +46,13 @@ class _SplashScreenState extends State<SplashScreen> {
       if (token.isNotEmpty) {
         // appState.basicInfo = await ApiService().getBasicInfo(appState);
         goRouter.go(Routes.homeController);
+        final String? currentRoute =
+            Storage.get<String>(Constants.currentRouteKey);
+        if (currentRoute == null) {
+          goRouter.go(Routes.homeController);
+        } else {
+          goRouter.go(currentRoute);
+        }
       } else {
         goRouter.go(Routes.introScreen);
       }

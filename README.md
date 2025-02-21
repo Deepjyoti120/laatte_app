@@ -32,6 +32,7 @@ cat ~/.ssh/id_rsa.pub
 
 # Know to build Runner
         flutter pub run build_runner build
+        dart run build_runner build
 
 # New Flutter Error
 sudo gem install xcodeproj

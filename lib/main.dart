@@ -30,7 +30,7 @@ void main() async {
   Hive.registerAdapter(DesignationAdapter());
   Hive.registerAdapter(CountryAdapter());
   Hive.registerAdapter(CountryStateAdapter());
-  Storage.init();
+  await Storage.init();
   runApp(
     BlocProvider<AppStateCubit>(
       create: (context) => AppStateCubit(context: context),

@@ -4,6 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/viewmodel/model/basic_info.dart';
 import 'package:laatte/viewmodel/model/home_card.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
+
+import '../model/intro_profile.dart';
 part 'app_state.dart';
 
 class AppStateCubit extends Cubit<AppStateInitial> {
@@ -112,9 +114,18 @@ class AppStateCubit extends Cubit<AppStateInitial> {
       state.basicInfo?.permissions?.features?.contains("add_employee") ?? false;
   // get module & fetures permissions End
 
-  Future setCurrentRoute(String route) async {
-    final Box screen = await Hive.openBox('screen');
-    await screen.put('route', route);
+  final PageController _profileUpdateController = PageController();
+  PageController get profileUpdateController => _profileUpdateController;
+
+  // int get profileUpdateCurrentPage => state.profileUpdateCurrentPage;
+  // set profileUpdateCurrentPage(int currentPage) {
+  //   emit(state.copyWith(profileUpdateCurrentPage: currentPage));
+  // }
+
+  IntroProfile? get introProfile => state.introProfile;
+  set updateIntroProfilePage(int newPage) {
+    emit(state.copyWith(
+      introProfile: state.introProfile?.copyWith(currentPage: newPage),
+    ));
   }
-  // String get currentRoute => 
 }

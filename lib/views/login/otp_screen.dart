@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/services/storage.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
 import '../../ui/custom/confirm_sheet.dart';
@@ -193,8 +194,8 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
                                     .toString(),
                                 phone: widget.phone,
                               )
-                                  .then((value) async {
-                                if (value) {
+                                  .then((user) async {
+                                if (user != null) {
                                   if (_position == null) {
                                     setState(() => isloading = false);
                                     Utils.flutterToast(
@@ -204,7 +205,15 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
                                   final isUpdateLocation = await ApiService()
                                       .updateLocation(_position!);
                                   if (isUpdateLocation) {
-                                    goRouter.go(Routes.homeController);
+                                    if ((user.isProfileDone ?? false)) {
+                                      await Storage.remove(Constants.currentRouteKey);
+                                      goRouter.go(Routes.homeController);
+                                    } else {
+                                      await Storage.set<String>(
+                                          Constants.currentRouteKey,
+                                          Routes.profileUpdateIntro);
+                                      goRouter.go(Routes.homeController);
+                                    }
                                   } else {
                                     formKey.currentState?.validate();
                                     for (var i = 0;
