@@ -84,7 +84,7 @@ class SelectPhoto extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: const Icon(
-                            FontAwesomeIcons.times,
+                            FontAwesomeIcons.xmark,
                             size: 20,
                           ),
                         ),
@@ -106,13 +106,11 @@ class SelectPhoto extends StatelessWidget {
                   strokeWidth: 2,
                   borderType: BorderType.RRect,
                   radius: const Radius.circular(16),
-                  child: const SizedBox(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Icon(
-                        FontAwesomeIcons.circlePlus,
-                        size: 40,
-                      ),
+                  child: const Align(
+                    alignment: Alignment.center,
+                    child: Icon(
+                      FontAwesomeIcons.circlePlus,
+                      size: 40,
                     ),
                   ),
                 ),
