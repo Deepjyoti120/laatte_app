@@ -7,7 +7,9 @@ import 'package:laatte/views/profile/update_intro/gender_form.dart';
 import 'package:laatte/views/profile/update_intro/others_form.dart';
 import 'package:laatte/views/profile/update_intro/select_dob.dart';
 import '../../../utils/design_colors.dart';
+import 'bio_form.dart';
 import 'name_form.dart';
+import 'select_photo.dart';
 
 class ProfileUpdateIntro extends StatefulWidget {
   static const String route = '/ProfileUpdateIntro';
@@ -23,6 +25,8 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
     const GenderForm(),
     const SelectDob(),
     const OthersForm(),
+    const SelectPhoto(),
+    const BioForm(),
   ];
   @override
   void initState() {

@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -35,4 +38,27 @@ class IntroProfileCubit extends Cubit<IntroProfileInitial> {
 
   final TextEditingController _education = TextEditingController();
   TextEditingController get education => _education;
+
+  final TextEditingController _bio = TextEditingController();
+  TextEditingController get bio => _bio;
+
+  List<File?> get photos => state.photos;
+  void addPhoto(File photo) {
+    final updatedPhotos = List<File?>.from(state.photos)..add(photo);
+    emit(state.copyWith(photos: updatedPhotos));
+  }
+
+  void removePhoto(File photo) {
+    final updatedPhotos = List<File?>.from(state.photos)..remove(photo);
+    emit(state.copyWith(photos: updatedPhotos));
+  }
+
+  void setPhotoNull(int index) {
+    final updatedPhotos = List<File?>.from(state.photos)..[index] = null;
+    emit(state.copyWith(photos: updatedPhotos));
+  }
+
+  void clearPhotos() {
+    emit(state.copyWith(photos: []));
+  }
 }

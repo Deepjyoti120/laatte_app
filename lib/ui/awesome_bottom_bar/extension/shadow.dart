@@ -9,6 +9,5 @@ List<BoxShadow> shadow = [
       blurRadius: 20,
       offset: Offset(0, 6), // changes position of shadow
     )
-  else
-    const BoxShadow(color: Colors.transparent)
+  else const BoxShadow(color: Colors.transparent)
 ];
