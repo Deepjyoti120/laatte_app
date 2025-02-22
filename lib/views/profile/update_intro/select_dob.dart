@@ -14,7 +14,6 @@ class SelectDob extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<IntroProfileCubit>();
-
     return Column(
       children: [
         30.height,

@@ -16,7 +16,6 @@ class ProfileUpdateIntro extends StatefulWidget {
 }
 
 class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
-
   List screens = [
     const GenderForm(),
     const SelectDob(),
@@ -35,10 +34,7 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold();
     final appState = context.watch<IntroProfileCubit>();
-    // PageController controller =
-    //     PageController(initialPage: currentPage);
     return Scaffold(
       // backgroundColor: DesignColor.backgroundColor,
       bottomNavigationBar: BottomAppBar(
