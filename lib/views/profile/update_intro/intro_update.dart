@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
-import 'package:laatte/views/home_controller.dart';
 import 'package:laatte/views/profile/update_intro/gender_form.dart';
+import 'package:laatte/views/profile/update_intro/select_dob.dart';
 import '../../../utils/design_colors.dart';
-import '../../../viewmodel/cubit/app_cubit.dart';
 
 class ProfileUpdateIntro extends StatefulWidget {
   static const String route = '/ProfileUpdateIntro';
@@ -17,13 +16,10 @@ class ProfileUpdateIntro extends StatefulWidget {
 }
 
 class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
-  // final PageController _controller = PageController();
 
   List screens = [
     const GenderForm(),
-    HomeController(),
-    HomeController(),
-    HomeController(),
+    const SelectDob(),
   ];
   @override
   void initState() {

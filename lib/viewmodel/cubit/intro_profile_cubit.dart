@@ -17,8 +17,14 @@ class IntroProfileCubit extends Cubit<IntroProfileInitial> {
     emit(state.copyWith(currentPage: page));
   }
 
-  GenderTypes? get gender => state.gender;
-  set gender(GenderTypes? gender) {
+  GenderTypes get gender => state.gender;
+  set gender(GenderTypes gender) {
     emit(state.copyWith(gender: gender));
   }
+
+  DateTime? get dateOfBirth => state.dateOfBirth;
+  set dateOfBirth(DateTime? dateOfBirth) {
+    emit(state.copyWith(dateOfBirth: dateOfBirth));
+  }
+
 }

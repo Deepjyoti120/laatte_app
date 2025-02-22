@@ -20,16 +20,16 @@ class GenderForm extends StatelessWidget {
         30.height,
         Column(
           children: [
-            const DesignText(
+            const DesignText.title(
               "What’s your biological sex?",
+              textAlign: TextAlign.center,
+              color: DesignColor.primary,
               fontSize: 24,
-              fontWeight: 600,
             ),
             6.height,
-            const DesignText(
+            const DesignText.body(
               "We support all forms of gender expression.\nHowever, we need this to calculate your body metrics.",
-              fontSize: 12,
-              fontWeight: 600,
+              fontSize: 18,
               textAlign: TextAlign.center,
             ),
           ],
