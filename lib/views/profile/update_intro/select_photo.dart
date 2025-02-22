@@ -76,7 +76,7 @@ class SelectPhoto extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           // appState.removePhoto(appState.photos[index]!);
-                          appState.setPhotoNull(index);
+                          appState.removePhoto(appState.photos[index]!);
                         },
                         child: Container(
                           decoration: BoxDecoration(

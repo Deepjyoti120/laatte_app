@@ -47,7 +47,7 @@ class BioForm extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: DesignFormField(
-            controller: appState.name,
+            controller: appState.bio,
             labelText: "Bio",
             maxLines: 10,
             minLines: 6,

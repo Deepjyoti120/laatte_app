@@ -43,21 +43,23 @@ class IntroProfileCubit extends Cubit<IntroProfileInitial> {
   TextEditingController get bio => _bio;
 
   List<File?> get photos => state.photos;
+
   void addPhoto(File photo) {
     final updatedPhotos = List<File?>.from(state.photos)..add(photo);
     emit(state.copyWith(photos: updatedPhotos));
   }
-
+  // void photoAddIndex(File photo, int index) {
+  //   final updatedPhotos = List<File?>.from(state.photos)..[index] = photo;
+  //   emit(state.copyWith(photos: updatedPhotos));
+  // }
   void removePhoto(File photo) {
     final updatedPhotos = List<File?>.from(state.photos)..remove(photo);
     emit(state.copyWith(photos: updatedPhotos));
   }
-
-  void setPhotoNull(int index) {
-    final updatedPhotos = List<File?>.from(state.photos)..[index] = null;
-    emit(state.copyWith(photos: updatedPhotos));
-  }
-
+  // void setPhotoNull(int index) {
+  //   final updatedPhotos = List<File?>.from(state.photos)..[index] = null;
+  //   emit(state.copyWith(photos: updatedPhotos));
+  // }
   void clearPhotos() {
     emit(state.copyWith(photos: []));
   }
