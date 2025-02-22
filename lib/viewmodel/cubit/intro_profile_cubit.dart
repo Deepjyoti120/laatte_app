@@ -27,4 +27,12 @@ class IntroProfileCubit extends Cubit<IntroProfileInitial> {
     emit(state.copyWith(dateOfBirth: dateOfBirth));
   }
 
+  final TextEditingController _name = TextEditingController();
+  TextEditingController get name => _name;
+
+  final TextEditingController _occupation = TextEditingController();
+  TextEditingController get occupation => _occupation;
+
+  final TextEditingController _education = TextEditingController();
+  TextEditingController get education => _education;
 }

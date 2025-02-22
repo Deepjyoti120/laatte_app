@@ -82,7 +82,7 @@ class DesignFormField extends StatelessWidget {
             isDense: true,
             fillColor: fillColor ?? DesignColor.grey50,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
-            contentPadding: const EdgeInsets.all(10),
+            contentPadding: contentPadding ?? const EdgeInsets.all(10),
             //contentPadding: const EdgeInsets.fromLTRB(16, 6, 16, 6),
             focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: DesignColor.grey300, width: 1),
