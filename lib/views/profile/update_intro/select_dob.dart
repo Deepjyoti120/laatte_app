@@ -66,7 +66,7 @@ class SelectDob extends StatelessWidget {
             child: Center(
               child: DesignText(
                 appState.dateOfBirth != null
-                    ? DateFormat('d-M-y').format(appState.dateOfBirth!)
+                    ? DateFormat('d MMM, y').format(appState.dateOfBirth!)
                     : "Select Date of Birth",
                 fontSize: 18,
                 fontWeight: 600,
