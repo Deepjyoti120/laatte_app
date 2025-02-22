@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:intl/intl.dart';
 import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
@@ -49,7 +50,7 @@ class SelectDob extends StatelessWidget {
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
               context: context,
-              initialDate: DateTime.now(),
+              initialDate: appState.dateOfBirth,
               firstDate: DateTime(1900),
               lastDate: DateTime.now(),
             );
@@ -65,7 +66,7 @@ class SelectDob extends StatelessWidget {
             child: Center(
               child: DesignText(
                 appState.dateOfBirth != null
-                    ? "${appState.dateOfBirth!.day}-${appState.dateOfBirth!.month}-${appState.dateOfBirth!.year}"
+                    ? DateFormat('d-M-y').format(appState.dateOfBirth!)
                     : "Select Date of Birth",
                 fontSize: 18,
                 fontWeight: 600,
