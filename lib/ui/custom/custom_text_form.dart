@@ -80,6 +80,7 @@ class DesignFormField extends StatelessWidget {
             ),
             filled: true,
             isDense: true,
+            floatingLabelAlignment: FloatingLabelAlignment.start,
             fillColor: fillColor ?? DesignColor.grey50,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             contentPadding: contentPadding ?? const EdgeInsets.all(10),
