@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:laatte/ui/theme/container.dart';
-import 'package:laatte/utils/enums.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:provider/provider.dart';
 import '../../../ui/custom/custom_text_form.dart';
 import '../../../ui/theme/text.dart';
-import '../../../utils/assets_names.dart';
 import '../../../utils/design_colors.dart';
 
 class NameForm extends StatelessWidget {

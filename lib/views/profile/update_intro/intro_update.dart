@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:laatte/services/api_services.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:laatte/views/profile/update_intro/gender_form.dart';
@@ -28,6 +29,7 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
     const SelectPhoto(),
     const BioForm(),
   ];
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -93,6 +95,11 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
                 ),
               TextButton(
                 onPressed: () {
+                  if (screens.length - 1 == appState.currentPage) {
+                    setState(() => isLoading = true);
+                    ApiService().updateProfile(appState);
+                    return;
+                  }
                   appState.controller.nextPage(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeIn,

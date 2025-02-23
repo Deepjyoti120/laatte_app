@@ -1,12 +1,8 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
 import '../../utils/enums.dart';
-
 part 'intro_profile_state.dart';
 
 class IntroProfileCubit extends Cubit<IntroProfileInitial> {
@@ -48,6 +44,7 @@ class IntroProfileCubit extends Cubit<IntroProfileInitial> {
     final updatedPhotos = List<File?>.from(state.photos)..add(photo);
     emit(state.copyWith(photos: updatedPhotos));
   }
+
   // void photoAddIndex(File photo, int index) {
   //   final updatedPhotos = List<File?>.from(state.photos)..[index] = photo;
   //   emit(state.copyWith(photos: updatedPhotos));
@@ -56,6 +53,7 @@ class IntroProfileCubit extends Cubit<IntroProfileInitial> {
     final updatedPhotos = List<File?>.from(state.photos)..remove(photo);
     emit(state.copyWith(photos: updatedPhotos));
   }
+
   // void setPhotoNull(int index) {
   //   final updatedPhotos = List<File?>.from(state.photos)..[index] = null;
   //   emit(state.copyWith(photos: updatedPhotos));

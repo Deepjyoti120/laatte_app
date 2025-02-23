@@ -16,6 +16,7 @@ import 'package:laatte/viewmodel/model/department.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import '../utils/utlis.dart';
+import '../viewmodel/cubit/intro_profile_cubit.dart';
 
 typedef OnUploadProgress = void Function(double progressValue);
 
@@ -511,7 +512,24 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 200) {
-        //  final data = UserReport.fromJson(res.data['data']);
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
+  }
+
+  //
+  Future<bool> updateProfile(IntroProfileCubit state) async {
+    String apiUrl = 'user/update-profile';
+    try {
+      var dataBody = {};
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 200) {
         return true;
       }
     } on DioException catch (e) {
