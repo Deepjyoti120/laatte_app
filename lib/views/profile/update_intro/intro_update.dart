@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:laatte/common_libs.dart';
+import 'package:laatte/router.dart';
+import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/ui/widgets/progress_circle.dart';
+import 'package:laatte/utils/constants.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:laatte/views/profile/update_intro/gender_form.dart';
 import 'package:laatte/views/profile/update_intro/others_form.dart';
 import 'package:laatte/views/profile/update_intro/select_dob.dart';
+import '../../../services/storage.dart';
 import '../../../utils/design_colors.dart';
 import 'bio_form.dart';
 import 'name_form.dart';
@@ -97,10 +103,12 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
                 onPressed: () {
                   if (screens.length - 1 == appState.currentPage) {
                     setState(() => isLoading = true);
-                    ApiService().updateProfile(appState).then((v){
-                      if(v){
-//
-                      } else{
+                    final goRouter = GoRouter.of(context);
+                    ApiService().updateProfile(appState).then((v) async {
+                      if (v) {
+                        await Storage.remove(Constants.currentRouteKey);
+                        goRouter.go(Routes.homeController);
+                      } else {
                         setState(() => isLoading = false);
                       }
                     });
@@ -111,33 +119,35 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
                     curve: Curves.easeIn,
                   );
                 },
-                child: Row(
-                  children: [
-                    const Text(
-                      'Next',
-                      style: TextStyle(
-                        color: DesignColor.primary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                child: isLoading
+                    ? const DesignProgress()
+                    : Row(
+                        children: [
+                          const Text(
+                            'Next',
+                            style: TextStyle(
+                              color: DesignColor.primary,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          6.width,
+                          Container(
+                            height: 24,
+                            width: 24,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(60),
+                              color: DesignColor.primary,
+                            ),
+                            child: const Icon(
+                              FontAwesomeIcons.caretRight,
+                              color: Colors.white,
+                              size: 16,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    6.width,
-                    Container(
-                      height: 24,
-                      width: 24,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(60),
-                        color: DesignColor.primary,
-                      ),
-                      child: const Icon(
-                        FontAwesomeIcons.caretRight,
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
