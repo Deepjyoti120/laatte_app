@@ -97,7 +97,13 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
                 onPressed: () {
                   if (screens.length - 1 == appState.currentPage) {
                     setState(() => isLoading = true);
-                    ApiService().updateProfile(appState);
+                    ApiService().updateProfile(appState).then((v){
+                      if(v){
+//
+                      } else{
+                        setState(() => isLoading = false);
+                      }
+                    });
                     return;
                   }
                   appState.controller.nextPage(
