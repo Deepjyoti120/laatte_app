@@ -37,33 +37,24 @@ class CustomBottomBar extends StatelessWidget {
       shape: const CircularNotchedRectangle(),
       color: bottomColor,
       child: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: containerHeight,
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          // padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
           child: Row(
             mainAxisAlignment: mainAxisAlignment,
             children: items.map((item) {
               var index = items.indexOf(item);
-              return Padding(
-                padding: items.length == 4
-                    ? (index == 1
-                        ? const EdgeInsets.only(right: 15)
-                        : index == 2
-                            ? const EdgeInsets.only(left: 15)
-                            : EdgeInsets.zero)
-                    : EdgeInsets.zero,
-                child: GestureDetector(
-                  onTap: () => onItemSelected(index),
-                  child: _ItemWidget(
-                    item: item,
-                    iconSize: iconSize,
-                    isSelected: index == selectedIndex,
-                    backgroundColor: backgroundColor ?? Colors.black,
-                    itemCornerRadius: itemCornerRadius,
-                    animationDuration: animationDuration,
-                    curve: curve,
-                  ),
+              return GestureDetector(
+                onTap: () => onItemSelected(index),
+                child: _ItemWidget(
+                  item: item,
+                  iconSize: iconSize,
+                  isSelected: index == selectedIndex,
+                  backgroundColor: backgroundColor ?? Colors.black,
+                  itemCornerRadius: itemCornerRadius,
+                  animationDuration: animationDuration,
+                  curve: curve,
                 ),
               );
             }).toList(),
@@ -110,7 +101,7 @@ class _ItemWidget extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           child: SizedBox(
             height: 60,
-            width: 80,
+            // width: 80,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

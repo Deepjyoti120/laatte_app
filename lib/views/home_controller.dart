@@ -8,7 +8,6 @@ import 'package:laatte/services/api_services.dart';
 import 'package:laatte/utils/constants.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
 import 'package:laatte/views/responsive.dart';
@@ -24,6 +23,7 @@ import 'home/dwawer/app_drawer.dart';
 class HomeController extends StatefulWidget {
   static const String route = "/HomeController";
   const HomeController({super.key});
+
   @override
   State<HomeController> createState() => _HomeControllerState();
 }
@@ -49,7 +49,7 @@ class _HomeControllerState extends State<HomeController> {
     final appState = context.watch<AppStateCubit>();
     return ResponsiveDrawer(
       child: Scaffold(
-        // bottomNavigationBar: _buildBottomBar(appState),
+        bottomNavigationBar: _buildBottomBar(appState),
         // floatingActionButton: FloatingActionButton(
         //   onPressed: () async {
         //     // context.read<ModuleBloc>().add(ModuleFetched());
@@ -238,7 +238,7 @@ class _HomeControllerState extends State<HomeController> {
       showElevation: true,
       itemCornerRadius: 8,
       iconSize: 18,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       curve: Curves.linear,
       // onItemSelected: (index) => appState.currentPage = index,
       onItemSelected: (value) {
@@ -268,19 +268,43 @@ class _HomeControllerState extends State<HomeController> {
               )),
           activeColor: appState.isDarkMode
               ? DesignColor.backgroundColor
-              : DesignColor.grey900,
+              : DesignColor.primary,
           inactiveColor: DesignColor.inActive,
         ),
         BottomBarItem(
           icon: const Icon(FontAwesomeIcons.moneyBill),
-          title: Text('History',
+          title: Text('Realte',
               style: TextStyle(
                 fontSize: 12,
                 color: appState.isDarkMode ? DesignColor.grey900 : null,
               )),
           activeColor: appState.isDarkMode
               ? DesignColor.backgroundColor
-              : DesignColor.grey900,
+              : DesignColor.primary,
+          inactiveColor: DesignColor.inActive,
+        ),
+        BottomBarItem(
+          icon: const Icon(FontAwesomeIcons.user),
+          title: Text('Add',
+              style: TextStyle(
+                fontSize: 12,
+                color: appState.isDarkMode ? DesignColor.backgroundColor : null,
+              )),
+          activeColor: appState.isDarkMode
+              ? DesignColor.backgroundColor
+              : DesignColor.primary,
+          inactiveColor: DesignColor.inActive,
+        ),
+        BottomBarItem(
+          icon: const Icon(FontAwesomeIcons.user),
+          title: Text('Chat',
+              style: TextStyle(
+                fontSize: 12,
+                color: appState.isDarkMode ? DesignColor.backgroundColor : null,
+              )),
+          activeColor: appState.isDarkMode
+              ? DesignColor.backgroundColor
+              : DesignColor.primary,
           inactiveColor: DesignColor.inActive,
         ),
         BottomBarItem(
@@ -292,7 +316,7 @@ class _HomeControllerState extends State<HomeController> {
               )),
           activeColor: appState.isDarkMode
               ? DesignColor.backgroundColor
-              : DesignColor.grey900,
+              : DesignColor.primary,
           inactiveColor: DesignColor.inActive,
         ),
       ],
@@ -302,8 +326,10 @@ class _HomeControllerState extends State<HomeController> {
   Widget getBody(AppStateCubit appState) {
     List<Widget> pages = const [
       WelcomeScreen(),
-      // RentHistory(),
-      // ProfileScreen(),
+      WelcomeScreen(),
+      WelcomeScreen(),
+      WelcomeScreen(),
+      WelcomeScreen(),
     ];
     // return pages[appState.currentPage];
     return IndexedStack(
