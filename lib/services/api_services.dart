@@ -552,11 +552,11 @@ class ApiService {
     }
     try {
       var dataBody = {
-        "name": state.name,
-        "occupation": state.occupation,
-        "education": state.education,
-        "bio": state.bio,
-        "photos": listOfPhotos,
+        "name": state.name.text,
+        "occupation": state.occupation.text,
+        "education": state.education.text,
+        "bio": state.bio.text,
+        "photos": listOfPhotos.map((e) => e.toString()).toList(),
       };
       Response res = await dio.post(
         apiUrl,
