@@ -262,11 +262,13 @@ class _HomeControllerState extends State<HomeController> {
       items: [
         BottomBarItem(
           icon: const Icon(FontAwesomeIcons.house),
-          title: Text('Home',
-              style: TextStyle(
-                fontSize: 12,
-                color: appState.isDarkMode ? DesignColor.backgroundColor : null,
-              )),
+          title: Text(
+            'Home',
+            style: TextStyle(
+              fontSize: 12,
+              color: appState.isDarkMode ? DesignColor.backgroundColor : null,
+            ),
+          ),
           activeColor: appState.isDarkMode
               ? DesignColor.backgroundColor
               : DesignColor.primary,
@@ -285,7 +287,7 @@ class _HomeControllerState extends State<HomeController> {
           inactiveColor: DesignColor.inActive,
         ),
         BottomBarItem(
-          icon: const Icon(FontAwesomeIcons.user),
+          icon: const Icon(FontAwesomeIcons.plus),
           title: Text('Add',
               style: TextStyle(
                 fontSize: 12,

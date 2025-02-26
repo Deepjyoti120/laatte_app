@@ -17,8 +17,10 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  final CardSwiperController _swiperController = CardSwiperController();
   bool isEnd = false;
   List<Prompt> listPrompt = [];
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +33,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       setState(() {});
     });
   }
+  //Future.delayed(const Duration(milliseconds: 300), () {
+  //_swiperController.swipe(CardSwiperDirection.right);
+  //});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +51,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Flexible(
               flex: 2,
               child: CardSwiper(
+                controller: _swiperController,
                 cardsCount: listPrompt.length,
                 numberOfCardsDisplayed:
                     listPrompt.length < 3 ? listPrompt.length : 3,
@@ -56,6 +62,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     color: Colors.blue,
                     child: const Text('1'),
                   );
+                },
+                allowedSwipeDirection: const AllowedSwipeDirection.only(
+                  left: true,
+                  right: true,
+                ),
+                onSwipe: (previousIndex, currentIndex, direction) {
+                  if (direction == CardSwiperDirection.left) {
+                    // _showBottomSheet(context);
+                    print("object");
+                    return false;
+                  }
+                  return true;
                 },
                 isLoop: false,
                 onEnd: () {
