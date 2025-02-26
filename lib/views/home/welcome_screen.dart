@@ -2,9 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
-import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/ui/custom/confirm_sheet.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
-import 'package:laatte/views/home/profile_card.dart';
+import 'package:laatte/views/home/comment_sheet.dart';
 import '../../viewmodel/bloc/user_report_bloc.dart';
 import '../../viewmodel/model/prompt.dart';
 
@@ -33,9 +33,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       setState(() {});
     });
   }
-  //Future.delayed(const Duration(milliseconds: 300), () {
-  //_swiperController.swipe(CardSwiperDirection.right);
-  //});
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +64,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   left: true,
                   right: true,
                 ),
-                onSwipe: (previousIndex, currentIndex, direction) {
-                  if (direction == CardSwiperDirection.left) {
+                onSwipe: (previousIndex, currentIndex, direction) async {
+                  if (direction == CardSwiperDirection.right) {
                     // _showBottomSheet(context);
-                    print("object");
+                    await acceptTermAndCondition;
                     return false;
                   }
                   return true;
@@ -87,5 +84,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ],
       ),
     );
+  }
+
+  Future<bool> get acceptTermAndCondition async {
+    return await showModalBottomSheet<bool>(
+          context: context,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
+          isScrollControlled: true,
+          // isDismissible: false,
+          // enableDrag: false,
+          // add linear bounce in animation curve
+          backgroundColor: Colors.transparent,
+          builder: (context) {
+            return CommentSheet(
+              title: "Terms&conditions",
+              description: Constants.termAndCondition,
+              confirmText: "Understood",
+              onPressed: () {
+                context.pop(true);
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  _swiperController.swipe(CardSwiperDirection.top);
+                });
+              },
+            );
+          },
+        ) ??
+        false;
   }
 }
