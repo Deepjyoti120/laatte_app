@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
-import 'package:laatte/router.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/widgets/progress_circle.dart';
-import 'package:laatte/utils/constants.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:laatte/views/profile/update_intro/gender_form.dart';

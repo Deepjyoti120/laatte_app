@@ -1,11 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
-import 'package:laatte/ui/theme/buttons.dart';
-import 'package:laatte/ui/theme/container.dart';
-import 'package:laatte/ui/theme/text.dart';
-import 'package:laatte/utils/assets_names.dart';
-import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/views/home/profile_card.dart';
@@ -23,7 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    // runInit();
+    runInit();
   }
 
   runInit() async {
@@ -79,7 +73,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             // const PaymentsScreen(),
             ProfileCard(user: user.userReport),
             16.height,
-            
           ],
         ),
       ),

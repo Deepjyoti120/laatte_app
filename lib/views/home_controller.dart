@@ -73,156 +73,157 @@ class _HomeControllerState extends State<HomeController> {
         //     width: 28,
         //   ),
         // ),
-        drawer: const AppDrawer(),
-        body: SafeArea(
-          child: NestedScrollView(
-            controller: GlobalController.nestedScrollViewController,
-            physics: appState.currentPage == 1
-                ? const NeverScrollableScrollPhysics()
-                : null,
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                SliverAppBar(
-                  floating: true,
-                  pinned: false,
-                  snap: true,
-                  scrolledUnderElevation: 0,
-                  automaticallyImplyLeading: false,
-                  elevation: Constants.elevation,
-                  leading: Builder(
-                    builder: (context) => IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.barsStaggered,
-                        size: 18,
-                        color: appState.isDarkMode
-                            ? Colors.white
-                            : DesignColor.grey900,
-                      ),
-                      onPressed: () {
-                        if (Responsive.isTablet(context)) {
-                          appState.isOpenDrawer = !appState.isOpenDrawer;
-                        } else {
-                          Scaffold.of(context).openDrawer();
-                        }
-                      },
-                    ),
-                  ),
-                  title: Container(
-                    alignment: Alignment.centerLeft,
-                    child: Hero(
-                        tag: AssetsName.appLogo,
-                        child: Row(
-                          children: [
-                            // Image.asset(AssetsName.appLogo, height: 30),
-                            // 8.width,
-                            // if (!Responsive.isMobile(context))
-                            DesignText(
-                              Constants.appName,
-                              fontSize: 15,
-                              fontWeight: 600,
-                              color: appState.isDarkMode
-                                  ? Colors.white
-                                  : DesignColor.grey900,
-                            )
-                                .animate()
-                                .fadeIn(duration: 300.ms)
-                                .then(delay: 200.ms) // baseline=800ms
-                                .slide()
-                          ],
-                        )),
-                  ),
-                  actions: [
-                    // IconButton(
-                    //   onPressed: () {
-                    //     // context.push(Routes.mapScreen);
-                    //   },
-                    //   icon: const Icon(
-                    //     FontAwesomeIcons.mapLocationDot,
-                    //     color: DesignColor.success600,
-                    //     size: 20,
-                    //   ),
-                    // )
-                    //     .animate()
-                    //     .fadeIn(
-                    //       duration: const Duration(milliseconds: 200),
-                    //       curve: Curves.easeIn,
-                    //       delay: const Duration(milliseconds: 300),
-                    //     )
-                    //     .slideX(
-                    //       duration: const Duration(milliseconds: 800),
-                    //       curve: Curves.fastLinearToSlowEaseIn,
-                    //       begin: 2,
-                    //     ),
-                    IconButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: DesignText(
-                                  "Logout",
-                                  fontSize: 16,
-                                  fontWeight: 600,
-                                  color:
-                                      appState.isDarkMode ? Colors.white : null,
-                                ),
-                                content: DesignText(
-                                  "Are you sure you want to logout?",
-                                  fontSize: 14,
-                                  fontWeight: 400,
-                                  color:
-                                      appState.isDarkMode ? Colors.white : null,
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: DesignText(
-                                      "Cancel",
-                                      fontSize: 14,
-                                      fontWeight: 400,
-                                      color: appState.isDarkMode
-                                          ? Colors.white
-                                          : null,
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      final goRouter = GoRouter.of(context);
-                                      TokenHandler.resetJwt().then((value) {
-                                        goRouter.go(Routes.login);
-                                      });
-                                    },
-                                    child: DesignText(
-                                      "Logout",
-                                      fontSize: 14,
-                                      fontWeight: 400,
-                                      color: appState.isDarkMode
-                                          ? Colors.white
-                                          : null,
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.arrowRightFromBracket,
-                          size: 18,
-                          color: appState.isDarkMode
-                              ? Colors.white
-                              : DesignColor.grey900,
-                        )),
-                    12.width
-                  ],
-                ),
-              ];
-            },
-            body: getBody(appState),
-          ),
-        ),
+        // drawer: const AppDrawer(),
+        body: getBody(appState),
+        // body: SafeArea(
+        //   child: NestedScrollView(
+        //     controller: GlobalController.nestedScrollViewController,
+        //     physics: appState.currentPage == 1
+        //         ? const NeverScrollableScrollPhysics()
+        //         : null,
+        //     headerSliverBuilder: (context, innerBoxIsScrolled) {
+        //       return [
+        //         SliverAppBar(
+        //           floating: true,
+        //           pinned: false,
+        //           snap: true,
+        //           scrolledUnderElevation: 0,
+        //           automaticallyImplyLeading: false,
+        //           elevation: Constants.elevation,
+        //           leading: Builder(
+        //             builder: (context) => IconButton(
+        //               icon: Icon(
+        //                 FontAwesomeIcons.barsStaggered,
+        //                 size: 18,
+        //                 color: appState.isDarkMode
+        //                     ? Colors.white
+        //                     : DesignColor.grey900,
+        //               ),
+        //               onPressed: () {
+        //                 if (Responsive.isTablet(context)) {
+        //                   appState.isOpenDrawer = !appState.isOpenDrawer;
+        //                 } else {
+        //                   Scaffold.of(context).openDrawer();
+        //                 }
+        //               },
+        //             ),
+        //           ),
+        //           title: Container(
+        //             alignment: Alignment.centerLeft,
+        //             child: Hero(
+        //                 tag: AssetsName.appLogo,
+        //                 child: Row(
+        //                   children: [
+        //                     // Image.asset(AssetsName.appLogo, height: 30),
+        //                     // 8.width,
+        //                     // if (!Responsive.isMobile(context))
+        //                     DesignText(
+        //                       Constants.appName,
+        //                       fontSize: 15,
+        //                       fontWeight: 600,
+        //                       color: appState.isDarkMode
+        //                           ? Colors.white
+        //                           : DesignColor.grey900,
+        //                     )
+        //                         .animate()
+        //                         .fadeIn(duration: 300.ms)
+        //                         .then(delay: 200.ms) // baseline=800ms
+        //                         .slide()
+        //                   ],
+        //                 )),
+        //           ),
+        //           actions: [
+        //             // IconButton(
+        //             //   onPressed: () {
+        //             //     // context.push(Routes.mapScreen);
+        //             //   },
+        //             //   icon: const Icon(
+        //             //     FontAwesomeIcons.mapLocationDot,
+        //             //     color: DesignColor.success600,
+        //             //     size: 20,
+        //             //   ),
+        //             // )
+        //             //     .animate()
+        //             //     .fadeIn(
+        //             //       duration: const Duration(milliseconds: 200),
+        //             //       curve: Curves.easeIn,
+        //             //       delay: const Duration(milliseconds: 300),
+        //             //     )
+        //             //     .slideX(
+        //             //       duration: const Duration(milliseconds: 800),
+        //             //       curve: Curves.fastLinearToSlowEaseIn,
+        //             //       begin: 2,
+        //             //     ),
+        //             IconButton(
+        //                 onPressed: () {
+        //                   showDialog(
+        //                     context: context,
+        //                     builder: (BuildContext context) {
+        //                       return AlertDialog(
+        //                         title: DesignText(
+        //                           "Logout",
+        //                           fontSize: 16,
+        //                           fontWeight: 600,
+        //                           color:
+        //                               appState.isDarkMode ? Colors.white : null,
+        //                         ),
+        //                         content: DesignText(
+        //                           "Are you sure you want to logout?",
+        //                           fontSize: 14,
+        //                           fontWeight: 400,
+        //                           color:
+        //                               appState.isDarkMode ? Colors.white : null,
+        //                         ),
+        //                         actions: [
+        //                           TextButton(
+        //                             onPressed: () {
+        //                               Navigator.of(context).pop();
+        //                             },
+        //                             child: DesignText(
+        //                               "Cancel",
+        //                               fontSize: 14,
+        //                               fontWeight: 400,
+        //                               color: appState.isDarkMode
+        //                                   ? Colors.white
+        //                                   : null,
+        //                             ),
+        //                           ),
+        //                           TextButton(
+        //                             onPressed: () {
+        //                               final goRouter = GoRouter.of(context);
+        //                               TokenHandler.resetJwt().then((value) {
+        //                                 goRouter.go(Routes.login);
+        //                               });
+        //                             },
+        //                             child: DesignText(
+        //                               "Logout",
+        //                               fontSize: 14,
+        //                               fontWeight: 400,
+        //                               color: appState.isDarkMode
+        //                                   ? Colors.white
+        //                                   : null,
+        //                             ),
+        //                           ),
+        //                         ],
+        //                       );
+        //                     },
+        //                   );
+        //                 },
+        //                 icon: Icon(
+        //                   FontAwesomeIcons.arrowRightFromBracket,
+        //                   size: 18,
+        //                   color: appState.isDarkMode
+        //                       ? Colors.white
+        //                       : DesignColor.grey900,
+        //                 )),
+        //             12.width
+        //           ],
+        //         ),
+        //       ];
+        //     },
+        //     body: getBody(appState),
+        //   ),
+        // ),
       ),
     );
   }
