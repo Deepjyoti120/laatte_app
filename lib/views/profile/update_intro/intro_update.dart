@@ -100,11 +100,11 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
                   ),
                 ),
               TextButton(
-                onPressed: () {
+                onPressed: () async {
                   if (screens.length - 1 == appState.currentPage) {
                     setState(() => isLoading = true);
                     final goRouter = GoRouter.of(context);
-                    ApiService().updateProfile(appState).then((v) async {
+                    await ApiService().updateProfile(appState).then((v) async {
                       if (v) {
                         await Storage.remove(Constants.currentRouteKey);
                         goRouter.go(Routes.homeController);

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -521,10 +523,41 @@ class ApiService {
   }
 
   //
+  Future<String?> upload(File file) async {
+    String apiUrl = 'user/upload';
+    try {
+      String fileName = file.path.split('/').last;
+      FormData formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(file.path, filename: fileName),
+      });
+      Response res = await dio.post(
+        apiUrl,
+        data: formData,
+      );
+      if (res.statusCode == 200) {
+        final data = res.data['data']['fileKey'];
+        return data;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return null;
+  }
+
   Future<bool> updateProfile(IntroProfileCubit state) async {
     String apiUrl = 'user/update-profile';
+    List listOfPhotos = [];
+    for (var e in state.photos) {
+      listOfPhotos.add(await upload(e!));
+    }
     try {
-      var dataBody = {};
+      var dataBody = {
+        "name": state.name,
+        "occupation": state.occupation,
+        "education": state.education,
+        "bio": state.bio,
+        "photos": listOfPhotos,
+      };
       Response res = await dio.post(
         apiUrl,
         data: dataBody,
