@@ -548,7 +548,7 @@ class ApiService {
     String apiUrl = 'user/update-profile';
     List listOfPhotos = [];
     for (var e in state.photos) {
-      listOfPhotos.add(await upload(e!));
+      if (e != null) listOfPhotos.add(await upload(e));
     }
     try {
       var dataBody = {
