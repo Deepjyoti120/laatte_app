@@ -252,11 +252,11 @@ class _HomeControllerState extends State<HomeController> {
           //   curve: Curves.linearToEaseOut,
           // );
           // }
-          GlobalController.nestedScrollViewController.animateTo(
-            0,
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.linearToEaseOut,
-          );
+          // GlobalController.nestedScrollViewController.animateTo(
+          //   0,
+          //   duration: const Duration(milliseconds: 400),
+          //   curve: Curves.linearToEaseOut,
+          // );
         }
       },
       items: [

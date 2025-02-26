@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
@@ -14,6 +15,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  bool isEnd = false;
   @override
   void initState() {
     super.initState();
@@ -21,60 +23,57 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   runInit() async {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    //   final appState = context.read<AppStateCubit>();
-    //   appState.basicInfo = await ApiService().getBasicInfo(appState);
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      //final appState = context.read<AppStateCubit>();
+      //appState.basicInfo = await ApiService().getBasicInfo(appState);
+    });
   }
+
+  List<Container> cards = [
+    Container(
+      alignment: Alignment.center,
+      child: const Text('1'),
+      color: Colors.blue,
+    ),
+    Container(
+      alignment: Alignment.center,
+      child: const Text('2'),
+      color: Colors.red,
+    ),
+    Container(
+      alignment: Alignment.center,
+      child: const Text('3'),
+      color: Colors.purple,
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserReportBloc>().state;
     final appState = context.watch<AppStateCubit>();
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       DAnimation(
-            //         visible: true,
-            //         child: Column(
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: [
-            //             const SizedBox(height: 4),
-            //             const DesignText.titleSemi(
-            //               'Welcome back',
-            //             ).animate().fadeIn(duration: 600.ms).then(delay: 200.ms),
-            //             4.height,
-            //             DesignText.title(
-            //               (user.userReport?.name ?? '').capitalizeFirstLetter(),
-            //             ).animate().fadeIn(duration: 600.ms).slide(
-            //                   delay: 200.ms,
-            //                   curve: Curves.easeInOutBack,
-            //                 ),
-            //           ],
-            //         ),
-            //       ),
-            //       const DAnimation(
-            //         visible: true,
-            //         child: ShowTodayCard(),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // const Divider(color: DesignColor.grey,),
-            // 20.height,
-            // const PaymentsScreen(),
-            ProfileCard(user: user.userReport),
-            16.height,
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+      child: Column(
+        children: [
+          const Spacer(),
+          Text(isEnd ? 'End' : 'Not End'),
+          Flexible(
+            flex: 2,
+            child: CardSwiper(
+              cardsCount: cards.length,
+              cardBuilder:
+                  (context, index, percentThresholdX, percentThresholdY) =>
+                      cards[index],
+              isLoop: false,
+              onEnd: () {
+                setState(() {
+                  isEnd = true;
+                });
+              },
+            ),
+          ),
+          const Spacer(),
+        ],
       ),
     );
   }

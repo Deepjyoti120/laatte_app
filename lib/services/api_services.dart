@@ -19,6 +19,7 @@ import 'package:laatte/viewmodel/model/designation.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import '../utils/utlis.dart';
 import '../viewmodel/cubit/intro_profile_cubit.dart';
+import '../viewmodel/model/prompt.dart';
 
 typedef OnUploadProgress = void Function(double progressValue);
 
@@ -569,5 +570,20 @@ class ApiService {
       Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
     }
     return false;
+  }
+
+  Future<List<Prompt>> getPrompts() async {
+    try {
+      String apiUrl = 'user/get-prompts';
+      Response res = await dio.get(apiUrl);
+      if (res.statusCode == 200) {
+        final listData = res.data['data'] as List;
+        final data = listData.map((e) => Prompt.fromJson(e)).toList();
+        return data;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return [];
   }
 }
