@@ -92,22 +92,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
           isScrollControlled: true,
-          // isDismissible: false,
+          isDismissible: false,
           // enableDrag: false,
           // add linear bounce in animation curve
           backgroundColor: Colors.transparent,
           builder: (context) {
-            return CommentSheet(
-              title: "Terms&conditions",
-              description: Constants.termAndCondition,
-              confirmText: "Understood",
-              onPressed: () {
-                context.pop(true);
-                Future.delayed(const Duration(milliseconds: 300), () {
-                  _swiperController.swipe(CardSwiperDirection.top);
-                });
-              },
-            );
+            return CommentSheet();
           },
         ) ??
         false;

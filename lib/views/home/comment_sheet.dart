@@ -1,36 +1,28 @@
-import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
+import 'package:laatte/ui/custom/custom_text_form.dart';
 import 'package:laatte/ui/theme/text.dart';
-import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
-
 import '../../ui/theme/buttons.dart';
 
-class CommentSheet extends StatelessWidget {
+class CommentSheet extends StatefulWidget {
   const CommentSheet({
     Key? key,
-    this.isDismissible = true,
-    required this.title,
-    required this.description,
-    this.confirmText = 'Done',
-    this.onPressed,
-    this.isLoading = false,
-    this.assetPath,
   }) : super(key: key);
-  final bool isDismissible;
-  final String title;
-  final String description;
-  final String confirmText;
-  final VoidCallback? onPressed;
-  final bool isLoading;
-  final String? assetPath;
+
+  @override
+  State<CommentSheet> createState() => _CommentSheetState();
+}
+
+class _CommentSheetState extends State<CommentSheet> {
+  bool isLoading = false;
+  TextEditingController relate = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: isDismissible,
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -61,60 +53,56 @@ class CommentSheet extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 20),
-                SvgPicture.asset(
-                  assetPath ?? AssetsName.appLogo,
-                  height: 80,
-                ),
                 const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 14, 30, 14),
                   child: Column(
                     children: [
-                      DesignText.title(
-                        title,
+                      const DesignText.title(
+                        "Relate",
                         textAlign: TextAlign.center,
                         color: DesignColor.primary,
                       ),
                       const SizedBox(height: 10),
-                      DesignText.body(
-                        description,
-                        textAlign: TextAlign.justify,
+                      DesignFormField(
+                        controller: relate,
+                        labelText: "Relate",
+                        maxLines: 10,
+                        minLines: 6,
+                        autofocus: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 12),
                       ),
-                      if (onPressed != null) const SizedBox(height: 20),
-                      if (onPressed != null)
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child: Hero(
-                            tag: Constants.keyLoginButton,
-                            child: DesignButtons(
-                              color: DesignColor.primary,
-                              elevation: 0,
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: Hero(
+                          tag: Constants.keyLoginButton,
+                          child: DesignButtons(
+                            color: DesignColor.primary,
+                            elevation: 0,
+                            fontSize: 16,
+                            fontWeight: 500,
+                            colorText: Colors.white,
+                            isTappedNotifier: ValueNotifier<bool>(isLoading),
+                            // onPressed: () async => onPressed!(),
+                            onPressed: () async {},
+                            textLabel: "",
+                            child: const DesignText(
+                              "Relate",
                               fontSize: 16,
                               fontWeight: 500,
-                              colorText: Colors.white,
-                              isTappedNotifier: ValueNotifier<bool>(isLoading),
-                              // onPressed: () async => onPressed!(),
-                              onPressed: () async {
-                                if (onPressed != null) {
-                                  onPressed!();
-                                }
-                              },
-                              textLabel: "",
-                              child: DesignText(
-                                confirmText,
-                                fontSize: 16,
-                                fontWeight: 500,
-                                color: Colors.white,
-                              ),
+                              color: Colors.white,
                             ),
                           ),
                         ),
+                      ),
                     ],
                   ),
                 ),
-                if (Utils.isIOS) 30.height,
+                10.height,
+                // if (Utils.isIOS) 30.height,
               ],
             ),
           ),
