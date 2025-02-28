@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
-
 import '../../ui/widgets/progress_circle.dart';
 
 class RelateScreen extends StatefulWidget {
@@ -35,12 +33,8 @@ class _RelateScreenState extends State<RelateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appState = context.watch<AppStateCubit>();
+    // final appState = context.watch<AppStateCubit>();
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: const DesignText("Employee"),
-      ),
       body: BlocBuilder<MyPromptsBloc, MyPromptsState>(
         builder: (context, state) {
           switch (state.status) {

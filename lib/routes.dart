@@ -5,8 +5,8 @@ import 'package:laatte/views/home_controller.dart';
 import 'package:laatte/views/intro_screen/intro_screen.dart';
 import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
+import 'package:laatte/views/relate/add_relate.dart';
 import 'package:laatte/views/splash_screen.dart';
-import 'views/intro/intro_home.dart';
 import 'views/login/forgot_password.dart';
 import 'views/login/otp_screen.dart';
 import 'views/profile/profile.dart';
@@ -31,4 +31,5 @@ class Routes {
   static const String addEmployee = AddEmployee.route;
   static const String profileUpdateIntro = ProfileUpdateIntro.route;
   static const String relateScreen = RelateScreen.route;
+  static const String addRelate = AddRelate.route;
 }

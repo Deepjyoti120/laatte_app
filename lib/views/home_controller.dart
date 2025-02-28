@@ -10,6 +10,7 @@ import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
+import 'package:laatte/views/relate/add_relate.dart';
 import 'package:laatte/views/relate/relate.dart';
 import 'package:laatte/views/responsive.dart';
 import '../services/token_handler.dart';
@@ -331,7 +332,7 @@ class _HomeControllerState extends State<HomeController> {
     List<Widget> pages = const [
       WelcomeScreen(),
       RelateScreen(),
-      WelcomeScreen(),
+      AddRelate(),
       WelcomeScreen(),
       WelcomeScreen(),
     ];

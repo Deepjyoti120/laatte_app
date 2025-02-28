@@ -416,7 +416,7 @@ class ApiService {
       Response res = await dio.get(apiUrl);
       if (res.statusCode == 200) {
         final data = BasicInfo.fromJson(res.data['data']);
-        await box.put(Constants.basicInfoKey, data);
+        // await box.put(Constants.basicInfoKey, data);
         appState.basicInfo = data;
         return data;
       }

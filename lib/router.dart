@@ -16,6 +16,7 @@ import 'main.dart';
 import 'views/login/forgot_password.dart';
 import 'views/profile/profile.dart';
 import 'views/profile/update_intro/intro_update.dart';
+import 'views/relate/add_relate.dart';
 import 'views/relate/relate.dart';
 
 final GoRouter goRouter = GoRouter(
@@ -129,6 +130,12 @@ final GoRouter goRouter = GoRouter(
       path: Routes.relateScreen,
       builder: (context, GoRouterState state) {
         return const RelateScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.addRelate,
+      builder: (context, GoRouterState state) {
+        return const AddRelate();
       },
     ),
   ],
