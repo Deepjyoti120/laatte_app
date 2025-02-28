@@ -579,6 +579,26 @@ class ApiService {
     }
     return [];
   }
+  Future<List<Prompt>> getMyPrompts({
+    int page = 1,
+    int limit = 20,
+  }) async {
+    try {
+      String apiUrl = 'user/get-my-prompts';
+      Response res = await dio.get(apiUrl, queryParameters: {
+        "page": page,
+        "limit": limit,
+      });
+      if (res.statusCode == 200) {
+        final listData = res.data['data'] as List;
+        final data = listData.map((e) => Prompt.fromJson(e)).toList();
+        return data;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return [];
+  }
 
   Future<bool> addComment({
     required Prompt prompt,

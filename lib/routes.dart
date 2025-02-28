@@ -11,6 +11,7 @@ import 'views/login/forgot_password.dart';
 import 'views/login/otp_screen.dart';
 import 'views/profile/profile.dart';
 import 'views/profile/update_intro/intro_update.dart';
+import 'views/relate/relate.dart';
 import 'views/rents/history.dart';
 import 'views/rents/success_failed_screen.dart';
 
@@ -29,4 +30,5 @@ class Routes {
   static const String employee = Employee.route;
   static const String addEmployee = AddEmployee.route;
   static const String profileUpdateIntro = ProfileUpdateIntro.route;
+  static const String relateScreen = RelateScreen.route;
 }
