@@ -1,10 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:laatte/common_libs.dart';
+import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/ui/custom/confirm_sheet.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
+import '../../ui/theme/text.dart';
 import '../../viewmodel/bloc/user_report_bloc.dart';
 import '../../viewmodel/model/prompt.dart';
 
@@ -34,6 +37,55 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     });
   }
 
+  void close() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: DesignText(
+            "Logout",
+            fontSize: 16,
+            fontWeight: 600,
+            color: null,
+          ),
+          content: DesignText(
+            "Are you sure you want to logout?",
+            fontSize: 14,
+            fontWeight: 400,
+            color: null,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: DesignText(
+                "Cancel",
+                fontSize: 14,
+                fontWeight: 400,
+                color: null,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                final goRouter = GoRouter.of(context);
+                TokenHandler.resetJwt().then((value) {
+                  goRouter.go(Routes.login);
+                });
+              },
+              child: DesignText(
+                "Logout",
+                fontSize: 14,
+                fontWeight: 400,
+                color: null,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserReportBloc>().state;
@@ -43,7 +95,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       child: Column(
         children: [
           const Spacer(),
-          Text(isEnd ? 'End' : 'Not End'),
+          GestureDetector(
+              onTap: () {
+                close();
+              },
+              child: Text(isEnd ? 'End' : 'Not End')),
           if (listPrompt.isNotEmpty)
             Flexible(
               flex: 2,
@@ -66,9 +122,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 onSwipe: (previousIndex, currentIndex, direction) async {
                   if (direction == CardSwiperDirection.right) {
-                    // _showBottomSheet(context);
-                    await acceptTermAndCondition;
-                    return false;
+                    return await acceptTermAndCondition(previousIndex);
                   }
                   return true;
                 },
@@ -86,7 +140,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
-  Future<bool> get acceptTermAndCondition async {
+  Future<bool> acceptTermAndCondition(int index) async {
     return await showModalBottomSheet<bool>(
           context: context,
           shape: const RoundedRectangleBorder(
@@ -97,7 +151,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           // add linear bounce in animation curve
           backgroundColor: Colors.transparent,
           builder: (context) {
-            return CommentSheet();
+            return CommentSheet(
+              prompt: listPrompt[index],
+            );
           },
         ) ??
         false;

@@ -208,18 +208,11 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 200) {
-        if (kDebugMode) {
-          print("res.data['data']['token']");
-          print(res.data['data']['token']);
-        }
         await TokenHandler.setAccessKey(res.data['data']['token']);
         // await TokenHandler.setAccessKey(res.data['data']['refreshtoken'],
         //     isRefresh: true);
-        if (res.statusCode == 200) {
-          final data = UserReport.fromJson(res.data['data']);
-          return data;
-        }
-        return null;
+        final data = UserReport.fromJson(res.data['data']['user']);
+        return data;
       }
     } on DioException catch (e) {
       Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
@@ -585,5 +578,28 @@ class ApiService {
       Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
     }
     return [];
+  }
+
+  Future<bool> addComment({
+    required Prompt prompt,
+    required String comment,
+  }) async {
+    String apiUrl = 'user/add-comment';
+    try {
+      var dataBody = {
+        "prompt": prompt,
+        "comment": comment,
+      };
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 200) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
   }
 }
