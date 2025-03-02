@@ -136,9 +136,9 @@ class ApiService {
       // final context = GlobalContext.appContext;
       // if (context != null) {
       // final goRouter = GoRouter.of(navigatorKey.currentContext!);
-      await TokenHandler.resetJwt();
-      // GlobalContext.appContext = null;
-      navigatorKey.currentContext?.go(Routes.login);
+      // await TokenHandler.resetJwt();
+      // // GlobalContext.appContext = null;
+      // navigatorKey.currentContext?.go(Routes.login);
       // Utils.flutterToast("Please Login again");
       // }
     } catch (e) {
@@ -579,6 +579,7 @@ class ApiService {
     }
     return [];
   }
+
   Future<List<Prompt>> getMyPrompts({
     int page = 1,
     int limit = 20,
@@ -609,6 +610,32 @@ class ApiService {
       var dataBody = {
         "prompt": prompt,
         "comment": comment,
+      };
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 200) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
+  }
+
+  Future<bool> addPrompt({
+    required Prompt prompt,
+  }) async {
+    String apiUrl = 'user/add-prompt';
+    try {
+      var dataBody = {
+        "prompt": prompt.prompt,
+        "bg_picture": prompt.bgPicture,
+        "latitude": prompt.latitude,
+        "longitude": prompt.longitude,
+        // "photo": prompt.photo,
+        "tags": prompt.tags,
       };
       Response res = await dio.post(
         apiUrl,

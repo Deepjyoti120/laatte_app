@@ -88,11 +88,14 @@ class Utils {
     return format.format(dateTime);
   }
 
-  static Future<List<File>> pickFiles() async {
+  static Future<List<File>> pickFiles({
+    FileType type = FileType.custom,
+    bool allowMultiple = false,
+  }) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: false,
-      type: FileType.image,
-      // allowedExtensions: ['jpg', 'pdf', 'doc', 'png', 'docx', 'bmp'],
+      allowMultiple: allowMultiple,
+      type: type,
+      allowedExtensions: type == FileType.custom ?  ['pdf', 'doc','docx'] : null,
     );
     if (result != null) {
       List<File> files = result.paths.map((path) => File(path!)).toList();
