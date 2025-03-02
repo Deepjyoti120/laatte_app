@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -95,7 +96,7 @@ class SelectPhoto extends StatelessWidget {
               }
               return GestureDetector(
                 onTap: () {
-                  Utils.pickFiles().then((value) {
+                  Utils.pickFiles(type: FileType.image).then((value) {
                     if (value.isNotEmpty) {
                       appState.addPhoto(value.first);
                     }
