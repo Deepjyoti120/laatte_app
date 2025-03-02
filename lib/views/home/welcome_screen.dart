@@ -4,6 +4,7 @@ import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
+import 'package:laatte/views/relate/relate_card.dart';
 import '../../ui/theme/text.dart';
 import '../../viewmodel/model/prompt.dart';
 
@@ -81,10 +82,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         listPrompt.length < 3 ? listPrompt.length : 3,
                     cardBuilder:
                         (context, index, percentThresholdX, percentThresholdY) {
-                      return Container(
-                        alignment: Alignment.center,
-                        color: Colors.blue,
-                        child: const Text('1'),
+                      return RelateCard(
+                        prompt: listPrompt[index],
                       );
                     },
                     allowedSwipeDirection: const AllowedSwipeDirection.only(

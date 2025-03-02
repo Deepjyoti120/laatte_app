@@ -9,6 +9,7 @@ import 'package:laatte/views/intro_screen/intro_screen.dart';
 import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
 import 'package:laatte/views/login/otp_screen.dart';
+import 'package:laatte/views/relate/relate_comments.dart';
 import 'package:laatte/views/rents/history.dart';
 import 'package:laatte/views/rents/success_failed_screen.dart';
 import 'package:laatte/views/splash_screen.dart';
@@ -93,6 +94,12 @@ final GoRouter goRouter = GoRouter(
       path: Routes.profileScreen,
       builder: (context, GoRouterState state) {
         return const ProfileScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.relateComment,
+      builder: (context, GoRouterState state) {
+        return const RelateComment();
       },
     ),
     GoRoute(
