@@ -1,15 +1,10 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
-import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
-import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/utils/assets_names.dart';
-import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
 import '../../ui/theme/text.dart';
-import '../../viewmodel/bloc/user_report_bloc.dart';
 import '../../viewmodel/model/prompt.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -24,6 +19,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   final CardSwiperController _swiperController = CardSwiperController();
   bool isEnd = false;
   List<Prompt> listPrompt = [];
+  bool isEmpty = false;
 
   @override
   void initState() {
@@ -34,20 +30,33 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   runInit() async {
     await ApiService().getPrompts().then((value) {
       listPrompt = value;
+      isEmpty = listPrompt.isEmpty;
       setState(() {});
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<UserReportBloc>().state;
-    final appState = context.watch<AppStateCubit>();
+    // final user = context.watch<UserReportBloc>().state;
+    // final appState = context.watch<AppStateCubit>();
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       child: Column(
         children: [
           const Spacer(),
+          if (isEmpty)
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Row(),
+                SvgPicture.asset(
+                  AssetsName.svgEmpty,
+                  width: 100,
+                  height: 100,
+                ),
+                const DesignText("Please come back later"),
+              ],
+            ),
           if (listPrompt.isNotEmpty)
             Flexible(
               flex: 2,

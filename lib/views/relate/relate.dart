@@ -6,6 +6,7 @@ import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
+import 'package:laatte/views/relate/relate_card.dart';
 import '../../ui/widgets/progress_circle.dart';
 
 class RelateScreen extends StatefulWidget {
@@ -74,7 +75,9 @@ class _RelateScreenState extends State<RelateScreen> {
                     return SafeArea(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 8),
-                        child: Text(data.comments?[0].user?.name ?? "No ID"),
+                        child: RelateCard(
+                          prompt: data,
+                        ),
                       ),
                     );
                   }
