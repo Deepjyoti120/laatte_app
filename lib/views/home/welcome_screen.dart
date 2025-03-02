@@ -38,54 +38,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     });
   }
 
-  void close() async {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: DesignText(
-            "Logout",
-            fontSize: 16,
-            fontWeight: 600,
-            color: null,
-          ),
-          content: DesignText(
-            "Are you sure you want to logout?",
-            fontSize: 14,
-            fontWeight: 400,
-            color: null,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: DesignText(
-                "Cancel",
-                fontSize: 14,
-                fontWeight: 400,
-                color: null,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                final goRouter = GoRouter.of(context);
-                TokenHandler.resetJwt().then((value) {
-                  goRouter.go(Routes.login);
-                });
-              },
-              child: DesignText(
-                "Logout",
-                fontSize: 14,
-                fontWeight: 400,
-                color: null,
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
