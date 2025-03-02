@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:laatte/ui/theme/text.dart';
+import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
@@ -42,7 +45,19 @@ class _RelateScreenState extends State<RelateScreen> {
               return const Center(child: Text('failed to fetch data'));
             case ResponseStatus.success:
               if (state.prompts.isEmpty) {
-                return const Center(child: Text('no data'));
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Row(),
+                    SvgPicture.asset(
+                      AssetsName.svgEmpty,
+                      width: 100,
+                      height: 100,
+                    ),
+                    const DesignText("Please come back later"),
+                  ],
+                );
               }
               return ListView.builder(
                 shrinkWrap: true,
