@@ -30,7 +30,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   bool haspermission = false;
   final _formKey = GlobalKey<FormState>();
   Position? _position;
-  List<String>? tags;
+  List<String> tags = [];
 
   @override
   void initState() {
@@ -206,15 +206,15 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                     spacing: 8,
                     runSpacing: 6,
                     children: Constants.tags.map((e) {
-                      final isSelected = tags?.contains(e) ?? false;
+                      final isSelected = tags.contains(e);
                       return GestureDetector(
                         onTap: () {
                           setState(() {
                             if (isSelected) {
-                              tags?.remove(e);
+                              tags.remove(e);
                             } else {
-                              tags ??= [];
-                              tags!.add(e);
+                              // tags ??= [];
+                              tags.add(e);
                             }
                           });
                         },
@@ -251,13 +251,13 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                           await Geolocator.openLocationSettings();
                           return;
                         }
-                        final goRouter = GoRouter.of(context);
+                        // final goRouter = GoRouter.of(context);
                         if (_formKey.currentState?.validate() ?? false) {
                           _formKey.currentState?.save();
                           if (pickImage == null) {
                             return Utils.flutterToast("Image is required");
                           }
-                          if (tags == null) {
+                          if (tags.isEmpty) {
                             return Utils.flutterToast("Tags are required");
                           }
                           setState(() => isloading = true);
@@ -275,7 +275,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                             if (value) {
                               pickImage = null;
                               _relate.clear();
-                              tags = null;
+                              tags.clear();
                               Utils.flutterToast("Prompt added successfully");
                               // goRouter.pop(true);
                             }
