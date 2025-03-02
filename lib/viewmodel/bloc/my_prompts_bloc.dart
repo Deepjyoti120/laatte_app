@@ -8,7 +8,6 @@ import '../../services/api_services.dart';
 part 'my_prompts_event.dart';
 part 'my_prompts_state.dart';
 
-
 int pageSize = 20;
 const throttleDuration = Duration(milliseconds: 100);
 
@@ -28,7 +27,7 @@ class MyPromptsBloc extends Bloc<MyPromptsEvent, MyPromptsState> {
       transformer: throttleDroppable(throttleDuration),
     );
   }
-   Future<void> _onMyPromptsFetched(
+  Future<void> _onMyPromptsFetched(
     MyPromptsFetched event,
     Emitter<MyPromptsState> emit,
   ) async {
@@ -44,8 +43,8 @@ class MyPromptsBloc extends Bloc<MyPromptsEvent, MyPromptsState> {
           ),
         );
       }
-      final prompts =
-          await ApiService().getMyPrompts(page: state.page + 1, limit: pageSize);
+      final prompts = await ApiService()
+          .getMyPrompts(page: state.page + 1, limit: pageSize);
       prompts.isEmpty
           ? emit(state.copyWith(hasReachedMax: true))
           : emit(

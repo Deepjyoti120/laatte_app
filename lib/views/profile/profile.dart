@@ -124,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TitleDetailsCard(
+                          const TitleDetailsCard(
                             title: "Name",
                             text: "user.name",
                           ),
@@ -134,11 +134,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      TitleDetailsCard(
+                      const TitleDetailsCard(
                         title: "Email",
                         text: "user.email",
                       ),
-                      TitleDetailsCard(
+                      const TitleDetailsCard(
                         title: "Phone",
                         text: " user.phone",
                       ),

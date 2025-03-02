@@ -71,9 +71,11 @@ class _RelateScreenState extends State<RelateScreen> {
                     return const Center(child: DesignProgress());
                   } else {
                     final data = state.prompts[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      // child: ProfileCard(user: data),
+                    return SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Text(data.comments?[0].user?.name ?? "No ID"),
+                      ),
                     );
                   }
                 },

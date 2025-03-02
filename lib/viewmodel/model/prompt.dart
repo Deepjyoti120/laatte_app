@@ -1,3 +1,5 @@
+import 'package:laatte/viewmodel/model/user_reports.dart';
+
 class Prompt {
   String? id;
   bool? isActive;
@@ -9,6 +11,7 @@ class Prompt {
   String? longitude;
   String? createdAt;
   String? updatedAt;
+  List<Comments>? comments;
 
   Prompt(
       {this.id,
@@ -20,7 +23,8 @@ class Prompt {
       this.latitude,
       this.longitude,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.comments});
 
   Prompt.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -33,6 +37,12 @@ class Prompt {
     longitude = json['longitude'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    if (json['comments'] != null) {
+      comments = <Comments>[];
+      json['comments'].forEach((v) {
+        comments!.add(new Comments.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +57,39 @@ class Prompt {
     data['longitude'] = longitude;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    if (comments != null) {
+      data['comments'] = comments!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Comments {
+  String? id;
+  String? comment;
+  String? createdAt;
+  String? updatedAt;
+  UserReport? user;
+
+  Comments({this.id, this.comment, this.createdAt, this.updatedAt, this.user});
+
+  Comments.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    comment = json['comment'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    user = json['user'] != null ? UserReport.fromJson(json['user']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['comment'] = comment;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (user != null) {
+      data['user'] = user!.toJson();
+    }
     return data;
   }
 }
