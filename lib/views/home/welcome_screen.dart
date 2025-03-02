@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/services/token_handler.dart';
+import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
 import '../../ui/theme/text.dart';
@@ -94,43 +96,54 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       child: Column(
         children: [
           const Spacer(),
-          GestureDetector(
-              onTap: () {
-                close();
-              },
-              child: Text(isEnd ? 'End' : 'Not End')),
           if (listPrompt.isNotEmpty)
             Flexible(
               flex: 2,
-              child: CardSwiper(
-                controller: _swiperController,
-                cardsCount: listPrompt.length,
-                numberOfCardsDisplayed:
-                    listPrompt.length < 3 ? listPrompt.length : 3,
-                cardBuilder:
-                    (context, index, percentThresholdX, percentThresholdY) {
-                  return Container(
-                    alignment: Alignment.center,
-                    color: Colors.blue,
-                    child: const Text('1'),
-                  );
-                },
-                allowedSwipeDirection: const AllowedSwipeDirection.only(
-                  left: true,
-                  right: true,
-                ),
-                onSwipe: (previousIndex, currentIndex, direction) async {
-                  if (direction == CardSwiperDirection.right) {
-                    return await acceptTermAndCondition(previousIndex);
-                  }
-                  return true;
-                },
-                isLoop: false,
-                onEnd: () {
-                  setState(() {
-                    isEnd = true;
-                  });
-                },
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        AssetsName.svgEmpty,
+                        width: 100,
+                        height: 100,
+                      ),
+                      const DesignText("Please come back later"),
+                    ],
+                  ),
+                  CardSwiper(
+                    controller: _swiperController,
+                    cardsCount: listPrompt.length,
+                    numberOfCardsDisplayed:
+                        listPrompt.length < 3 ? listPrompt.length : 3,
+                    cardBuilder:
+                        (context, index, percentThresholdX, percentThresholdY) {
+                      return Container(
+                        alignment: Alignment.center,
+                        color: Colors.blue,
+                        child: const Text('1'),
+                      );
+                    },
+                    allowedSwipeDirection: const AllowedSwipeDirection.only(
+                      left: true,
+                      right: true,
+                    ),
+                    onSwipe: (previousIndex, currentIndex, direction) async {
+                      if (direction == CardSwiperDirection.right) {
+                        return await acceptTermAndCondition(previousIndex);
+                      }
+                      return true;
+                    },
+                    isLoop: false,
+                    onEnd: () {
+                      setState(() {
+                        isEnd = true;
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
           const Spacer(),

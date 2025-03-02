@@ -608,14 +608,15 @@ class ApiService {
     String apiUrl = 'user/add-comment';
     try {
       var dataBody = {
-        "prompt": prompt,
+        "prompt": prompt.id,
         "comment": comment,
       };
       Response res = await dio.post(
         apiUrl,
         data: dataBody,
       );
-      if (res.statusCode == 200) {
+      if (res.statusCode == 201) {
+        Utils.flutterToast("Successfully Relate");
         return true;
       }
     } on DioException catch (e) {

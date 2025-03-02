@@ -8,6 +8,7 @@ class AssetsName {
   static const String svgGenderMale = 'assets/svg/GenderMale.svg'; 
   static const String svgGenderFemale = 'assets/svg/GenderFemale.svg'; 
   static const String svgGenderIntersex = 'assets/svg/GenderIntersex.svg'; 
+  static const String svgEmpty = 'assets/svg/empty.svg'; 
   //  svg end
   // png start
 
