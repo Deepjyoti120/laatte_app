@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
+import 'package:laatte/viewmodel/model/prompt.dart';
 import 'package:laatte/views/employee/add_employee.dart';
 import 'package:laatte/views/employee/employee.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
 import 'package:laatte/views/home_controller.dart';
-import 'package:laatte/views/intro_screen/intro_screen.dart'; 
+import 'package:laatte/views/intro_screen/intro_screen.dart';
 import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
 import 'package:laatte/views/login/otp_screen.dart';
@@ -99,7 +100,9 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: Routes.relateComment,
       builder: (context, GoRouterState state) {
-        return const RelateComment();
+        return RelateComment(
+          prompt: state.extra as Prompt,
+        );
       },
     ),
     GoRoute(

@@ -92,7 +92,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     onSwipe: (previousIndex, currentIndex, direction) async {
                       if (direction == CardSwiperDirection.right) {
-                        return await acceptTermAndCondition(previousIndex);
+                        return await acceptSwipe(previousIndex);
                       }
                       return true;
                     },
@@ -112,7 +112,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
-  Future<bool> acceptTermAndCondition(int index) async {
+  Future<bool> acceptSwipe(int index) async {
     return await showModalBottomSheet<bool>(
           context: context,
           shape: const RoundedRectangleBorder(
