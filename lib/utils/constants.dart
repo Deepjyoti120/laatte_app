@@ -10,7 +10,7 @@ class Constants {
   static Constants get instance => _instance;
   // For api Start
   static const String apiUrl = kDebugMode
-      ? "http://localhost:5001/"
+      ? "http://localhost:5001"
       : "https://assamstateshousingboard.com/";
   static const String apiVersion = "/v1/api/";
   // For api End
@@ -49,10 +49,35 @@ class Constants {
   static String allowLocation =
       'Enabling location access helps us connect you with nearby matches, personalize your experience, and suggest local date ideas.';
   static List<String> tags = [
-    'New',
-    'Trending',
-    'Popular',
-    'Recommended',
-    'sss'
+    "LoveIsConfusing",
+    "LookingForSparks",
+    "CrushChronicles",
+    "HeartVsHead",
+    "ButterfliesMoment",
+    "FirstDateFails",
+    "SmoothOrNot",
+    "WhatDidISay",
+    "TooManyRedFlags",
+    "SwipeRightStory",
+    "ReadyToVibe",
+    "TalkToMeNice",
+    "LaughWithMe",
+    "CanWeRelate",
+    "ShareYourStory",
+    "SingleAndThinking",
+    "MyTypeOrNot",
+    "LearningToLove",
+    "HappilySingleish",
+    "FiguringItOut",
+    "ManifestingLove",
+    "SmallStepsBigFeels",
+    "GoodVibesOnly",
+    "NewChapter",
+    "OneStepCloser",
+    "SwipeLife",
+    "CringeConfessions",
+    "GhostedAgain",
+    "DMDisasters",
+    "RomanticFail"
   ];
 }

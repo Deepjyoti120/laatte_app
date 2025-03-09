@@ -32,17 +32,17 @@ class _RelateCommentState extends State<RelateComment> {
           final data = widget.prompt.comments?[index];
           return Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: DesignContainer(
-              blurRadius: 0,
-              borderAllColor: DesignColor.grey300,
-              bordered: true,
-              isColor: true,
-              color: DesignColor.grey50,
-              borderRadius: BorderRadius.circular(12),
-              child: GestureDetector(
-                onTap: () {
-                  matchNow(index);
-                },
+            child: GestureDetector(
+              onTap: () {
+                matchNow(index);
+              },
+              child: DesignContainer(
+                blurRadius: 0,
+                borderAllColor: DesignColor.grey300,
+                bordered: true,
+                isColor: true,
+                color: DesignColor.grey50,
+                borderRadius: BorderRadius.circular(12),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
