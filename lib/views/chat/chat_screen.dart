@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/services/socket_services.dart';
-import 'package:laatte/services/token_handler.dart';
+import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, required this.chatId});
+class ChatMessages extends StatefulWidget {
+  static const String route = "/ChatMessages";
+  const ChatMessages({super.key, required this.chatId});
   final String chatId;
+
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  State<ChatMessages> createState() => _ChatMessagesState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatMessagesState extends State<ChatMessages> {
   final socketService = SocketService();
   final TextEditingController messageController = TextEditingController();
   List<Map<String, dynamic>> messages = [];
@@ -17,18 +20,37 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
+    socketService.connect(); // Connect once
+    Future.delayed(const Duration(seconds: 1), () {
+      socketService.joinChat(widget.chatId); // Join chat after connection
+    });
 
     socketService.listenForMessages((message) {
-      setState(() {
-        messages.add(message);
-      });
+      if (mounted) {
+        setState(() {
+          messages.add(message);
+        });
+      }
     });
   }
 
   void sendMessage() async {
     if (messageController.text.isNotEmpty) {
+      final userReportBloc = context.read<UserReportBloc>();
+      final user = userReportBloc.state.userReport;
+
+      if (user == null || user.id == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("User not found!")),
+        );
+        return;
+      }
+
       socketService.sendMessage(
-          widget.chatId, await TokenHandler.getToken(), messageController.text);
+        widget.chatId,
+        user.id!,
+        messageController.text.trim(),
+      );
       messageController.clear();
     }
   }
@@ -36,25 +58,30 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void dispose() {
     socketService.disconnect();
+    messageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Chat")),
+      appBar: AppBar(title: const Text("Chat")),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(messages[index]['message']),
-                  subtitle: Text("Sender: ${messages[index]['senderId']}"),
-                );
-              },
-            ),
+            child: messages.isEmpty
+                ? const Center(child: Text("No messages yet"))
+                : ListView.builder(
+                    itemCount: messages.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(messages[index]['message']),
+                        subtitle:
+                            Text("Sender: ${messages[index]['senderId']}"),
+                      );
+                    },
+                  ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -63,11 +90,12 @@ class _ChatScreenState extends State<ChatScreen> {
                 Expanded(
                   child: TextField(
                     controller: messageController,
-                    decoration: InputDecoration(hintText: "Type a message..."),
+                    decoration:
+                        const InputDecoration(hintText: "Type a message..."),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                   onPressed: sendMessage,
                 ),
               ],

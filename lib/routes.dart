@@ -1,3 +1,5 @@
+import 'package:laatte/views/chat/chat.dart';
+import 'package:laatte/views/chat/chat_screen.dart';
 import 'package:laatte/views/employee/add_employee.dart';
 import 'package:laatte/views/employee/employee.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
@@ -34,4 +36,5 @@ class Routes {
   static const String relateScreen = RelateScreen.route;
   static const String addRelate = AddRelate.route;
   static const String relateComment = RelateComment.route;
+  static const String chatMessages = ChatMessages.route;
 }

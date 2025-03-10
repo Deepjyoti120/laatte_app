@@ -1,51 +1,61 @@
 import 'package:laatte/common_libs.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class SocketService {
-  static final SocketService _instance = SocketService._internal();
-  factory SocketService() => _instance;
-  late IO.Socket socket;
+  io.Socket? socket;
+  bool isConnected = false;
 
-  SocketService._internal() {
-    _connect();
-  }
+  void connect() {
+    if (isConnected) return; // Don't connect twice
 
-  void _connect() {
-    socket = IO.io(Constants.apiUrl, <String, dynamic>{
+    socket = io.io(Constants.apiUrl, <String, dynamic>{
       'transports': ['websocket'],
-      'autoConnect': false,
+      'autoConnect': true,
+      'reconnection': true,
+      'reconnectionAttempts': 5,
+      'reconnectionDelay': 2000,
     });
 
-    socket.connect();
-
-    socket.onConnect((_) {
-      print('Connected to WebSocket server');
+    socket?.on('connect', (_) {
+      isConnected = true;
+      print("✅ Socket connected!");
     });
 
-    socket.onDisconnect((_) {
-      print('Disconnected from server');
+    socket?.on('disconnect', (_) {
+      isConnected = false;
+      print("❌ Socket disconnected!");
     });
   }
 
   void joinChat(String chatId) {
-    socket.emit('joinChat', chatId);
+    if (isConnected) {
+      print('✅ Joined chat: $chatId');
+      socket?.emit('join', {'chatId': chatId});
+    }
   }
 
   void sendMessage(String chatId, String senderId, String message) {
-    socket.emit('sendMessage', {
-      'chatId': chatId,
-      'senderId': senderId,
-      'message': message,
-    });
+    if (isConnected) {
+      print('📤 Emitting message: $message');
+      socket?.emit('sendMessage', {
+        'chatId': chatId,
+        'senderId': senderId,
+        'message': message,
+      });
+    } else {
+      print("⚠️ Can't send message. Not connected!");
+    }
   }
 
-  void listenForMessages(Function(Map<String, dynamic>) onMessageReceived) {
-    socket.on('newMessage', (data) {
-      onMessageReceived(data);
+  void listenForMessages(Function(Map<String, dynamic>) callback) {
+    socket?.on('newMessage', (data) {
+      print('📩 Received message: $data');
+      callback(Map<String, dynamic>.from(data));
     });
   }
 
   void disconnect() {
-    socket.disconnect();
+    socket?.disconnect();
+    isConnected = false;
   }
 }

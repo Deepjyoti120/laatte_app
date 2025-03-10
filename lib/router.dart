@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
+import 'package:laatte/views/chat/chat_screen.dart';
 import 'package:laatte/views/employee/add_employee.dart';
 import 'package:laatte/views/employee/employee.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
@@ -146,6 +147,12 @@ final GoRouter goRouter = GoRouter(
       path: Routes.addRelate,
       builder: (context, GoRouterState state) {
         return const AddRelate();
+      },
+    ),
+    GoRoute(
+      path: Routes.chatMessages,
+      builder: (context, GoRouterState state) {
+        return ChatMessages(chatId: state.extra.toString());
       },
     ),
   ],

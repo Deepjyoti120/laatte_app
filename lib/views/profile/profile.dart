@@ -72,6 +72,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    context.read<UserReportBloc>().add(UserReportFetched());
+  }
+
+  @override
   Widget build(BuildContext context) {
     final user = context.watch<UserReportBloc>().state.userReport;
     // if (user == null) {
