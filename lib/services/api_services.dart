@@ -666,4 +666,25 @@ class ApiService {
     }
     return [];
   }
+
+  Future<List<Map<String, dynamic>>> chat(String id) async {
+    try {
+      String apiUrl = 'user/chat/$id';
+      Response res = await dio.get(apiUrl);
+      if (res.statusCode == 200) {
+        final listData = res.data['data'] as List;
+        final data = listData
+            .map((e) => {
+                  "chatId": null,
+                  "senderId": e['sender']['id'],
+                  "message": e['content']
+                })
+            .toList();
+        return data;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return [];
+  }
 }

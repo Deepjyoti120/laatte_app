@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:laatte/services/api_services.dart';
 import 'package:laatte/services/socket_services.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 
@@ -20,16 +21,23 @@ class _ChatMessagesState extends State<ChatMessages> {
   @override
   void initState() {
     super.initState();
-    socketService.connect(); // Connect once
-    Future.delayed(const Duration(seconds: 1), () {
-      socketService.joinChat(widget.chatId); // Join chat after connection
-    });
+    runInit();
+  }
 
+  runInit() async {
+    messages = await ApiService().chat(widget.chatId);
+    setState(() {});
+    socketService.connect();
+    Future.delayed(const Duration(seconds: 1), () {
+      socketService.joinChat(widget.chatId);
+    });
     socketService.listenForMessages((message) {
       if (mounted) {
-        setState(() {
-          messages.add(message);
-        });
+        if (message['chatId'] == widget.chatId) {
+          setState(() {
+            messages.add(message);
+          });
+        }
       }
     });
   }
