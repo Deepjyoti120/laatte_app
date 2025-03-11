@@ -7,6 +7,7 @@ import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/data/welcome_splash.dart';
 import 'package:laatte/viewmodel/model/chat.dart';
+import 'package:swiping_card_deck/swiping_card_deck.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String route = "/ChatScreen";
@@ -42,8 +43,14 @@ class _ChatScreenState extends State<ChatScreen> {
           itemBuilder: (context, index) {
             final chat = chats[index];
             return GestureDetector(
-              onTap: () {
-                context.push(Routes.chatMessages, extra: chat.id);
+              onTap: () async {
+                context
+                    .push(Routes.chatMessages, extra: chat.id)
+                    .then((e) async {
+                  chats = await ApiService().chats();
+                  isLoading = false;
+                  setState(() {});
+                });
               },
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 6),
@@ -84,13 +91,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                 fontWeight: 500,
                                 color: Colors.white,
                               ),
-                              // DesignText(
-                              //   chat.lastMsg ?? '',
-                              //   fontSize: 14,
-                              //   fontWeight: 400,
-                              //   color: Colors.white,
-                              //   maxLines: 2,
-                              // ),
+                              if (chat.lastMessage != null)
+                                DesignText(
+                                  chat.lastMessage?.content ?? '',
+                                  fontSize: 14,
+                                  fontWeight: 400,
+                                  color: Colors.white,
+                                  maxLines: 2,
+                                ),
                             ],
                           ),
                         ),

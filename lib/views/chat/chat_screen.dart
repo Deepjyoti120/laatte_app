@@ -110,8 +110,11 @@ class _ChatMessagesState extends State<ChatMessages> {
                 child: TextField(
                   controller: messageController,
                   focusNode: textFieldFocus,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     // fillColor: DesignColor.backgroundColorDarkMode,
+                    focusColor: Colors.white,
+                    fillColor: Colors.white,
                     hintText: 'Type...',
                     hintStyle: const TextStyle(color: Colors.white),
                     border: InputBorder.none,
@@ -193,43 +196,6 @@ class _ChatMessagesState extends State<ChatMessages> {
           );
         },
       ),
-      // body: Column(
-      //   children: [
-      //     Expanded(
-      //       child: messages.isEmpty
-      //           ? const Center(child: Text("No messages yet"))
-      //           : ListView.builder(
-      //               itemCount: messages.length,
-      //               shrinkWrap: true,
-      //               itemBuilder: (context, index) {
-      //                 return ListTile(
-      //                   title: Text(messages[index]['message']),
-      //                   subtitle:
-      //                       Text("Sender: ${messages[index]['senderId']}"),
-      //                 );
-      //               },
-      //             ),
-      //     ),
-      //     Padding(
-      //       padding: const EdgeInsets.all(8.0),
-      //       child: Row(
-      //         children: [
-      //           Expanded(
-      //             child: TextField(
-      //               controller: messageController,
-      //               decoration:
-      //                   const InputDecoration(hintText: "Type a message..."),
-      //             ),
-      //           ),
-      //           IconButton(
-      //             icon: const Icon(Icons.send),
-      //             onPressed: sendMessage,
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

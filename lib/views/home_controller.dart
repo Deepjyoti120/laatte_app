@@ -279,7 +279,7 @@ class _HomeControllerState extends State<HomeController> {
           inactiveColor: DesignColor.inActive,
         ),
         BottomBarItem(
-          icon: const Icon(FontAwesomeIcons.moneyBill),
+          icon: const Icon(FontAwesomeIcons.heart),
           title: Text('Realte',
               style: TextStyle(
                 fontSize: 12,
@@ -303,7 +303,7 @@ class _HomeControllerState extends State<HomeController> {
           inactiveColor: DesignColor.inActive,
         ),
         BottomBarItem(
-          icon: const Icon(FontAwesomeIcons.user),
+          icon: const Icon(FontAwesomeIcons.comment),
           title: Text('Chat',
               style: TextStyle(
                 fontSize: 12,

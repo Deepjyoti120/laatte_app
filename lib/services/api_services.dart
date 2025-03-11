@@ -687,4 +687,25 @@ class ApiService {
     }
     return [];
   }
+
+  Future<bool> chatStart({
+    required String receiverId,
+  }) async {
+    String apiUrl = 'user/chat/start';
+    try {
+      var dataBody = {
+        "receiverId": receiverId,
+      };
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 201) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
+  }
 }
