@@ -48,7 +48,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     .push(Routes.chatMessages, extra: chat.id)
                     .then((e) async {
                   chats = await ApiService().chats();
-                  isLoading = false;
                   setState(() {});
                 });
               },
