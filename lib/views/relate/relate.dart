@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:laatte/common_libs.dart';
@@ -7,7 +6,6 @@ import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
-import 'package:laatte/viewmodel/data/welcome_splash.dart';
 import 'package:laatte/views/relate/relate_card.dart';
 import '../../ui/widgets/progress_circle.dart';
 

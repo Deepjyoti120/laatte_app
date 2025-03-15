@@ -16,6 +16,18 @@ class Utils {
         msg: msg, backgroundColor: Colors.black.withOpacity(0.75));
   }
 
+  static showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+      duration: const Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ));
+  }
+
   static Future<void> launchUrl2(
       {required String url, LaunchMode? launchMode}) async {
     if (!await launchUrl(Uri.parse(url),
@@ -95,7 +107,8 @@ class Utils {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: allowMultiple,
       type: type,
-      allowedExtensions: type == FileType.custom ?  ['pdf', 'doc','docx'] : null,
+      allowedExtensions:
+          type == FileType.custom ? ['pdf', 'doc', 'docx'] : null,
     );
     if (result != null) {
       List<File> files = result.paths.map((path) => File(path!)).toList();
@@ -148,10 +161,13 @@ class Utils {
     } else {
       return [firstDateOfToday, lastDateOfToday];
     }
-  } 
+  }
 
   static Future<DateTime?> filterDatePicker(
-      BuildContext context, Function(DateTime) onDateSelected, String helpText,) async {
+    BuildContext context,
+    Function(DateTime) onDateSelected,
+    String helpText,
+  ) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -606,7 +622,8 @@ class Utils {
   static List<int> getLastYears([int number = 6]) {
     int currentYear = DateTime.now().year;
     return List.generate(number, (index) => currentYear - index);
-  } 
+  }
+
   static Future<void> sleep(int seconds) {
     return Future.delayed(Duration(seconds: seconds));
   }

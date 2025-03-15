@@ -12,19 +12,22 @@ class Prompt {
   String? createdAt;
   String? updatedAt;
   List<Comments>? comments;
+  UserReport? user;
 
-  Prompt(
-      {this.id,
-      this.isActive,
-      this.prompt,
-      this.tags,
-      this.bgPicture,
-      this.commentCount,
-      this.latitude,
-      this.longitude,
-      this.createdAt,
-      this.updatedAt,
-      this.comments});
+  Prompt({
+    this.id,
+    this.isActive,
+    this.prompt,
+    this.tags,
+    this.bgPicture,
+    this.commentCount,
+    this.latitude,
+    this.longitude,
+    this.createdAt,
+    this.updatedAt,
+    this.comments,
+    this.user,
+  });
 
   Prompt.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -43,6 +46,7 @@ class Prompt {
         comments!.add(new Comments.fromJson(v));
       });
     }
+    user = json['user'] != null ? UserReport.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -59,6 +63,9 @@ class Prompt {
     data['updated_at'] = updatedAt;
     if (comments != null) {
       data['comments'] = comments!.map((v) => v.toJson()).toList();
+    }
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }

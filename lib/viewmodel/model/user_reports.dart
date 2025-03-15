@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
-
+import 'package:laatte/viewmodel/model/photo_model.dart';
 part 'user_reports.g.dart';
 
 @HiveType(typeId: 2)
@@ -63,6 +63,7 @@ class UserReport {
   Designation? designation;
   @HiveField(28)
   bool? isProfileDone;
+  List<Photo>? photos;
 
   UserReport({
     this.id,
@@ -94,6 +95,7 @@ class UserReport {
     this.updatedAt,
     this.designation,
     this.isProfileDone,
+    this.photos,
   });
 
   UserReport.fromJson(Map<String, dynamic> json) {
@@ -128,6 +130,12 @@ class UserReport {
         ? Designation.fromJson(json['designation'])
         : null;
     isProfileDone = json['is_profile_done'];
+    if (json['photos'] != null) {
+      photos = <Photo>[];
+      json['photos'].forEach((v) {
+        photos!.add(Photo.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -163,6 +171,9 @@ class UserReport {
       data['designation'] = designation!.toJson();
     }
     data['is_profile_done'] = isProfileDone;
+    if (photos != null) {
+      data['photos'] = photos!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

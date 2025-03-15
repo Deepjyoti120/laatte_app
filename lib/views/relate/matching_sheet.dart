@@ -4,6 +4,7 @@ import 'package:laatte/ui/custom/custom_text_form.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/utils/utlis.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import '../../ui/theme/buttons.dart';
 
@@ -21,6 +22,7 @@ class _MatchingSheetState extends State<MatchingSheet> {
   bool isLoading = false;
   TextEditingController relate = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool isConfirm = false;
 
   @override
   Widget build(BuildContext context) {
@@ -79,42 +81,102 @@ class _MatchingSheetState extends State<MatchingSheet> {
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 16, horizontal: 12),
                         ),
-                        const SizedBox(height: 10),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child: Hero(
-                            tag: Constants.keyLoginButton,
-                            child: DesignButtons(
-                              color: DesignColor.primary,
-                              elevation: 0,
-                              fontSize: 16,
-                              fontWeight: 500,
-                              colorText: Colors.white,
-                              isTappedNotifier: ValueNotifier<bool>(isLoading),
-                              onPressed: () async {
-                                if (formKey.currentState?.validate() ?? false) {
-                                  final goRouter = GoRouter.of(context);
-                                  // ApiService()
-                                  //     .addComment(
-                                  //   comment: relate.text,
-                                  //   prompt: widget.comment,
-                                  // )
-                                  //     .then((v) {
-                                  //   goRouter.pop(v);
-                                  // });
-                                }
-                              },
-                              textLabel: "",
-                              child: const DesignText(
-                                "Match",
-                                fontSize: 16,
-                                fontWeight: 500,
-                                color: Colors.white,
+                        if (isConfirm) const SizedBox(height: 10),
+                        if (isConfirm)
+                          SizedBox(
+                            height: 100,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: (widget.comment.user?.photos ?? [])
+                                    .map((e) => Padding(
+                                          padding: const EdgeInsets.all(4),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: Image.network(
+                                              e.url!,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ))
+                                    .toList(),
                               ),
                             ),
                           ),
-                        ),
+                        if (isConfirm) const SizedBox(height: 10),
+                        if (isConfirm)
+                          SizedBox(
+                            width: double.infinity,
+                            height: 48,
+                            child: Hero(
+                              tag: Constants.keyLoginButton,
+                              child: DesignButtons(
+                                color: DesignColor.primary,
+                                elevation: 0,
+                                fontSize: 16,
+                                fontWeight: 500,
+                                colorText: Colors.white,
+                                isTappedNotifier:
+                                    ValueNotifier<bool>(isLoading),
+                                onPressed: () async {
+                                  if (formKey.currentState?.validate() ??
+                                      false) {
+                                    final goRouter = GoRouter.of(context);
+                                    ApiService()
+                                        .chatStart(
+                                      receiverId: widget.comment.user?.id ?? '',
+                                    )
+                                        .then((v) {
+                                      if (!context.mounted) return;
+                                      if (v) {
+                                        goRouter.pop(v);
+                                        Utils.showSnackBar(context, "Matched");
+                                      } else {
+                                        Utils.showSnackBar(
+                                            context, "Failed to match");
+                                      }
+                                    });
+                                  }
+                                },
+                                textLabel: "",
+                                child: const DesignText(
+                                  "Confirm",
+                                  fontSize: 16,
+                                  fontWeight: 500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        else
+                          SizedBox(
+                            width: double.infinity,
+                            height: 48,
+                            child: Hero(
+                              tag: Constants.keyLoginButton,
+                              child: DesignButtons(
+                                color: DesignColor.primary,
+                                elevation: 0,
+                                fontSize: 16,
+                                fontWeight: 500,
+                                colorText: Colors.white,
+                                isTappedNotifier:
+                                    ValueNotifier<bool>(isLoading),
+                                onPressed: () async {
+                                  isConfirm = true;
+                                  setState(() {});
+                                },
+                                textLabel: "",
+                                child: const DesignText(
+                                  "Match",
+                                  fontSize: 16,
+                                  fontWeight: 500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),

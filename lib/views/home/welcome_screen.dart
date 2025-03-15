@@ -87,7 +87,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       );
                     },
                     allowedSwipeDirection: const AllowedSwipeDirection.only(
-                      left: true,
+                      up: true,
                       right: true,
                     ),
                     onSwipe: (previousIndex, currentIndex, direction) async {

@@ -6,7 +6,6 @@ import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
-import 'package:laatte/views/home/comment_sheet.dart';
 import 'package:laatte/views/relate/matching_sheet.dart';
 
 class RelateComment extends StatefulWidget {

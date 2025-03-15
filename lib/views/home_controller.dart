@@ -338,10 +338,10 @@ class _HomeControllerState extends State<HomeController> {
       ChatScreen(),
       ProfileScreen(),
     ];
-    // return pages[appState.currentPage];
-    return IndexedStack(
-      index: appState.currentPage,
-      children: pages,
-    );
+    return pages[appState.currentPage];
+    // return IndexedStack(
+    //   index: appState.currentPage,
+    //   children: pages,
+    // );
   }
 }
