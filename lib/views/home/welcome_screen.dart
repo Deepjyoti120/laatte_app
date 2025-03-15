@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/utils/assets_names.dart';
+import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
 import 'package:laatte/views/relate/relate_card.dart';
 import '../../ui/theme/text.dart';
@@ -21,6 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   bool isEnd = false;
   List<Prompt> listPrompt = [];
   bool isEmpty = false;
+  int selectedIndex = 0;
 
   @override
   void initState() {
@@ -40,75 +44,109 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     // final user = context.watch<UserReportBloc>().state;
     // final appState = context.watch<AppStateCubit>();
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-      child: Column(
-        children: [
-          const Spacer(),
-          if (isEmpty)
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Row(),
-                SvgPicture.asset(
-                  AssetsName.svgEmpty,
-                  width: 100,
-                  height: 100,
+    return Stack(
+      children: [
+        if (listPrompt.isNotEmpty &&
+            listPrompt[selectedIndex].bgPicture != null &&
+            !isEmpty)
+          Stack(
+            children: [
+              Positioned.fill(
+                child: Image.network(
+                  listPrompt[selectedIndex].bgPicture!,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
-                const DesignText("Please come back later"),
-              ],
-            ),
-          if (listPrompt.isNotEmpty)
-            Flexible(
-              flex: 2,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              Positioned.fill(
+                child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                    child: Container(
+                      color: DesignColor.primary.withOpacity(0.1),
+                    )),
+              ),
+            ],
+          ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+          child: Column(
+            children: [
+              const Spacer(),
+              if (isEmpty)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Row(),
+                    SvgPicture.asset(
+                      AssetsName.svgEmpty,
+                      width: 100,
+                      height: 100,
+                    ),
+                    const DesignText(
+                      "Please come back later",
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              if (listPrompt.isNotEmpty)
+                Flexible(
+                  flex: 2,
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      SvgPicture.asset(
-                        AssetsName.svgEmpty,
-                        width: 100,
-                        height: 100,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            AssetsName.svgEmpty,
+                            width: 100,
+                            height: 100,
+                          ),
+                          const DesignText(
+                            "Please come back later",
+                            color: Colors.white,
+                          ),
+                        ],
                       ),
-                      const DesignText("Please come back later"),
+                      CardSwiper(
+                        controller: _swiperController,
+                        cardsCount: listPrompt.length,
+                        numberOfCardsDisplayed:
+                            listPrompt.length < 3 ? listPrompt.length : 3,
+                        cardBuilder: (context, index, percentThresholdX,
+                            percentThresholdY) {
+                          return RelateCard(
+                            prompt: listPrompt[index],
+                          );
+                        },
+                        allowedSwipeDirection: const AllowedSwipeDirection.only(
+                          up: true,
+                          right: true,
+                        ),
+                        onSwipe:
+                            (previousIndex, currentIndex, direction) async {
+                          selectedIndex = currentIndex ?? 0;
+                          setState(() {});
+                          if (direction == CardSwiperDirection.right) {
+                            return await acceptSwipe(previousIndex);
+                          }
+                          return true;
+                        },
+                        isLoop: false,
+                        onEnd: () {
+                          setState(() {
+                            isEnd = true;
+                          });
+                        },
+                      ),
                     ],
                   ),
-                  CardSwiper(
-                    controller: _swiperController,
-                    cardsCount: listPrompt.length,
-                    numberOfCardsDisplayed:
-                        listPrompt.length < 3 ? listPrompt.length : 3,
-                    cardBuilder:
-                        (context, index, percentThresholdX, percentThresholdY) {
-                      return RelateCard(
-                        prompt: listPrompt[index],
-                      );
-                    },
-                    allowedSwipeDirection: const AllowedSwipeDirection.only(
-                      up: true,
-                      right: true,
-                    ),
-                    onSwipe: (previousIndex, currentIndex, direction) async {
-                      if (direction == CardSwiperDirection.right) {
-                        return await acceptSwipe(previousIndex);
-                      }
-                      return true;
-                    },
-                    isLoop: false,
-                    onEnd: () {
-                      setState(() {
-                        isEnd = true;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-          const Spacer(),
-        ],
-      ),
+                ),
+              const Spacer(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
