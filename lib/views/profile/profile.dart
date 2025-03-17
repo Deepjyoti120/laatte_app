@@ -110,48 +110,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               8.height,
-              DesignContainer(
-                blurRadius: 12,
-                borderAllColor: DesignColor.grey300,
-                bordered: true,
-                isColor: true,
-                color: DesignColor.grey50,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const DesignText(
-                        "Profile Details",
-                        fontSize: 18,
-                      ),
-                      const Divider(color: DesignColor.grey),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const TitleDetailsCard(
-                            title: "Name",
-                            text: "user.name",
-                          ),
-                          TitleDetailsCard(
-                            title: "Role",
-                            text: "".toUpperCase(),
-                          ),
-                        ],
-                      ),
-                      const TitleDetailsCard(
-                        title: "Email",
-                        text: "user.email",
-                      ),
-                      const TitleDetailsCard(
-                        title: "Phone",
-                        text: " user.phone",
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              DesignText.title(user?.name ?? ''),
+              DesignText.body("+91 ${user!.phone ?? ''}"),
               12.height,
               SizedBox(
                 width: double.infinity,

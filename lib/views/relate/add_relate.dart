@@ -25,6 +25,7 @@ class AddRelate extends StatefulWidget {
 
 class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   final _relate = TextEditingController();
+  final _tag = TextEditingController();
   bool isloading = false;
   File? pickImage;
   bool haspermission = false;
@@ -236,6 +237,20 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                     }).toList(),
                   ),
                   10.height,
+                  Row(
+                    children: [
+                      const DesignText("#LastNightAt"),
+                      6.width,
+                      Flexible(
+                        child: DesignFormField(
+                          controller: _tag,
+                          labelText: "tag",
+                          isOptional: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                  10.height,
                   SizedBox(
                     width: double.infinity,
                     height: 48,
@@ -259,6 +274,9 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                           }
                           if (tags.isEmpty) {
                             return Utils.flutterToast("Tags are required");
+                          }
+                          if (_tag.text.isNotEmpty) {
+                            tags.add("LastNightAt${_tag.text}");
                           }
                           setState(() => isloading = true);
                           ApiService()
