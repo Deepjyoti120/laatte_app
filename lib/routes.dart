@@ -1,4 +1,3 @@
-import 'package:laatte/views/chat/chat.dart';
 import 'package:laatte/views/chat/chat_screen.dart';
 import 'package:laatte/views/employee/add_employee.dart';
 import 'package:laatte/views/employee/employee.dart';
@@ -15,8 +14,6 @@ import 'views/login/otp_screen.dart';
 import 'views/profile/profile.dart';
 import 'views/profile/update_intro/intro_update.dart';
 import 'views/relate/relate.dart';
-import 'views/rents/history.dart';
-import 'views/rents/success_failed_screen.dart';
 
 class Routes {
   static const String main = SplashScreen.route;
@@ -27,9 +24,9 @@ class Routes {
   static const String forgotPassword = ForgotPassword.route;
   static const String otpScreen = OtpScreen.route;
   static const String welcomeScreen = WelcomeScreen.route;
-  static const String rentHistory = RentHistory.route;
+  // static const String rentHistory = RentHistory.route;
   static const String profileScreen = ProfileScreen.route;
-  static const String successFailedScreen = SuccessFailedScreen.route;
+  // static const String successFailedScreen = SuccessFailedScreen.route;
   static const String employee = Employee.route;
   static const String addEmployee = AddEmployee.route;
   static const String profileUpdateIntro = ProfileUpdateIntro.route;

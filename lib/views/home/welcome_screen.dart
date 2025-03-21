@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
@@ -58,13 +57,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
-              Positioned.fill(
-                child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-                    child: Container(
-                      color: DesignColor.primary.withOpacity(0.1),
-                    )),
-              ),
+              // Positioned.fill(
+              //   child: BackdropFilter(
+              //       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+              //       child: Container(
+              //         color: DesignColor.primary.withOpacity(0.1),
+              //       )),
+              // ),
             ],
           ),
         Padding(

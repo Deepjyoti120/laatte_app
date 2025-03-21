@@ -12,8 +12,6 @@ import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
 import 'package:laatte/views/login/otp_screen.dart';
 import 'package:laatte/views/relate/relate_comments.dart';
-import 'package:laatte/views/rents/history.dart';
-import 'package:laatte/views/rents/success_failed_screen.dart';
 import 'package:laatte/views/splash_screen.dart';
 import 'main.dart';
 import 'views/login/forgot_password.dart';
@@ -87,12 +85,6 @@ final GoRouter goRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: Routes.rentHistory,
-      builder: (context, GoRouterState state) {
-        return const RentHistory();
-      },
-    ),
-    GoRoute(
       path: Routes.profileScreen,
       builder: (context, GoRouterState state) {
         return const ProfileScreen();
@@ -106,19 +98,19 @@ final GoRouter goRouter = GoRouter(
         );
       },
     ),
-    GoRoute(
-      path: Routes.successFailedScreen,
-      builder: (context, GoRouterState state) {
-        Map<String, String> queryParameters = state.uri.queryParameters;
-        return SuccessFailedScreen(
-          data: queryParameters['data'] == null
-              ? null
-              : jsonDecode(queryParameters['data']!),
-          isSuccess: queryParameters['isSuccess'] == 'true',
-          message: queryParameters['message'] ?? '',
-        );
-      },
-    ),
+    // GoRoute(
+    //   path: Routes.successFailedScreen,
+    //   builder: (context, GoRouterState state) {
+    //     Map<String, String> queryParameters = state.uri.queryParameters;
+    //     return SuccessFailedScreen(
+    //       data: queryParameters['data'] == null
+    //           ? null
+    //           : jsonDecode(queryParameters['data']!),
+    //       isSuccess: queryParameters['isSuccess'] == 'true',
+    //       message: queryParameters['message'] ?? '',
+    //     );
+    //   },
+    // ),
     GoRoute(
       path: Routes.employee,
       builder: (context, GoRouterState state) {
