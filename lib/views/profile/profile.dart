@@ -97,16 +97,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     user!.profilePicture!,
                     height: 80,
                     width: 80,
-                    errorBuilder: (context, error, stackTrace) {
-                      return ClipRRect(
-                        child: SvgPicture.network(
-                          user.profilePicture!,
-                          height: 80,
-                          width: 80,
-                          clipBehavior: Clip.antiAlias,
-                        ),
-                      );
-                    },
                   ),
                 ),
               8.height,

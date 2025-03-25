@@ -1,13 +1,9 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:laatte/main.dart';
-import 'package:laatte/routes.dart';
 import 'package:laatte/services/firebase_service.dart';
 import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/utils/constants.dart';

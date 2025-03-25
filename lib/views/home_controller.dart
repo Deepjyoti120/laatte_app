@@ -41,8 +41,8 @@ class _HomeControllerState extends State<HomeController> {
   }
 
   runInit() async {
-    final appState = context.read<AppStateCubit>();
-    appState.basicInfo = await ApiService().getBasicInfo(appState);
+    // final appState = context.read<AppStateCubit>();
+    // appState.basicInfo = await ApiService().getBasicInfo(appState);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       // context.read<UserReportBloc>().add(UserReportFetched());
     });
