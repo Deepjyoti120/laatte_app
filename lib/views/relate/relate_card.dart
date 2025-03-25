@@ -8,42 +8,44 @@ class RelateCard extends StatelessWidget {
   final Prompt prompt;
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: DesignColor.white,
+    return IntrinsicHeight(
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: DesignColor.white,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              DesignText.title(
-                (prompt.prompt ?? ""),
-              ),
-              const Spacer(),
-              Wrap(
-                children: (prompt.tags ?? [])
-                    .map(
-                      (tag) => Padding(
-                        padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
-                        child: Chip(
-                          padding: const EdgeInsets.all(4.0),
-                          label: DesignText.body(tag),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                DesignText.title(
+                  (prompt.prompt ?? ""),
+                ),
+                const Spacer(),
+                Wrap(
+                  children: (prompt.tags ?? [])
+                      .map(
+                        (tag) => Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                          child: Chip(
+                            padding: const EdgeInsets.all(4.0),
+                            label: DesignText.body(tag),
+                          ),
                         ),
-                      ),
-                    )
-                    .toList(),
-              )
-            ],
+                      )
+                      .toList(),
+                )
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

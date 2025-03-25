@@ -95,6 +95,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
                             AssetsName.svgEmpty,
