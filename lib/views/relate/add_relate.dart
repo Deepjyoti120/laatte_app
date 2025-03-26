@@ -100,9 +100,19 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                     labelText: "Prompt",
                     maxLines: 10,
                     minLines: 6,
+                    maxLength: 180,
                     autofocus: true,
                     contentPadding: const EdgeInsets.symmetric(
                         vertical: 16, horizontal: 12),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Prompt is required";
+                      }
+                      if (value.length > 180) {
+                        return "Prompt must not exceed 180 characters";
+                      }
+                      return null;
+                    },
                   ),
                   10.height,
                   Stack(

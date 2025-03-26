@@ -23,6 +23,7 @@ class DesignFormField extends StatelessWidget {
     this.inputFormatters,
     this.suffixIcon,
     this.fillColor,
+    this.maxLength,
   });
   final TextEditingController controller;
   final String labelText;
@@ -36,6 +37,7 @@ class DesignFormField extends StatelessWidget {
   final bool autofocus;
   final bool isOptional;
   final bool obscureText;
+  final int? maxLength;
   final FormFieldValidator<String>? validator;
   final GestureTapCallback? onTap;
   final Function(String)? onChanged;
@@ -71,6 +73,7 @@ class DesignFormField extends StatelessWidget {
               currentFocus.focusedChild!.unfocus();
             }
           },
+          maxLength: maxLength,
           decoration: InputDecoration(
             labelText: labelText,
             prefixIcon: prefixIcon,
