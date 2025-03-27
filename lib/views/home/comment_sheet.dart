@@ -1,7 +1,11 @@
+import 'dart:ui';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/custom/custom_text_form.dart';
 import 'package:laatte/ui/theme/text.dart';
+import 'package:laatte/ui/widgets/interactiveview.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
@@ -80,7 +84,7 @@ class _CommentSheetState extends State<CommentSheet> {
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 16, horizontal: 12),
                         ),
-                         if (isConfirm) const SizedBox(height: 10),
+                        if (isConfirm) const SizedBox(height: 10),
                         if (isConfirm)
                           SizedBox(
                             height: 100,
@@ -88,58 +92,92 @@ class _CommentSheetState extends State<CommentSheet> {
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: (widget.prompt.user?.photos ?? [])
-                                    .map((e) => Padding(
-                                          padding: const EdgeInsets.all(4),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            child: Image.network(
-                                              e.url!,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ))
-                                    .toList(),
+                                    .asMap()
+                                    .entries
+                                    .map((entry) {
+                                  int index = entry.key;
+                                  var e = entry.value;
+                                  return Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: GestureDetector(
+                                      onTap: index == 0
+                                          ? () {
+                                              if (e.url != null) {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        InteractiveView(
+                                                            preview:
+                                                                e.url ?? ''),
+                                                  ),
+                                                );
+                                              }
+                                            }
+                                          : null, // Disable tap for other images
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: index == 0
+                                            ? CachedNetworkImage(
+                                                imageUrl: e.url!,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : ImageFiltered(
+                                                imageFilter: ImageFilter.blur(
+                                                    sigmaX: 5,
+                                                    sigmaY: 5), // Blur effect
+                                                child: CachedNetworkImage(
+                                                  imageUrl: e.url!,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
                               ),
                             ),
                           ),
                         if (isConfirm) const SizedBox(height: 10),
                         if (isConfirm)
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child: Hero(
-                            tag: Constants.keyLoginButton,
-                            child: DesignButtons(
-                              color: DesignColor.primary,
-                              elevation: 0,
-                              fontSize: 16,
-                              fontWeight: 500,
-                              colorText: Colors.white,
-                              isTappedNotifier: ValueNotifier<bool>(isLoading),
-                              onPressed: () async {
-                                if (formKey.currentState?.validate() ?? false) {
-                                  final goRouter = GoRouter.of(context);
-                                  ApiService()
-                                      .addComment(
-                                    comment: relate.text,
-                                    prompt: widget.prompt,
-                                  )
-                                      .then((v) {
-                                    goRouter.pop(v);
-                                  });
-                                }
-                              },
-                              textLabel: "",
-                              child: const DesignText(
-                                "Confirm",
+                          SizedBox(
+                            width: double.infinity,
+                            height: 48,
+                            child: Hero(
+                              tag: Constants.keyLoginButton,
+                              child: DesignButtons(
+                                color: DesignColor.primary,
+                                elevation: 0,
                                 fontSize: 16,
                                 fontWeight: 500,
-                                color: Colors.white,
+                                colorText: Colors.white,
+                                isTappedNotifier:
+                                    ValueNotifier<bool>(isLoading),
+                                onPressed: () async {
+                                  if (formKey.currentState?.validate() ??
+                                      false) {
+                                    final goRouter = GoRouter.of(context);
+                                    ApiService()
+                                        .addComment(
+                                      comment: relate.text,
+                                      prompt: widget.prompt,
+                                    )
+                                        .then((v) {
+                                      goRouter.pop(v);
+                                    });
+                                  }
+                                },
+                                textLabel: "",
+                                child: const DesignText(
+                                  "Confirm",
+                                  fontSize: 16,
+                                  fontWeight: 500,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                          ),
-                        )else
+                          )
+                        else
                           SizedBox(
                             width: double.infinity,
                             height: 48,

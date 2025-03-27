@@ -101,7 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               8.height,
               DesignText.title(user?.name ?? ''),
-              DesignText.body("+91 ${user!.phone ?? ''}"),
+              DesignText.body("+91 ${user?.phone ?? ''}"),
               12.height,
               SizedBox(
                 width: double.infinity,
