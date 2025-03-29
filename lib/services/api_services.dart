@@ -613,7 +613,7 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 201) {
-        Utils.flutterToast("Successfully Relate");
+        Utils.flutterToast("Great, you’ve connected with this thought! Now let the conversation take off!");
         return true;
       }
     } on DioException catch (e) {

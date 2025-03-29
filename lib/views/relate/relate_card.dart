@@ -24,8 +24,10 @@ class RelateCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Spacer(),
-                DesignText.title(
-                  (prompt.prompt ?? ""),
+                Flexible(
+                  child: DesignText.title(
+                    (prompt.prompt ?? ""),
+                  ),
                 ),
                 const Spacer(),
                 Wrap(
