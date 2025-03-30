@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
-import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/viewmodel/data/welcome_splash.dart';
-import 'package:laatte/viewmodel/model/chat.dart';
-import 'package:swiping_card_deck/swiping_card_deck.dart';
+import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String route = "/ChatScreen";
@@ -18,7 +15,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  List<Chat> chats = [];
+  // List<Chat> chats = [];
   bool isLoading = true;
 
   @override
@@ -28,13 +25,14 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void runInit() async {
-    chats = await ApiService().chats();
-    isLoading = false;
-    setState(() {});
+    // chats = await ApiService().chats();
+    // isLoading = false;
+    // setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final chats = context.watch<SocketBloc>().state.chats;
     return Scaffold(
       body: SafeArea(
         child: ListView.builder(
@@ -47,8 +45,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 context
                     .push(Routes.chatMessages, extra: chat.id)
                     .then((e) async {
-                  chats = await ApiService().chats();
-                  setState(() {});
+                  // chats = await ApiService().chats();
+                  // setState(() {});
                 });
               },
               child: Padding(

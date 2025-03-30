@@ -5,9 +5,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/services/socket_services.dart';
 import 'package:laatte/utils/constants.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
+import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/views/chat/chat.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
@@ -33,18 +36,28 @@ class HomeController extends StatefulWidget {
 }
 
 class _HomeControllerState extends State<HomeController> {
+  // final socketService = SocketService();
   @override
   void initState() {
     super.initState();
-    GlobalContext.init(context);
+    // GlobalContext.init(context);
     runInit();
   }
 
   runInit() async {
+    // socketService.connect();
+    // socketService.listenForMessages((message) {
+    //   if (mounted) {
+    //     print(message);
+    //   }
+    // });
+
     // final appState = context.read<AppStateCubit>();
     // appState.basicInfo = await ApiService().getBasicInfo(appState);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       // context.read<UserReportBloc>().add(UserReportFetched());
+      context.read<UserReportBloc>().add(UserReportFetched());
+      context.read<SocketBloc>().add(const SocketFetched());
     });
   }
 

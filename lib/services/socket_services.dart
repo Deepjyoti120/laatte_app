@@ -18,39 +18,47 @@ class SocketService {
 
     socket?.on('connect', (_) {
       isConnected = true;
-      print("✅ Socket connected!");
+      debugPrint("✅ Socket connected!");
     });
 
     socket?.on('disconnect', (_) {
       isConnected = false;
-      print("❌ Socket disconnected!");
+      debugPrint("❌ Socket disconnected!");
     });
   }
 
   void joinChat(String chatId) {
     if (isConnected) {
-      print('✅ Joined chat: $chatId');
+      debugPrint('✅ Joined chat: $chatId');
       socket?.emit('join', {'chatId': chatId});
     }
   }
 
   void sendMessage(String chatId, String senderId, String message) {
     if (isConnected) {
-      print('📤 Emitting message: $message');
+      debugPrint('📤 Emitting message: $message');
       socket?.emit('sendMessage', {
         'chatId': chatId,
         'senderId': senderId,
         'message': message,
       });
     } else {
-      print("⚠️ Can't send message. Not connected!");
+      debugPrint("⚠️ Can't send message. Not connected!");
     }
   }
 
   void listenForMessages(Function(Map<String, dynamic>) callback) {
-    socket?.on('newMessage', (data) {
-      print('📩 Received message: $data');
-      callback(Map<String, dynamic>.from(data));
+    // socket?.on('message', (data) {
+    //   debugPrint('📩 Received message: $data');
+    //   callback(Map<String, dynamic>.from(data));
+    // });
+    socket?.onAny((event, data) {
+      debugPrint('🔥 Event: $event, Data: $data');
+      final finalData = {
+        'event': event,
+        'data': data,
+      };
+      callback(Map<String, dynamic>.from(finalData));
     });
   }
 

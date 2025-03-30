@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<UserReportBloc>().add(UserReportFetched());
+    // context.read<UserReportBloc>().add(UserReportFetched());
   }
 
   @override

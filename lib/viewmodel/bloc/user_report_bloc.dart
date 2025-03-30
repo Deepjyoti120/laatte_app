@@ -21,7 +21,7 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 }
 
 class UserReportBloc extends Bloc<UserReportEvent, UserReportState> {
-  late final StreamSubscription<UserReport?> _subscription;
+  // late final StreamSubscription<UserReport?> _subscription;
   UserReportBloc() : super(const UserReportState()) {
     // _subscription = SupaServices.userReport.listen((event) {
     //   add(UserReportFetched(event));
@@ -97,7 +97,7 @@ class UserReportBloc extends Bloc<UserReportEvent, UserReportState> {
 
   @override
   Future<void> close() {
-    _subscription.cancel();
+    // _subscription.cancel();
     return super.close();
   }
 }
