@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,7 +74,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       if (event.event == null || event.user == null) return;
       final eventKey = event.event?['event']?.toString();
       if ((eventKey?.contains("people") ?? false) &&
-          event.event?['data'] != null && 
+          event.event?['data'] != null &&
           (eventKey?.contains(event.user?.id ?? '') ?? false)) {
         // triger people chat api
         final chats = await ApiService().chats();
@@ -92,7 +93,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       }
       // end people chat api call
       //
-    } catch (_) {
+    } catch (e) {
       emit(state.copyWith(status: ResponseStatus.failure));
     }
   }
@@ -105,7 +106,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       emit(state.copyWith(chatId: event.chatId));
     }
     try {
-      if (state.chatId != null) {
+      if (state.chatId != null && event.setChatID) {
         emit(state.copyWith(statusMessages: ResponseStatus.loading));
         final messages = await ApiService().chat(state.chatId!);
         return emit(
@@ -120,14 +121,21 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       if ((eventKey?.contains("message") ?? false) &&
           event.event?['data'] != null &&
           (eventKey?.contains(state.chatId ?? '') ?? false)) {
+        final dataEvent = event.event?['data'] as Map<String, dynamic>;
+        final data = {
+          "senderId": dataEvent['sender']['id'],
+          "message": dataEvent['content']
+        };
         return emit(
           state.copyWith(
             statusMessages: ResponseStatus.success,
-            messages: List.of(state.messages ?? [])..add(event.event?['data'])),
+            messages: List.of(state.messages ?? [])..add(data),
+          ),
         );
       }
       //
-    } catch (_) {
+    } catch (e) {
+      print(e);
       emit(state.copyWith(status: ResponseStatus.failure));
     }
   }
