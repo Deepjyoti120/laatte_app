@@ -48,6 +48,10 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       _onSocketFetched,
       transformer: throttleDroppable(throttleDuration),
     );
+    on<SocketMessage>(
+      _onSocketMessage,
+      transformer: throttleDroppable(throttleDuration),
+    );
   }
   Future<void> _onSocketFetched(
     SocketFetched event,
@@ -67,10 +71,9 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
         // }
       }
       if (event.event == null || event.user == null) return;
-      debugPrint(event.event?['event']);
       final eventKey = event.event?['event']?.toString();
-      if ((eventKey?.contains("people") ?? false) ||
-          event.event?['data'] != null ||
+      if ((eventKey?.contains("people") ?? false) &&
+          event.event?['data'] != null && 
           (eventKey?.contains(event.user?.id ?? '') ?? false)) {
         // triger people chat api
         final chats = await ApiService().chats();
@@ -81,7 +84,48 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
           ),
         );
       }
+      if ((eventKey?.contains("message") ?? false) &&
+          event.event?['data'] != null &&
+          (eventKey?.contains(event.user?.id ?? '') ?? false) &&
+          state.chatId != null) {
+        add(SocketMessage(event: event.event));
+      }
       // end people chat api call
+      //
+    } catch (_) {
+      emit(state.copyWith(status: ResponseStatus.failure));
+    }
+  }
+
+  Future<void> _onSocketMessage(
+    SocketMessage event,
+    Emitter<SocketState> emit,
+  ) async {
+    if (event.setChatID) {
+      emit(state.copyWith(chatId: event.chatId));
+    }
+    try {
+      if (state.chatId != null) {
+        emit(state.copyWith(statusMessages: ResponseStatus.loading));
+        final messages = await ApiService().chat(state.chatId!);
+        return emit(
+          state.copyWith(
+            statusMessages: ResponseStatus.success,
+            messages: messages,
+          ),
+        );
+      }
+      if (state.chatId == null) return;
+      final eventKey = event.event?['event']?.toString();
+      if ((eventKey?.contains("message") ?? false) &&
+          event.event?['data'] != null &&
+          (eventKey?.contains(state.chatId ?? '') ?? false)) {
+        return emit(
+          state.copyWith(
+            statusMessages: ResponseStatus.success,
+            messages: List.of(state.messages ?? [])..add(event.event?['data'])),
+        );
+      }
       //
     } catch (_) {
       emit(state.copyWith(status: ResponseStatus.failure));

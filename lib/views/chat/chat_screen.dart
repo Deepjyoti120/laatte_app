@@ -5,8 +5,8 @@ import 'package:laatte/services/api_services.dart';
 import 'package:laatte/services/socket_services.dart';
 import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
-import 'package:laatte/ui/widgets/progress_circle.dart';
 import 'package:laatte/utils/design_colors.dart';
+import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 
 class ChatMessages extends StatefulWidget {
@@ -19,11 +19,10 @@ class ChatMessages extends StatefulWidget {
 }
 
 class _ChatMessagesState extends State<ChatMessages> {
-  final socketService = SocketService();
+  // final socketService = SocketService();
   final TextEditingController messageController = TextEditingController();
-  List<Map<String, dynamic>> messages = [];
+  // List<Map<String, dynamic>> messages = [];
   final FocusNode textFieldFocus = FocusNode();
-
   bool isLoading = false;
 
   @override
@@ -32,21 +31,29 @@ class _ChatMessagesState extends State<ChatMessages> {
     runInit();
   }
 
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  // }
+
   runInit() async {
-    messages = await ApiService().chat(widget.chatId);
-    setState(() {});
-    socketService.connect();
-    Future.delayed(const Duration(seconds: 1), () {
-      socketService.joinChat(widget.chatId);
-    });
-    socketService.listenForMessages((message) {
-      if (mounted) {
-        if (message['chatId'] == widget.chatId) {
-          setState(() {
-            messages.add(message);
-          });
-        }
-      }
+    // messages = await ApiService().chat(widget.chatId);
+    // setState(() {});
+    // socketService.connect();
+    // Future.delayed(const Duration(seconds: 1), () {
+    //   socketService.joinChat(widget.chatId);
+    // });
+    // socketService.listenForMessages((message) {
+    //   if (mounted) {
+    //     if (message['chatId'] == widget.chatId) {
+    //       setState(() {
+    //         messages.add(message);
+    //       });
+    //     }
+    //   }
+    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      //  context.read<SocketBloc>().add(SocketMessage(chatId: widget.chatId));
     });
   }
 
@@ -64,12 +71,16 @@ class _ChatMessagesState extends State<ChatMessages> {
         );
         return;
       }
-
-      socketService.sendMessage(
-        widget.chatId,
-        user.id!,
-        messageController.text.trim(),
+      ApiService().chatSend(
+        chatId: widget.chatId,
+        message: messageController.text.trim(),
       );
+
+      // socketService.sendMessage(
+      //   widget.chatId,
+      //   user.id!,
+      //   messageController.text.trim(),
+      // );
       messageController.clear();
     }
 
@@ -80,8 +91,8 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   @override
   void dispose() {
-    socketService.disconnect();
     messageController.dispose();
+    textFieldFocus.dispose();
     super.dispose();
   }
 
@@ -89,6 +100,7 @@ class _ChatMessagesState extends State<ChatMessages> {
   Widget build(BuildContext context) {
     final user = context.read<UserReportBloc>().state.userReport;
     final size = MediaQuery.sizeOf(context);
+    final messages = context.watch<SocketBloc>().state.messages;
     return Scaffold(
       appBar: AppBar(title: const DesignText("Messages")),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -148,12 +160,12 @@ class _ChatMessagesState extends State<ChatMessages> {
       ),
       body: ListView.builder(
         shrinkWrap: true,
-        itemCount: messages.length,
+        itemCount: messages?.length,
         reverse: true,
         padding: const EdgeInsets.fromLTRB(12, 12, 12, 120),
         itemBuilder: (context, index) {
-          final data = messages.reversed.toList()[index];
-          bool isME = data['senderId'] == user?.id;
+          final data = messages?.reversed.toList()[index];
+          bool isME = data?['senderId'] == user?.id;
           return Padding(
             padding: isME
                 ? const EdgeInsets.fromLTRB(60, 12, 12, 6)
@@ -183,7 +195,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(6, 6, 6, 6),
                       child: DesignText(
-                        data['message'] ?? "",
+                        data?['message'] ?? "",
                         fontSize: 13,
                         fontWeight: 700,
                         color: Colors.white,

@@ -43,8 +43,13 @@ class _ChatScreenState extends State<ChatScreen> {
             return GestureDetector(
               onTap: () async {
                 context
-                    .push(Routes.chatMessages, extra: chat.id)
-                    .then((e) async {
+                    .read<SocketBloc>()
+                    .add(SocketMessage(chatId: chat.id, setChatID: true));
+                context.push(Routes.chatMessages, extra: chat.id).then((e) {
+                  if (!mounted) return;
+                  // context
+                  //     .read<SocketBloc>()
+                  //     .add(const SocketMessage(setChatID: true,chatId: null));
                   // chats = await ApiService().chats();
                   // setState(() {});
                 });

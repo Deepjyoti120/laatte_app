@@ -704,4 +704,26 @@ class ApiService {
     }
     return false;
   }
+  Future<bool> chatSend({
+    required String chatId,
+    required String message,
+  }) async {
+   String apiUrl = 'user/chat/send';
+    try {
+      var dataBody = {
+        "chatId": chatId,
+        "message": message
+      };
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 201) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
+  }
 }

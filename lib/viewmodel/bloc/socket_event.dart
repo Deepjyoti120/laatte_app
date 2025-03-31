@@ -15,3 +15,14 @@ class SocketFetched extends SocketEvent {
     this.user,
   });
 }
+
+class SocketMessage extends SocketEvent {
+  final String? chatId;
+  final bool setChatID;
+  final Map<String, dynamic>? event;
+  const SocketMessage({
+    this.chatId,
+    this.event,
+    this.setChatID = false,
+  });
+}
