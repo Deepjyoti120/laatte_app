@@ -70,6 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '479035682627',
     projectId: 'relate-5a0f9',
     storageBucket: 'relate-5a0f9.firebasestorage.app',
+    androidClientId: '479035682627-8e02mh17j7gdqaer046es9qbm2atadkm.apps.googleusercontent.com',
     iosClientId: '479035682627-7f5bk9vl99gmrrdentkqe1pebo94nld1.apps.googleusercontent.com',
     iosBundleId: 'com.relate.laatte',
   );

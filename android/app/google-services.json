@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "479035682627-8e02mh17j7gdqaer046es9qbm2atadkm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.relate.laatte",
+            "certificate_hash": "a14732126fdb36b08b84e462480926336144f659"
+          }
+        },
+        {
           "client_id": "479035682627-1pq92epgrkq8g2d1t357t803o4bt5htl.apps.googleusercontent.com",
           "client_type": 3
         }
