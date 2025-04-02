@@ -62,7 +62,7 @@ class _RelateCommentState extends State<RelateComment> {
                         ),
                       ),
                       6.width,
-                      DesignText(data.comment ?? ""),
+                      Flexible(child: DesignText(data.comment ?? "")),
                     ],
                   ),
                 ),

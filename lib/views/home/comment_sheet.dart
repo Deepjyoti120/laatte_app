@@ -80,6 +80,7 @@ class _CommentSheetState extends State<CommentSheet> {
                           labelText: "Relate",
                           maxLines: 10,
                           minLines: 6,
+                          readOnly: isConfirm,
                           autofocus: true,
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 16, horizontal: 12),

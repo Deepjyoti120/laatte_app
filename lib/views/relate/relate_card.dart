@@ -34,9 +34,9 @@ class RelateCard extends StatelessWidget {
                   children: (prompt.tags ?? [])
                       .map(
                         (tag) => Padding(
-                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                          padding: const EdgeInsets.fromLTRB(2, 0, 2, 0),
                           child: Chip(
-                            padding: const EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.all(2.0),
                             label: DesignText.body(tag),
                           ),
                         ),

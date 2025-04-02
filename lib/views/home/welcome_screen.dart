@@ -71,9 +71,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
             child: Column(
               children: [
-                const Spacer(
-                  flex: 3,
-                ),
+                const Spacer(),
                 if (isEmpty)
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
