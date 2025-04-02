@@ -85,6 +85,7 @@ class _RelateCommentState extends State<RelateComment> {
           builder: (context) {
             return MatchingSheet(
               comment: widget.prompt.comments![index],
+              prompt: widget.prompt,
             );
           },
         ) ??

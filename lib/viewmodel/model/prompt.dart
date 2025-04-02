@@ -11,7 +11,7 @@ class Prompt {
   String? longitude;
   String? createdAt;
   String? updatedAt;
-  List<Comments>? comments;
+  List<Comment>? comments;
   UserReport? user;
 
   Prompt({
@@ -41,9 +41,9 @@ class Prompt {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     if (json['comments'] != null) {
-      comments = <Comments>[];
+      comments = <Comment>[];
       json['comments'].forEach((v) {
-        comments!.add(new Comments.fromJson(v));
+        comments!.add(new Comment.fromJson(v));
       });
     }
     user = json['user'] != null ? UserReport.fromJson(json['user']) : null;
@@ -71,16 +71,16 @@ class Prompt {
   }
 }
 
-class Comments {
+class Comment {
   String? id;
   String? comment;
   String? createdAt;
   String? updatedAt;
   UserReport? user;
 
-  Comments({this.id, this.comment, this.createdAt, this.updatedAt, this.user});
+  Comment({this.id, this.comment, this.createdAt, this.updatedAt, this.user});
 
-  Comments.fromJson(Map<String, dynamic> json) {
+  Comment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     comment = json['comment'];
     createdAt = json['created_at'];

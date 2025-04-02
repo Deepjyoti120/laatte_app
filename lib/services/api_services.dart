@@ -613,7 +613,8 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 201) {
-        Utils.flutterToast("Great, you’ve connected with this thought! Now let the conversation take off!");
+        Utils.flutterToast(
+            "Great, you’ve connected with this thought! Now let the conversation take off!");
         return true;
       }
     } on DioException catch (e) {
@@ -686,11 +687,15 @@ class ApiService {
 
   Future<bool> chatStart({
     required String receiverId,
+    required Prompt prompt,
+    required Comment comment,
   }) async {
     String apiUrl = 'user/chat/start';
     try {
       var dataBody = {
         "receiverId": receiverId,
+        "prompt": prompt,
+        "comment": comment,
       };
       Response res = await dio.post(
         apiUrl,
@@ -704,16 +709,14 @@ class ApiService {
     }
     return false;
   }
+
   Future<bool> chatSend({
     required String chatId,
     required String message,
   }) async {
-   String apiUrl = 'user/chat/send';
+    String apiUrl = 'user/chat/send';
     try {
-      var dataBody = {
-        "chatId": chatId,
-        "message": message
-      };
+      var dataBody = {"chatId": chatId, "message": message};
       Response res = await dio.post(
         apiUrl,
         data: dataBody,

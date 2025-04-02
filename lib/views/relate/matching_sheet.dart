@@ -16,8 +16,10 @@ class MatchingSheet extends StatefulWidget {
   const MatchingSheet({
     Key? key,
     required this.comment,
+    required this.prompt,
   }) : super(key: key);
-  final Comments comment;
+  final Comment comment;
+  final Prompt prompt;
   @override
   State<MatchingSheet> createState() => _MatchingSheetState();
 }
@@ -183,6 +185,8 @@ class _MatchingSheetState extends State<MatchingSheet> {
                                     ApiService()
                                         .chatStart(
                                       receiverId: widget.comment.user?.id ?? '',
+                                      prompt: widget.prompt,
+                                      comment: widget.comment,
                                     )
                                         .then((v) {
                                       if (!context.mounted) return;
