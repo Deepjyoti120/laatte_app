@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,6 @@ import 'package:laatte/services/api_services.dart';
 import 'package:laatte/services/socket_services.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
-import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/chat.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import 'package:stream_transform/stream_transform.dart';

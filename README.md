@@ -38,5 +38,11 @@ cat ~/.ssh/id_rsa.pub
 # New Flutter Error
 sudo gem install xcodeproj
 
+# key jks 
+storePassword=Deep1234
+keyPassword=Deep1234
+keyAlias=upload
+storeFile=../../keystore.jks
+
 
 
