@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../tab_item.dart';
 import '../count_style.dart';
 
@@ -25,7 +24,7 @@ class BuildIcon extends StatelessWidget {
       color: iconColor,
     );
     if (item.count is Widget) {
-      double sizeBadge = countStyle?.size ?? 18;
+      // double sizeBadge = countStyle?.size ?? 18;
 
       return Stack(
         clipBehavior: Clip.none,
