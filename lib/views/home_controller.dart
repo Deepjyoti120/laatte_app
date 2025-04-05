@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
-import 'package:laatte/routes.dart';
-import 'package:laatte/services/api_services.dart';
-import 'package:laatte/services/socket_services.dart';
-import 'package:laatte/utils/constants.dart';
 import 'package:laatte/utils/design_colors.dart';
-import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
@@ -17,15 +10,8 @@ import 'package:laatte/views/home/welcome_screen.dart';
 import 'package:laatte/views/profile/profile.dart';
 import 'package:laatte/views/relate/add_relate.dart';
 import 'package:laatte/views/relate/relate.dart';
-import 'package:laatte/views/responsive.dart';
-import '../services/token_handler.dart';
 import '../ui/custom/bottom_bar.dart';
 import '../ui/responsive/show_drawer_responsive.dart';
-import '../ui/theme/text.dart';
-import '../utils/assets_names.dart';
-import '../viewmodel/controller/global_context.dart';
-import '../viewmodel/controller/global_controller.dart';
-import 'home/dwawer/app_drawer.dart';
 
 class HomeController extends StatefulWidget {
   static const String route = "/HomeController";
