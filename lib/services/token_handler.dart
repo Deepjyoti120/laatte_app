@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:ntp/ntp.dart';
 
 import '../main.dart';
@@ -24,6 +25,7 @@ class TokenHandler {
 
   static Future<void> resetJwt() async {
     navigatorKey.currentContext?.read<AppStateCubit>().clear();
+    navigatorKey.currentContext?.read<IntroProfileCubit>().clear();
     await Hive.deleteFromDisk();
     await storage.deleteAll();
   }

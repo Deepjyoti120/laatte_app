@@ -75,6 +75,7 @@ class AppStateCubit extends Cubit<AppStateInitial> {
 
   void clear() {
     currentPage = 0;
+    isDarkMode = false;
   }
 
   set isOpenDrawer(bool isOpenDrawer) {
@@ -116,5 +117,5 @@ class AppStateCubit extends Cubit<AppStateInitial> {
   // int get profileUpdateCurrentPage => state.profileUpdateCurrentPage;
   // set profileUpdateCurrentPage(int currentPage) {
   //   emit(state.copyWith(profileUpdateCurrentPage: currentPage));
-  // } 
+  // }
 }

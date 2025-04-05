@@ -35,7 +35,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     await ApiService().getPrompts().then((value) {
       listPrompt = value;
       isEmpty = listPrompt.isEmpty;
-      setState(() {});
+     if(mounted){
+       setState(() {});
+     }
     });
   }
 

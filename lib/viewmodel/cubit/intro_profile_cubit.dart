@@ -61,4 +61,14 @@ class IntroProfileCubit extends Cubit<IntroProfileInitial> {
   void clearPhotos() {
     emit(state.copyWith(photos: []));
   }
+
+  void clear() {
+    currentPage = 0;
+    name.clear();
+    occupation.clear();
+    education.clear();
+    bio.clear();
+    photos.clear();
+    dateOfBirth = null;
+  }
 }
