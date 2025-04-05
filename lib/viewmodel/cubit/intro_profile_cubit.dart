@@ -68,7 +68,7 @@ class IntroProfileCubit extends Cubit<IntroProfileInitial> {
     occupation.clear();
     education.clear();
     bio.clear();
-    photos.clear();
+    clearPhotos();
     dateOfBirth = null;
   }
 }
