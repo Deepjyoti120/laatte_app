@@ -304,6 +304,9 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                               pickImage = null;
                               _relate.clear();
                               tags.clear();
+                              if(mounted){
+                                setState(() {});
+                              }
                               Utils.flutterToast("Prompt added successfully");
                               // goRouter.pop(true);
                             }
