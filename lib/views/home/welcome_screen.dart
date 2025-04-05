@@ -35,9 +35,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     await ApiService().getPrompts().then((value) {
       listPrompt = value;
       isEmpty = listPrompt.isEmpty;
-     if(mounted){
-       setState(() {});
-     }
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 
@@ -92,7 +92,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                 if (listPrompt.isNotEmpty)
                   Flexible(
-                    flex: 2,
+                    flex: 10,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
