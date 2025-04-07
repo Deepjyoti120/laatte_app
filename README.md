@@ -21,6 +21,7 @@ flutter build apk --release --split-per-abi
 flutter build apk --release --split-per-abi --no-tree-shake-icons
 flutter build apk --release --no-tree-shake-icons
 flutter build apk --split-per-abi --no-tree-shake-icons
+flutter build appbundle --no-tree-shake-icons
 
 $2y$10$98UVSXQ/hKke1j4iEaTae.P2nDwVAxblItmQCh2i4ecPYxiG3ub/O
 
