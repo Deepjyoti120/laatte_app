@@ -25,7 +25,7 @@ class RelateCard extends StatelessWidget {
               (prompt.prompt ?? ""),
             ),
             6.height,
-            const Spacer(),
+            // const Spacer(),
             Wrap(
               children: (prompt.tags ?? [])
                   .map(

@@ -118,8 +118,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               listPrompt.length < 3 ? listPrompt.length : 3,
                           cardBuilder: (context, index, percentThresholdX,
                               percentThresholdY) {
-                            return RelateCard(
-                              prompt: listPrompt[index],
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Spacer(flex: 2),
+                                RelateCard(
+                                  prompt: listPrompt[index],
+                                ),
+                                const Spacer(),
+                              ],
                             );
                           },
                           allowedSwipeDirection:
