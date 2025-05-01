@@ -1,5 +1,6 @@
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/ui/theme/text.dart';
 
 class IrlScreen extends StatefulWidget {
   static const String route = "/IrlScreen";
@@ -22,6 +23,10 @@ class _IrlScreenState extends State<IrlScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const DesignText("Jan"),
+      ),
+    );
   }
 }

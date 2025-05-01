@@ -746,7 +746,7 @@ class ApiService {
         return true;
       }
     } on DioException catch (e) {
-      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+      // Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
     }
     return false;
   }
