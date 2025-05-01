@@ -4,6 +4,7 @@ import 'package:laatte/views/employee/employee.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
 import 'package:laatte/views/home_controller.dart';
 import 'package:laatte/views/intro_screen/intro_screen.dart';
+import 'package:laatte/views/irl/irl.dart';
 import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
 import 'package:laatte/views/relate/add_relate.dart';
@@ -34,4 +35,5 @@ class Routes {
   static const String addRelate = AddRelate.route;
   static const String relateComment = RelateComment.route;
   static const String chatMessages = ChatMessages.route;
+  static const String irlScreen = IrlScreen.route;
 }

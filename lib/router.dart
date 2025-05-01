@@ -7,6 +7,7 @@ import 'package:laatte/views/employee/employee.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
 import 'package:laatte/views/home_controller.dart';
 import 'package:laatte/views/intro_screen/intro_screen.dart';
+import 'package:laatte/views/irl/irl.dart';
 import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
 import 'package:laatte/views/login/otp_screen.dart';
@@ -144,6 +145,12 @@ final GoRouter goRouter = GoRouter(
       path: Routes.chatMessages,
       builder: (context, GoRouterState state) {
         return ChatMessages(chatId: state.extra.toString());
+      },
+    ),
+    GoRoute(
+      path: Routes.irlScreen,
+      builder: (context, GoRouterState state) {
+        return const IrlScreen();
       },
     ),
   ],

@@ -729,4 +729,25 @@ class ApiService {
     }
     return false;
   }
+
+  Future<bool> irlVisit() async {
+    String apiUrl = 'user/irl/visit';
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      double lat = position.latitude;
+      double lng = position.longitude;
+      var dataBody = {"lat": lat, "lng": lng};
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 201) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
+  }
 }

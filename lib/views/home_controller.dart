@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:laatte/services/api_services.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
@@ -44,6 +45,7 @@ class _HomeControllerState extends State<HomeController> {
       // context.read<UserReportBloc>().add(UserReportFetched());
       context.read<UserReportBloc>().add(UserReportFetched());
       context.read<SocketBloc>().add(const SocketFetched());
+      ApiService().irlVisit();
     });
   }
 
