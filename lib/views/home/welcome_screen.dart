@@ -1,7 +1,10 @@
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
+import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
@@ -160,16 +163,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
         if (listPrompt.isNotEmpty)
           Positioned(
-              top: 50,
-              right: 30,
-              child: Switch(
-                value: showFullPreview,
-                onChanged: (value) {
-                  setState(() {
-                    showFullPreview = value;
-                  });
-                },
-              ))
+            top: 50,
+            left: 30,
+            child: Switch(
+              value: showFullPreview,
+              onChanged: (value) {
+                setState(() {
+                  showFullPreview = value;
+                });
+              },
+            ),
+          ),
+        if (listPrompt.isNotEmpty)
+          //  show irl button
+          Positioned(
+            top: 60,
+            right: 30,
+            child: BlurBtn(
+              title: "Go IRL",
+              icon: FontAwesomeIcons.locationArrow,
+              onTap: () {
+                context.push(Routes.irlScreen);
+              },
+            ),
+          )
       ],
     );
   }

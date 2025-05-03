@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/ui/awesome_bottom_bar/src/bottom_bar_floating.dart';
+import 'package:laatte/ui/awesome_bottom_bar/tab_item.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
@@ -55,6 +57,29 @@ class _HomeControllerState extends State<HomeController> {
     return ResponsiveDrawer(
       child: Scaffold(
         bottomNavigationBar: _buildBottomBar(appState),
+        // Container(
+        //   padding:
+        //       const EdgeInsets.only(bottom: 30, right: 32, left: 32),
+        //   child: BottomBarFloating(
+        //     items: const [
+        //       TabItem(icon: FontAwesomeIcons.house, title: "Home"),
+        //       TabItem(icon: FontAwesomeIcons.heart, title: "Relate"),
+        //       TabItem(icon: FontAwesomeIcons.plus, title: "Add"),
+        //       TabItem(icon: FontAwesomeIcons.comment, title: "Chat"),
+        //       TabItem(icon: FontAwesomeIcons.user, title: "Profile"),
+        //     ],
+        //     backgroundColor: Colors.green,
+        //     color: Colors.white,
+        //     colorSelected: Colors.orange,
+        //     indexSelected: appState.currentPage,
+        //     paddingVertical: 24,
+        //     onTap: (int index) => setState(
+        //       () {
+        //         appState.currentPage = index;
+        //       },
+        //     ),
+        //   ),
+        // )
         // floatingActionButton: FloatingActionButton(
         //   onPressed: () async {
         //     // context.read<ModuleBloc>().add(ModuleFetched());
