@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -569,6 +570,11 @@ class ApiService {
       if (res.statusCode == 200) {
         final listData = res.data['data'] as List;
         final data = listData.map((e) => Prompt.fromJson(e)).toList();
+        // data.map((e) {
+        //   if (e.bgPicture != null) {
+        //     CachedNetworkImage(imageUrl:e.bgPicture!);
+        //   }
+        // });
         return data;
       }
     } on DioException catch (e) {

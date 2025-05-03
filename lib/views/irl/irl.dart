@@ -25,8 +25,11 @@ class _IrlScreenState extends State<IrlScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const DesignText("Jan"),
+        title: const DesignText(
+          "Jan",
+        ),
       ),
+      //
     );
   }
 }
