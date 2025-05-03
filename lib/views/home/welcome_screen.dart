@@ -53,6 +53,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       color: Colors.black,
       child: Stack(
         children: [
+          SizedBox(
+            height: 0,
+            width: 0,
+            child: Column(
+                children: listPrompt.map((e) {
+              if (e.bgPicture != null) {
+                return CachedNetworkImage(
+                  imageUrl: e.bgPicture!,
+                  height: 0,
+                  width: 0,
+                );
+              }
+              return const SizedBox();
+            }).toList()),
+          ),
           if (listPrompt.isNotEmpty &&
               listPrompt[selectedIndex].bgPicture != null &&
               !isEmpty)

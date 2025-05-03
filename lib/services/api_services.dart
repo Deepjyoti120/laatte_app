@@ -570,11 +570,7 @@ class ApiService {
       if (res.statusCode == 200) {
         final listData = res.data['data'] as List;
         final data = listData.map((e) => Prompt.fromJson(e)).toList();
-        // data.map((e) {
-        //   if (e.bgPicture != null) {
-        //     CachedNetworkImage(imageUrl:e.bgPicture!);
-        //   }
-        // });
+        
         return data;
       }
     } on DioException catch (e) {
