@@ -570,7 +570,7 @@ class ApiService {
       if (res.statusCode == 200) {
         final listData = res.data['data'] as List;
         final data = listData.map((e) => Prompt.fromJson(e)).toList();
-        
+
         return data;
       }
     } on DioException catch (e) {
@@ -745,6 +745,19 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 201) {
+        return true;
+      }
+    } on DioException catch (e) {
+      // Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
+  }
+
+  Future<bool> irlVisitIrls() async {
+    String apiUrl = 'user/irl/visit-irls';
+    try {
+      Response res = await dio.get(apiUrl);
+      if (res.statusCode == 200) {
         return true;
       }
     } on DioException catch (e) {

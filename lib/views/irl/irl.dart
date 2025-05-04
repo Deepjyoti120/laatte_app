@@ -11,6 +11,7 @@ class IrlScreen extends StatefulWidget {
 }
 
 class _IrlScreenState extends State<IrlScreen> {
+  
   @override
   void initState() {
     super.initState();
@@ -19,6 +20,7 @@ class _IrlScreenState extends State<IrlScreen> {
 
   runInit() async {
     ApiService().irlVisit();
+    ApiService().irlVisitIrls();
   }
 
   @override
