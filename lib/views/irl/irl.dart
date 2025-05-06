@@ -39,10 +39,21 @@ class _IrlScreenState extends State<IrlScreen> {
           children: [
             const DesignText(
               "IRL",
-              color: Colors.white,
+              color: DesignColor.latteYellowSmall,
               fontSize: 30,
             ),
-            20.height,
+            const DesignText(
+              "Start connecting with people \nat places you went today.",
+              color: DesignColor.latteYellowSmall,
+              fontSize: 16,
+              textAlign: TextAlign.center,
+            ),
+            10.height,
+            const DesignText(
+              "Today You Were At...",
+              color: DesignColor.latteYellowSmall,
+              fontSize: 20,
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: 10,
@@ -68,7 +79,7 @@ class _IrlScreenState extends State<IrlScreen> {
                     child: BlurBtn(
                       title: "Use the IRL Feed",
                       onTap: () {
-                        appState.goIrl = !appState.goIrl;
+                        //
                       },
                     ),
                   ),

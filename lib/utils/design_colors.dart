@@ -192,4 +192,5 @@ class DesignColor {
   static const Color purple100 = Color(0xFFEBE9FE);
   // static const Color success = Color(0xFF00c851);
   // new color end
+  static const Color latteYellowSmall = Color(0xFFB6B0A1);
 }
