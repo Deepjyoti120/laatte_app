@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +9,9 @@ import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
+import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
+import 'package:laatte/views/irl/irl.dart';
 import 'package:laatte/views/relate/relate_card.dart';
 import '../../ui/theme/text.dart';
 import '../../viewmodel/model/prompt.dart';
@@ -48,7 +51,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     // final user = context.watch<UserReportBloc>().state;
-    // final appState = context.watch<AppStateCubit>();
+    final appState = context.watch<AppStateCubit>();
+    if (appState.goIrl) {
+      return const IrlScreen();
+    }
     return Container(
       color: Colors.black,
       child: Stack(
@@ -213,10 +219,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               top: 60,
               right: 30,
               child: BlurBtn(
-                title: "Go IRL",
-                icon: FontAwesomeIcons.locationArrow,
+                title: !appState.goIrl ? "Go IRL" : "Go Normal",
+                icon: !appState.goIrl
+                    ? FontAwesomeIcons.locationArrow
+                    : FontAwesomeIcons.xmark,
                 onTap: () {
-                  context.push(Routes.irlScreen);
+                  // context.push(Routes.irlScreen);
+                  appState.goIrl = !appState.goIrl;
                 },
               ),
             )

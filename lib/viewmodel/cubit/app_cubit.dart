@@ -118,4 +118,10 @@ class AppStateCubit extends Cubit<AppStateInitial> {
   // set profileUpdateCurrentPage(int currentPage) {
   //   emit(state.copyWith(profileUpdateCurrentPage: currentPage));
   // }
+
+  bool get goIrl => state.goIrl;
+
+  set goIrl(bool goIrl) {
+    emit(state.copyWith(goIrl: goIrl));
+  }
 }

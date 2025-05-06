@@ -1,6 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/ui/theme/buttons.dart';
 import 'package:laatte/ui/theme/text.dart';
+import 'package:laatte/utils/design_colors.dart';
+import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 
 class IrlScreen extends StatefulWidget {
   static const String route = "/IrlScreen";
@@ -11,7 +16,6 @@ class IrlScreen extends StatefulWidget {
 }
 
 class _IrlScreenState extends State<IrlScreen> {
-  
   @override
   void initState() {
     super.initState();
@@ -25,13 +29,82 @@ class _IrlScreenState extends State<IrlScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appState = context.watch<AppStateCubit>();
     return Scaffold(
-      appBar: AppBar(
-        title: const DesignText(
-          "Jan",
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const DesignText(
+              "IRL",
+              color: Colors.white,
+              fontSize: 30,
+            ),
+            20.height,
+            Expanded(
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: DesignText("Item $index",
+                        color: Colors.white, fontSize: 20),
+                    onTap: () {
+                      // Handle item tap
+                    },
+                  );
+                },
+              ),
+            ),
+            20.height,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                8.width,
+                Expanded(
+                  child: DesignButtons(
+                    color: DesignColor.primary,
+                    elevation: 0,
+                    fontSize: 16,
+                    fontWeight: 500,
+                    colorText: Colors.white,
+                    isTappedNotifier: ValueNotifier<bool>(false),
+                    onPressed: () async {},
+                    textLabel: "Continue",
+                    child: const DesignText(
+                      "Use the IRL Feed",
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                8.width,
+                Expanded(
+                  child: DesignButtons(
+                    color: DesignColor.primary,
+                    elevation: 0,
+                    fontSize: 16,
+                    fontWeight: 500,
+                    colorText: Colors.white,
+                    isTappedNotifier: ValueNotifier<bool>(false),
+                    onPressed: () async {
+                      appState.goIrl = !appState.goIrl;
+                    },
+                    textLabel: "Continue",
+                    child: const DesignText(
+                      "Continue Normally",
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                8.width,
+              ],
+            )
+          ],
         ),
       ),
-      //
     );
   }
 }

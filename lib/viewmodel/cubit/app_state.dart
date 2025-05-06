@@ -8,6 +8,7 @@ class AppStateInitial extends AppStateState {
   final bool isDarkMode;
   final bool isSystemDarkMode;
   final bool isOpenDrawer;
+  final bool goIrl;
   final UserReport? userReport;
   // final List<String> activeCards;
   final BasicInfo? basicInfo;
@@ -17,6 +18,7 @@ class AppStateInitial extends AppStateState {
     this.isDarkMode = false,
     this.isSystemDarkMode = true,
     this.isOpenDrawer = true,
+    this.goIrl = false,
     this.userReport,
     // this.activeCards = const [],
     this.basicInfo,
@@ -30,6 +32,7 @@ class AppStateInitial extends AppStateState {
     UserReport? userReport,
     // List<String>? activeCards,
     BasicInfo? basicInfo,
+    bool? goIrl,
   }) {
     return AppStateInitial(
       currentPage: currentPage ?? this.currentPage,
@@ -39,6 +42,7 @@ class AppStateInitial extends AppStateState {
       userReport: userReport ?? this.userReport,
       // activeCards: activeCards ?? this.activeCards,
       basicInfo: basicInfo ?? this.basicInfo,
+      goIrl: goIrl ?? this.goIrl,
     );
   }
 }
