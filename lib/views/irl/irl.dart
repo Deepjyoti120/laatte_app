@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/ui/theme/buttons.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
@@ -61,47 +63,32 @@ class _IrlScreenState extends State<IrlScreen> {
               children: [
                 8.width,
                 Expanded(
-                  child: DesignButtons(
-                    color: DesignColor.primary,
-                    elevation: 0,
-                    fontSize: 16,
-                    fontWeight: 500,
-                    colorText: Colors.white,
-                    isTappedNotifier: ValueNotifier<bool>(false),
-                    onPressed: () async {},
-                    textLabel: "Continue",
-                    child: const DesignText(
-                      "Use the IRL Feed",
-                      fontSize: 16,
-                      fontWeight: 500,
-                      color: Colors.white,
+                  child: SizedBox(
+                    height: 50,
+                    child: BlurBtn(
+                      title: "Use the IRL Feed",
+                      onTap: () {
+                        appState.goIrl = !appState.goIrl;
+                      },
                     ),
                   ),
                 ),
                 8.width,
                 Expanded(
-                  child: DesignButtons(
-                    color: DesignColor.primary,
-                    elevation: 0,
-                    fontSize: 16,
-                    fontWeight: 500,
-                    colorText: Colors.white,
-                    isTappedNotifier: ValueNotifier<bool>(false),
-                    onPressed: () async {
-                      appState.goIrl = !appState.goIrl;
-                    },
-                    textLabel: "Continue",
-                    child: const DesignText(
-                      "Continue Normally",
-                      fontSize: 16,
-                      fontWeight: 500,
-                      color: Colors.white,
+                  child: SizedBox(
+                    height: 50,
+                    child: BlurBtn(
+                      title: "Continue Normally",
+                      onTap: () {
+                        appState.goIrl = !appState.goIrl;
+                      },
                     ),
                   ),
                 ),
                 8.width,
               ],
-            )
+            ),
+            10.height,
           ],
         ),
       ),

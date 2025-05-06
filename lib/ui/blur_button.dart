@@ -29,6 +29,8 @@ class BlurBtn extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   DesignText.titleSemi(
                     title,
