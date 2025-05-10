@@ -138,7 +138,7 @@ class _IrlScreenState extends State<IrlScreen> {
                 8.width,
               ],
             ),
-            10.height,
+            90.height,
           ],
         ),
       ),

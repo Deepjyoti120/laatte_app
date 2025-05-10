@@ -194,4 +194,6 @@ class DesignColor {
   // new color end
   static const Color latteYellowSmall = Color(0xFFB6B0A1);
   static const Color latteDarkCard = Color(0xFF282016);
+  static const Color latteOrangeDark = Color(0xFFCD6036);
+  static const Color latteOrangeLight = Color(0xFFFBEFDC);
 }
