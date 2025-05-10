@@ -15,6 +15,7 @@ import 'package:laatte/viewmodel/model/country_state.dart';
 import 'package:laatte/viewmodel/model/department.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
+import 'package:laatte/viewmodel/model/visit_irl.dart';
 import '../utils/utlis.dart';
 import '../viewmodel/cubit/intro_profile_cubit.dart';
 import '../viewmodel/model/prompt.dart';
@@ -753,16 +754,18 @@ class ApiService {
     return false;
   }
 
-  Future<bool> irlVisitIrls() async {
+  Future<List<VisitIrl>> visitIrls() async {
     String apiUrl = 'user/irl/visit-irls';
     try {
       Response res = await dio.get(apiUrl);
       if (res.statusCode == 200) {
-        return true;
+        final listData = res.data['data'] as List;
+        final data = listData.map((e) => VisitIrl.fromJson(e)).toList();
+        return data;
       }
     } on DioException catch (e) {
       // Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
     }
-    return false;
+    return [];
   }
 }

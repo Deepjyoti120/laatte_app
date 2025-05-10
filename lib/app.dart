@@ -10,6 +10,7 @@ import 'package:laatte/utils/constants.dart';
 import 'package:laatte/viewmodel/bloc/employee_bloc.dart';
 import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
+import 'package:laatte/viewmodel/bloc/visit_irl_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'viewmodel/bloc/my_prompts_bloc.dart';
@@ -106,6 +107,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           ),
           BlocProvider(
             create: (context) => SocketBloc(context),
+          ),
+          BlocProvider(
+            create: (context) => VisitIrlBloc(),
           ),
         ],
         child: MaterialApp.router(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/viewmodel/model/basic_info.dart';
+import 'package:laatte/viewmodel/model/irl.dart';
+import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 part 'app_state.dart';
 
@@ -120,8 +122,12 @@ class AppStateCubit extends Cubit<AppStateInitial> {
   // }
 
   bool get goIrl => state.goIrl;
-
   set goIrl(bool goIrl) {
     emit(state.copyWith(goIrl: goIrl));
+  }
+
+  Irl? get irl => state.irl;
+  set irl(Irl? irl) {
+    emit(state.copyWith(irl: irl));
   }
 }

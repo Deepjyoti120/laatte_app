@@ -10,6 +10,7 @@ class AppStateInitial extends AppStateState {
   final bool isOpenDrawer;
   final bool goIrl;
   final UserReport? userReport;
+  final Irl? irl;
   // final List<String> activeCards;
   final BasicInfo? basicInfo;
 
@@ -22,6 +23,7 @@ class AppStateInitial extends AppStateState {
     this.userReport,
     // this.activeCards = const [],
     this.basicInfo,
+    this.irl,
   });
 
   AppStateInitial copyWith({
@@ -33,6 +35,7 @@ class AppStateInitial extends AppStateState {
     // List<String>? activeCards,
     BasicInfo? basicInfo,
     bool? goIrl,
+    Irl? irl,
   }) {
     return AppStateInitial(
       currentPage: currentPage ?? this.currentPage,
@@ -43,6 +46,7 @@ class AppStateInitial extends AppStateState {
       // activeCards: activeCards ?? this.activeCards,
       basicInfo: basicInfo ?? this.basicInfo,
       goIrl: goIrl ?? this.goIrl,
+      irl: irl ?? this.irl,
     );
   }
 }
