@@ -7,3 +7,4 @@ sealed class MyPromptsEvent extends Equatable {
   List<Object> get props => [];
 }
 class MyPromptsFetched extends MyPromptsEvent {}
+class ListPromptsFetched extends MyPromptsEvent {}

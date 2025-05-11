@@ -26,6 +26,10 @@ class MyPromptsBloc extends Bloc<MyPromptsEvent, MyPromptsState> {
       _onMyPromptsFetched,
       transformer: throttleDroppable(throttleDuration),
     );
+    on<ListPromptsFetched>(
+      _onListPromptsFetched,
+      transformer: throttleDroppable(throttleDuration),
+    );
   }
   Future<void> _onMyPromptsFetched(
     MyPromptsFetched event,
@@ -58,5 +62,17 @@ class MyPromptsBloc extends Bloc<MyPromptsEvent, MyPromptsState> {
     } catch (_) {
       emit(state.copyWith(status: ResponseStatus.failure));
     }
+  }
+
+  Future<void> _onListPromptsFetched(
+    ListPromptsFetched event,
+    Emitter<MyPromptsState> emit,
+  ) async {
+    final prompts = await ApiService().getPrompts();
+    return emit(
+      state.copyWith(
+        listPrompt: prompts,
+      ),
+    );
   }
 }

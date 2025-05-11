@@ -4,17 +4,16 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
-import 'package:laatte/routes.dart';
-import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
+import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
+import 'package:laatte/viewmodel/model/prompt.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
 import 'package:laatte/views/irl/irl.dart';
 import 'package:laatte/views/relate/relate_card.dart';
 import '../../ui/theme/text.dart';
-import '../../viewmodel/model/prompt.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String route = "/WelcomeScreen";
@@ -25,9 +24,11 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  
   final CardSwiperController _swiperController = CardSwiperController();
+
   bool isEnd = false;
-  List<Prompt> listPrompt = [];
+  // List<Prompt> listPrompt = [];
   bool isEmpty = false;
   int selectedIndex = 0;
   bool showFullPreview = false;
@@ -39,18 +40,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   runInit() async {
-    await ApiService().getPrompts().then((value) {
-      listPrompt = value;
-      isEmpty = listPrompt.isEmpty;
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    // await ApiService().getPrompts().then((value) {
+    //   listPrompt = value;
+    //   isEmpty = listPrompt.isEmpty;
+    //   if (mounted) {
+    //     setState(() {});
+    //   }
+    // });
+    context.read<MyPromptsBloc>().add(ListPromptsFetched());
   }
 
   @override
   Widget build(BuildContext context) {
     // final user = context.watch<UserReportBloc>().state;
+    final prompt = context.watch<MyPromptsBloc>().state;
     final appState = context.watch<AppStateCubit>();
     if (appState.goIrl) {
       return const IrlScreen();
@@ -63,7 +66,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             height: 0,
             width: 0,
             child: Column(
-              children: listPrompt.map((e) {
+              children: prompt.listPrompt.map((e) {
                 if (e.bgPicture != null) {
                   return CachedNetworkImage(
                     imageUrl: e.bgPicture!,
@@ -75,15 +78,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               }).toList(),
             ),
           ),
-          if (listPrompt.isNotEmpty &&
-              listPrompt[selectedIndex].bgPicture != null &&
+          if (prompt.listPrompt.isNotEmpty &&
+              prompt.listPrompt[selectedIndex].bgPicture != null &&
               !isEmpty)
             Stack(
               children: [
                 if (!isEnd)
                   Positioned.fill(
                     child: CachedNetworkImage(
-                      imageUrl: listPrompt[selectedIndex].bgPicture!,
+                      imageUrl: prompt.listPrompt[selectedIndex].bgPicture!,
                       width: double.infinity,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Center(
@@ -129,7 +132,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ],
                     ),
-                  if (listPrompt.isNotEmpty)
+                  if (prompt.listPrompt.isNotEmpty)
                     Flexible(
                       flex: 2,
                       child: Stack(
@@ -157,9 +160,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           if (!isEnd)
                             CardSwiper(
                               controller: _swiperController,
-                              cardsCount: listPrompt.length,
+                              cardsCount: prompt.listPrompt.length,
                               numberOfCardsDisplayed:
-                                  listPrompt.length < 3 ? listPrompt.length : 3,
+                                  prompt.listPrompt.length < 3 ? prompt.listPrompt.length : 3,
                               cardBuilder: (context, index, percentThresholdX,
                                   percentThresholdY) {
                                 return Column(
@@ -168,7 +171,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   children: [
                                     const Spacer(flex: 2),
                                     RelateCard(
-                                      prompt: listPrompt[index],
+                                      prompt: prompt.listPrompt[index],
                                     ),
                                     const Spacer(),
                                   ],
@@ -184,7 +187,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 selectedIndex = currentIndex ?? 0;
                                 setState(() {});
                                 if (direction == CardSwiperDirection.right) {
-                                  return await acceptSwipe(previousIndex);
+                                  return await acceptSwipe(previousIndex,
+                                      prompt: prompt.listPrompt[previousIndex]);
                                 }
                                 return true;
                               },
@@ -202,7 +206,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             ),
-          if (listPrompt.isNotEmpty)
+          if (prompt.listPrompt.isNotEmpty)
             Positioned(
               top: 50,
               left: 30,
@@ -217,8 +221,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 },
               ),
             ),
-          if (listPrompt.isNotEmpty)
-            //  show irl button
+          if (prompt.listPrompt.isNotEmpty)
             Positioned(
               top: 60,
               right: 30,
@@ -238,7 +241,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
-  Future<bool> acceptSwipe(int index) async {
+  Future<bool> acceptSwipe(int index, {
+    required Prompt prompt
+  }) async {
     return await showModalBottomSheet<bool>(
           context: context,
           shape: const RoundedRectangleBorder(
@@ -250,7 +255,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           backgroundColor: Colors.transparent,
           builder: (context) {
             return CommentSheet(
-              prompt: listPrompt[index],
+              prompt: prompt,
             );
           },
         ) ??

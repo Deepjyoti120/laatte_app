@@ -4,6 +4,7 @@ class MyPromptsState extends Equatable {
   final ResponseStatus status;
   final String? error;
   final List<Prompt> prompts;
+  final List<Prompt> listPrompt;
   final bool hasReachedMax;
   final int page;
   const MyPromptsState({
@@ -12,6 +13,7 @@ class MyPromptsState extends Equatable {
     this.prompts = const [],
     this.hasReachedMax = false,
     this.page = 1,
+    this.listPrompt = const [],
   });
   MyPromptsState copyWith({
     ResponseStatus? status,
@@ -19,6 +21,7 @@ class MyPromptsState extends Equatable {
     List<Prompt>? prompts,
     bool? hasReachedMax,
     int? page,
+    List<Prompt>? listPrompt,
   }) {
     return MyPromptsState(
       status: status ?? this.status,
@@ -26,9 +29,17 @@ class MyPromptsState extends Equatable {
       prompts: prompts ?? this.prompts,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
       page: page ?? this.page,
+      listPrompt: listPrompt ?? this.listPrompt,
     );
   }
 
   @override
-  List<Object?> get props => [status, error, prompts, hasReachedMax, page];
+  List<Object?> get props => [
+        status,
+        error,
+        prompts,
+        hasReachedMax,
+        page,
+        listPrompt,
+      ];
 }
