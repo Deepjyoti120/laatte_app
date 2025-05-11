@@ -122,7 +122,7 @@ class _IrlScreenState extends State<IrlScreen> {
                             child: BlurBtn(
                               title: "Use the IRL Feed",
                               onTap: () {
-                                //
+                                appState.irl = appState.irlPreLoad;
                               },
                             ),
                           ),
@@ -137,6 +137,7 @@ class _IrlScreenState extends State<IrlScreen> {
                     child: BlurBtn(
                       title: "Continue Normally",
                       onTap: () {
+                        appState.irl = null;
                         appState.goIrl = !appState.goIrl;
                       },
                     ),
