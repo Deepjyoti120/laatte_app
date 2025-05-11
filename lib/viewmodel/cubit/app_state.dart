@@ -11,6 +11,7 @@ class AppStateInitial extends AppStateState {
   final bool goIrl;
   final UserReport? userReport;
   final Irl? irl;
+  final Irl? irlPreLoad;
   // final List<String> activeCards;
   final BasicInfo? basicInfo;
 
@@ -24,6 +25,7 @@ class AppStateInitial extends AppStateState {
     // this.activeCards = const [],
     this.basicInfo,
     this.irl,
+    this.irlPreLoad,
   });
 
   AppStateInitial copyWith({
@@ -35,7 +37,8 @@ class AppStateInitial extends AppStateState {
     // List<String>? activeCards,
     BasicInfo? basicInfo,
     bool? goIrl,
-    Irl? irl,
+    Irl? irl, 
+    Irl? irlPreLoad,
   }) {
     return AppStateInitial(
       currentPage: currentPage ?? this.currentPage,
@@ -47,6 +50,7 @@ class AppStateInitial extends AppStateState {
       basicInfo: basicInfo ?? this.basicInfo,
       goIrl: goIrl ?? this.goIrl,
       irl: irl ?? this.irl,
+      irlPreLoad: irlPreLoad ?? this.irlPreLoad,
     );
   }
 }
