@@ -8,4 +8,6 @@ sealed class VisitIrlEvent extends Equatable {
 }
 
 final class VisitIrlFetch extends VisitIrlEvent {
+  final BuildContext context;
+  const VisitIrlFetch(this.context);
 }

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/viewmodel/model/visit_irl.dart';
@@ -30,7 +31,7 @@ class VisitIrlBloc extends Bloc<VisitIrlEvent, VisitIrlState> {
   ) async {
     try {
       emit(state.copyWith(status: ResponseStatus.loading));
-      final visitIrls = await ApiService().visitIrls();
+      final visitIrls = await ApiService().visitIrls(event.context);
       emit(state.copyWith(
         visitIrls: visitIrls,
         status: ResponseStatus.success,

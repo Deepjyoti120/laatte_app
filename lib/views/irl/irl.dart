@@ -28,7 +28,7 @@ class _IrlScreenState extends State<IrlScreen> {
   runInit() async {
     ApiService().irlVisit();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<VisitIrlBloc>().add(VisitIrlFetch());
+      context.read<VisitIrlBloc>().add(VisitIrlFetch(context));
     });
   }
 
@@ -111,19 +111,26 @@ class _IrlScreenState extends State<IrlScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                8.width,
-                Expanded(
-                  child: SizedBox(
-                    height: 50,
-                    child: BlurBtn(
-                      title: "Use the IRL Feed",
-                      onTap: () {
-                        //
-                      },
+                if (appState.irlPreLoad != null)
+                  Expanded(
+                    child: Row(
+                      children: [
+                        8.width,
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            child: BlurBtn(
+                              title: "Use the IRL Feed",
+                              onTap: () {
+                                //
+                              },
+                            ),
+                          ),
+                        ),
+                        8.width,
+                      ],
                     ),
                   ),
-                ),
-                8.width,
                 Expanded(
                   child: SizedBox(
                     height: 50,

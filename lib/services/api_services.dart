@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/services/firebase_service.dart';
@@ -754,13 +755,20 @@ class ApiService {
     return false;
   }
 
-  Future<List<VisitIrl>> visitIrls() async {
+  Future<List<VisitIrl>> visitIrls(BuildContext c) async {
     String apiUrl = 'user/irl/visit-irls';
     try {
+      final appState = c.read<AppStateCubit>();
       Response res = await dio.get(apiUrl);
       if (res.statusCode == 200) {
         final listData = res.data['data'] as List;
         final data = listData.map((e) => VisitIrl.fromJson(e)).toList();
+        if (data.isNotEmpty) {
+          final visitIrl = data.first;
+          if (visitIrl.isAvailabe ?? false) {
+            appState.irlPreLoad = visitIrl.irl;
+          }
+        }
         return data;
       }
     } on DioException catch (e) {

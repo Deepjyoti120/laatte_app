@@ -3,6 +3,7 @@ import 'package:laatte/viewmodel/model/irl.dart';
 class VisitIrl {
 	String? id;
 	bool? isActive;
+	bool? isAvailabe;
 	String? latitude;
 	String? longitude;
 	String? visitDate;
@@ -15,6 +16,7 @@ class VisitIrl {
 	VisitIrl.fromJson(Map<String, dynamic> json) {
 		id = json['id'];
 		isActive = json['is_active'];
+		isAvailabe = json['is_availabe'];
 		latitude = json['latitude'];
 		longitude = json['longitude'];
 		visitDate = json['visit_date'];
@@ -27,6 +29,7 @@ class VisitIrl {
 		final Map<String, dynamic> data = <String, dynamic>{};
 		data['id'] = id;
 		data['is_active'] = isActive;
+    data['is_availabe'] = isAvailabe;
 		data['latitude'] = latitude;
 		data['longitude'] = longitude;
 		data['visit_date'] = visitDate;
