@@ -230,34 +230,34 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             ),
-          // if (prompt.listPrompt.isNotEmpty)
-          Positioned(
-            top: 50,
-            left: 18,
-            child: Transform.scale(
-              scale: 0.7,
-              child: Switch(
-                value: showFullPreview,
-                onChanged: (value) {
-                  setState(() {
-                    showFullPreview = value;
-                    // prompt.isEmpty = false;
-                    context
-                        .read<MyPromptsBloc>()
-                        .add(const ListPromptsSetEmpty(isEmpty: false));
-                    isEnd = false;
-                  });
-                },
+          if (prompt.listPrompt.isNotEmpty)
+            Positioned(
+              top: 50,
+              left: 18,
+              child: Transform.scale(
+                scale: 0.7,
+                child: Switch(
+                  value: showFullPreview,
+                  onChanged: (value) {
+                    setState(() {
+                      showFullPreview = value;
+                      // prompt.isEmpty = false;
+                      context
+                          .read<MyPromptsBloc>()
+                          .add(const ListPromptsSetEmpty(isEmpty: false));
+                      isEnd = false;
+                    });
+                  },
+                ),
               ),
             ),
-          ),
           // if (prompt.listPrompt.isNotEmpty)
           Positioned(
             top: 60,
             right: 30,
             child: BlurBtn(
-              title: !appState.goIrl ? "Go IRL" : "Go Normal",
-              icon: !appState.goIrl
+              title: appState.irl == null ? "Go IRL" : "Go Normal",
+              icon: appState.irl == null
                   ? FontAwesomeIcons.locationArrow
                   : FontAwesomeIcons.xmark,
               onTap: () {
