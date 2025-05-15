@@ -334,7 +334,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                 ),
                     ),
                   ),
-                  70.height,
+                  8.height,
                 ],
               ),
             ),

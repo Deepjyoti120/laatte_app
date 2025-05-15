@@ -398,9 +398,9 @@ class _HomeControllerState extends State<HomeController> {
       ProfileScreen(),
     ];
     return pages[appState.currentPage];
-    return IndexedStack(
-      index: appState.currentPage,
-      children: pages,
-    );
+    // return IndexedStack(
+    //   index: appState.currentPage,
+    //   children: pages,
+    // );
   }
 }

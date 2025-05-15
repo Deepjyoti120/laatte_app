@@ -97,6 +97,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     user!.profilePicture!,
                     height: 80,
                     width: 80,
+                    //  on error
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(Icons.person);
+                    },
                   ),
                 ),
               8.height,
