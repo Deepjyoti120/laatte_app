@@ -135,4 +135,9 @@ class AppStateCubit extends Cubit<AppStateInitial> {
   set irlPreLoad(Irl? irlPreLoad) {
     emit(state.copyWith(irlPreLoad: irlPreLoad));
   }
+
+  bool get setIrlToNull => state.setIrlToNull;
+  set setIrlToNull(bool setIrlToNull) {
+    emit(state.copyWith(setIrlToNull: setIrlToNull));
+  }
 }

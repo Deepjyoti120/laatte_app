@@ -15,6 +15,7 @@ import 'package:laatte/viewmodel/model/chat.dart';
 import 'package:laatte/viewmodel/model/country_state.dart';
 import 'package:laatte/viewmodel/model/department.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
+import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import 'package:laatte/viewmodel/model/visit_irl.dart';
 import '../utils/utlis.dart';
@@ -565,14 +566,16 @@ class ApiService {
     return false;
   }
 
-  Future<List<Prompt>> getPrompts() async {
+  Future<List<Prompt>> getPrompts({
+    Irl? irl,
+  }) async {
     try {
       String apiUrl = 'user/get-prompts';
-      Response res = await dio.get(apiUrl);
+      var dataBody = {"irl": irl};
+      Response res = await dio.post(apiUrl, data: dataBody);
       if (res.statusCode == 200) {
         final listData = res.data['data'] as List;
         final data = listData.map((e) => Prompt.fromJson(e)).toList();
-
         return data;
       }
     } on DioException catch (e) {

@@ -5,8 +5,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/ui/blur_button.dart';
+import 'package:laatte/ui/controls/buttons.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
+import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
@@ -24,12 +26,11 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  
   final CardSwiperController _swiperController = CardSwiperController();
 
   bool isEnd = false;
   // List<Prompt> listPrompt = [];
-  bool isEmpty = false;
+  // bool isEmpty = false;
   int selectedIndex = 0;
   bool showFullPreview = false;
 
@@ -47,7 +48,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     //     setState(() {});
     //   }
     // });
-    context.read<MyPromptsBloc>().add(ListPromptsFetched());
+    context.read<MyPromptsBloc>().add(const ListPromptsFetched());
   }
 
   @override
@@ -60,6 +61,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     }
     return Container(
       color: Colors.black,
+      width: double.infinity,
       child: Stack(
         children: [
           SizedBox(
@@ -80,7 +82,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
           if (prompt.listPrompt.isNotEmpty &&
               prompt.listPrompt[selectedIndex].bgPicture != null &&
-              !isEmpty)
+              !prompt.isEmpty)
             Stack(
               children: [
                 if (!isEnd)
@@ -116,7 +118,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Column(
                 children: [
                   const Spacer(),
-                  if (isEmpty)
+                  if (prompt.isEmpty)
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -162,7 +164,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               controller: _swiperController,
                               cardsCount: prompt.listPrompt.length,
                               numberOfCardsDisplayed:
-                                  prompt.listPrompt.length < 3 ? prompt.listPrompt.length : 3,
+                                  prompt.listPrompt.length < 3
+                                      ? prompt.listPrompt.length
+                                      : 3,
                               cardBuilder: (context, index, percentThresholdX,
                                   percentThresholdY) {
                                 return Column(
@@ -206,44 +210,68 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             ),
-          if (prompt.listPrompt.isNotEmpty)
+          if (appState.irl != null)
             Positioned(
-              top: 50,
+              top: 90,
               left: 30,
+              child: Row(
+                children: [
+                  const Icon(
+                    // FontAwesomeIcons.locationPin, need border
+                    FontAwesomeIcons.locationDot,
+                    color: Colors.white,
+                    size: 16,
+                  ),
+                  6.width,
+                  DesignText(
+                    appState.irl?.name ?? '',
+                    color: Colors.white,
+                  )
+                ],
+              ),
+            ),
+          // if (prompt.listPrompt.isNotEmpty)
+          Positioned(
+            top: 50,
+            left: 18,
+            child: Transform.scale(
+              scale: 0.7,
               child: Switch(
                 value: showFullPreview,
                 onChanged: (value) {
                   setState(() {
                     showFullPreview = value;
-                    isEmpty = false;
+                    // prompt.isEmpty = false;
+                    context
+                        .read<MyPromptsBloc>()
+                        .add(const ListPromptsSetEmpty(isEmpty: false));
                     isEnd = false;
                   });
                 },
               ),
             ),
-          if (prompt.listPrompt.isNotEmpty)
-            Positioned(
-              top: 60,
-              right: 30,
-              child: BlurBtn(
-                title: !appState.goIrl ? "Go IRL" : "Go Normal",
-                icon: !appState.goIrl
-                    ? FontAwesomeIcons.locationArrow
-                    : FontAwesomeIcons.xmark,
-                onTap: () {
-                  // context.push(Routes.irlScreen);
-                  appState.goIrl = !appState.goIrl;
-                },
-              ),
-            )
+          ),
+          // if (prompt.listPrompt.isNotEmpty)
+          Positioned(
+            top: 60,
+            right: 30,
+            child: BlurBtn(
+              title: !appState.goIrl ? "Go IRL" : "Go Normal",
+              icon: !appState.goIrl
+                  ? FontAwesomeIcons.locationArrow
+                  : FontAwesomeIcons.xmark,
+              onTap: () {
+                // context.push(Routes.irlScreen);
+                appState.goIrl = !appState.goIrl;
+              },
+            ),
+          )
         ],
       ),
     );
   }
 
-  Future<bool> acceptSwipe(int index, {
-    required Prompt prompt
-  }) async {
+  Future<bool> acceptSwipe(int index, {required Prompt prompt}) async {
     return await showModalBottomSheet<bool>(
           context: context,
           shape: const RoundedRectangleBorder(

@@ -7,6 +7,7 @@ class MyPromptsState extends Equatable {
   final List<Prompt> listPrompt;
   final bool hasReachedMax;
   final int page;
+  final bool isEmpty;
   const MyPromptsState({
     this.status = ResponseStatus.initial,
     this.error,
@@ -14,6 +15,7 @@ class MyPromptsState extends Equatable {
     this.hasReachedMax = false,
     this.page = 1,
     this.listPrompt = const [],
+    this.isEmpty = false,
   });
   MyPromptsState copyWith({
     ResponseStatus? status,
@@ -22,6 +24,7 @@ class MyPromptsState extends Equatable {
     bool? hasReachedMax,
     int? page,
     List<Prompt>? listPrompt,
+    bool? isEmpty,
   }) {
     return MyPromptsState(
       status: status ?? this.status,
@@ -30,6 +33,7 @@ class MyPromptsState extends Equatable {
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
       page: page ?? this.page,
       listPrompt: listPrompt ?? this.listPrompt,
+      isEmpty: isEmpty ?? this.isEmpty,
     );
   }
 
@@ -41,5 +45,6 @@ class MyPromptsState extends Equatable {
         hasReachedMax,
         page,
         listPrompt,
+        isEmpty,
       ];
 }

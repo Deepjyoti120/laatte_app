@@ -7,6 +7,7 @@ import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/bloc/visit_irl_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 
@@ -122,8 +123,12 @@ class _IrlScreenState extends State<IrlScreen> {
                             child: BlurBtn(
                               title: "Use the IRL Feed",
                               onTap: () {
+                                appState.setIrlToNull = false;
                                 appState.irl = appState.irlPreLoad;
                                 appState.goIrl = !appState.goIrl;
+                                context
+                                    .read<MyPromptsBloc>()
+                                    .add(ListPromptsFetched(irl: appState.irl));
                               },
                             ),
                           ),
@@ -138,6 +143,10 @@ class _IrlScreenState extends State<IrlScreen> {
                     child: BlurBtn(
                       title: "Continue Normally",
                       onTap: () {
+                        context
+                            .read<MyPromptsBloc>()
+                            .add(const ListPromptsFetched());
+                        appState.setIrlToNull = true;
                         appState.irl = null;
                         appState.goIrl = !appState.goIrl;
                       },

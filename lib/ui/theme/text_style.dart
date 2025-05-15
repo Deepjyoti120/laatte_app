@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 enum DesignTextType { title, caption, overline, b2, b1 }
 
 class DesignTextStyle {
-  static Function _fontFamily = GoogleFonts.poppins;
+  static Function _fontFamily = GoogleFonts.inter;
   // static String _fontFamily = 'Helvetica';
   static Map<int, FontWeight> _defaultFontWeight = {
     100: FontWeight.w100,
@@ -222,7 +222,7 @@ class DesignTextStyle {
       _defaultTextFontWeight;
 
   static resetFontStyles() {
-    _fontFamily = GoogleFonts.poppins;
+    _fontFamily = GoogleFonts.inter;
     // _fontFamily = 'Helvetica';
 
     _defaultFontWeight = {

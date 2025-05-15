@@ -11,6 +11,7 @@ class AppStateInitial extends AppStateState {
   final bool goIrl;
   final UserReport? userReport;
   final Irl? irl;
+  final bool setIrlToNull;
   final Irl? irlPreLoad;
   // final List<String> activeCards;
   final BasicInfo? basicInfo;
@@ -25,6 +26,7 @@ class AppStateInitial extends AppStateState {
     // this.activeCards = const [],
     this.basicInfo,
     this.irl,
+    this.setIrlToNull = false,
     this.irlPreLoad,
   });
 
@@ -37,7 +39,8 @@ class AppStateInitial extends AppStateState {
     // List<String>? activeCards,
     BasicInfo? basicInfo,
     bool? goIrl,
-    Irl? irl, 
+    Irl? irl,
+    bool? setIrlToNull,
     Irl? irlPreLoad,
   }) {
     return AppStateInitial(
@@ -49,7 +52,8 @@ class AppStateInitial extends AppStateState {
       // activeCards: activeCards ?? this.activeCards,
       basicInfo: basicInfo ?? this.basicInfo,
       goIrl: goIrl ?? this.goIrl,
-      irl: irl ?? this.irl,
+      irl: this.setIrlToNull ? null : (irl ?? this.irl),
+      setIrlToNull: setIrlToNull ?? this.setIrlToNull,
       irlPreLoad: irlPreLoad ?? this.irlPreLoad,
     );
   }

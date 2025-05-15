@@ -7,4 +7,11 @@ sealed class MyPromptsEvent extends Equatable {
   List<Object> get props => [];
 }
 class MyPromptsFetched extends MyPromptsEvent {}
-class ListPromptsFetched extends MyPromptsEvent {}
+class ListPromptsFetched extends MyPromptsEvent {
+  final Irl? irl;
+  const ListPromptsFetched({this.irl}); 
+}
+class ListPromptsSetEmpty extends MyPromptsEvent {
+  final bool isEmpty;
+  const ListPromptsSetEmpty({required this.isEmpty}); 
+}

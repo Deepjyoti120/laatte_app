@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:laatte/utils/design_colors.dart';
 
 var darkTheme = ThemeData(
-  fontFamily: GoogleFonts.poppins().fontFamily, //outfit
+  fontFamily: GoogleFonts.inter().fontFamily, //outfit
   // add custom font from asset
   brightness: Brightness.dark,
   useMaterial3: true,
@@ -20,7 +20,7 @@ var darkTheme = ThemeData(
   scaffoldBackgroundColor: Colors.black26,
 );
 var theme = ThemeData(
-  fontFamily: GoogleFonts.poppins().fontFamily, //outfit
+  fontFamily: GoogleFonts.inter().fontFamily, //outfit
   brightness: Brightness.light,
   useMaterial3: true,
   // backgroundColor: DesignColor.backgroundColor,

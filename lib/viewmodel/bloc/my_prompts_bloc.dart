@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:laatte/utils/enums.dart';
+import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import 'package:stream_transform/stream_transform.dart';
 import '../../services/api_services.dart';
@@ -28,6 +29,10 @@ class MyPromptsBloc extends Bloc<MyPromptsEvent, MyPromptsState> {
     );
     on<ListPromptsFetched>(
       _onListPromptsFetched,
+      transformer: throttleDroppable(throttleDuration),
+    );
+    on<ListPromptsSetEmpty>(
+      _onListPromptsSetEmpty,
       transformer: throttleDroppable(throttleDuration),
     );
   }
@@ -68,11 +73,19 @@ class MyPromptsBloc extends Bloc<MyPromptsEvent, MyPromptsState> {
     ListPromptsFetched event,
     Emitter<MyPromptsState> emit,
   ) async {
-    final prompts = await ApiService().getPrompts();
-    return emit(
-      state.copyWith(
-        listPrompt: prompts,
-      ),
-    );
+    emit(state.copyWith(listPrompt: []));
+    final prompts = await ApiService().getPrompts(irl: event.irl);
+    return emit(state.copyWith(
+      listPrompt: prompts,
+      isEmpty: prompts.isEmpty,
+    ));
+  }
+  Future<void> _onListPromptsSetEmpty(
+    ListPromptsSetEmpty event,
+    Emitter<MyPromptsState> emit,
+  ) async { 
+    return emit(state.copyWith( 
+      isEmpty: false,
+    ));
   }
 }
