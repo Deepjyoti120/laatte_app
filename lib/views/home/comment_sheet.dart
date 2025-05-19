@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/ui/custom/custom_text_form.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/ui/widgets/interactiveview.dart';
@@ -67,11 +68,13 @@ class _CommentSheetState extends State<CommentSheet> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 14, 30, 14),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const DesignText.title(
                               "Relate",
@@ -94,7 +97,7 @@ class _CommentSheetState extends State<CommentSheet> {
                             if (isConfirm) const SizedBox(height: 10),
                             // if (isConfirm)
                             SizedBox(
-                              height: isConfirm ? 100 : 0,
+                              height: isConfirm ? 160 : 0,
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
@@ -128,7 +131,7 @@ class _CommentSheetState extends State<CommentSheet> {
                                           child: index == 0
                                               ? CachedNetworkImage(
                                                   imageUrl: e.url!,
-                                                  fit: BoxFit.cover,
+                                                  fit: BoxFit.fitHeight,
                                                 )
                                               : ImageFiltered(
                                                   imageFilter: ImageFilter.blur(
@@ -146,6 +149,21 @@ class _CommentSheetState extends State<CommentSheet> {
                                 ),
                               ),
                             ),
+                            if (isConfirm)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  10.height,
+                                  DesignText(
+                                    widget.prompt.user?.name ?? '',
+                                    color: Colors.white,
+                                  ),
+                                  DesignText(
+                                    widget.prompt.user?.bio ?? '',
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
                             10.height,
                             if (isConfirm)
                               SizedBox(
@@ -153,15 +171,15 @@ class _CommentSheetState extends State<CommentSheet> {
                                 height: 48,
                                 child: Hero(
                                   tag: Constants.keyLoginButton,
-                                  child: DesignButtons(
-                                    color: DesignColor.primary,
-                                    elevation: 0,
-                                    fontSize: 16,
-                                    fontWeight: 500,
-                                    colorText: Colors.white,
-                                    isTappedNotifier:
-                                        ValueNotifier<bool>(isLoading),
-                                    onPressed: () async {
+                                  child: BlurBtn(
+                                    // color: DesignColor.primary,
+                                    // elevation: 0,
+                                    // fontSize: 16,
+                                    // fontWeight: 500,
+                                    // colorText: Colors.white,
+                                    // isTappedNotifier:
+                                    //     ValueNotifier<bool>(isLoading),
+                                    onTap: () async {
                                       if (formKey.currentState?.validate() ??
                                           false) {
                                         final goRouter = GoRouter.of(context);
@@ -175,44 +193,59 @@ class _CommentSheetState extends State<CommentSheet> {
                                         });
                                       }
                                     },
-                                    textLabel: "",
-                                    child: const DesignText(
-                                      "Confirm",
-                                      fontSize: 16,
-                                      fontWeight: 500,
-                                      color: Colors.white,
-                                    ),
+                                    title: "Confirm",
+                                    // textLabel: "",
+                                    // child: const DesignText(
+                                    //   "Confirm",
+                                    //   fontSize: 16,
+                                    //   fontWeight: 500,
+                                    //   color: Colors.white,
+                                    // ),
                                   ),
                                 ),
                               )
                             else
                               SizedBox(
-                                width: double.infinity,
                                 height: 48,
-                                child: Hero(
-                                  tag: Constants.keyLoginButton,
-                                  child: DesignButtons(
-                                    color: DesignColor.primary,
-                                    elevation: 0,
-                                    fontSize: 16,
-                                    fontWeight: 500,
-                                    colorText: Colors.white,
-                                    isTappedNotifier:
-                                        ValueNotifier<bool>(isLoading),
-                                    onPressed: () async {
+                                child: BlurBtn(
+                                  title: "Sent",
+                                  // colorText: DesignColor.primary,
+                                  onTap: () {
+                                    if (formKey.currentState?.validate() ??
+                                        false) {
                                       isConfirm = true;
                                       setState(() {});
-                                    },
-                                    textLabel: "",
-                                    child: const DesignText(
-                                      "Sent",
-                                      fontSize: 16,
-                                      fontWeight: 500,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                                    }
+                                  },
                                 ),
                               ),
+                            // SizedBox(
+                            //   width: double.infinity,
+                            //   height: 48,
+                            //   child: Hero(
+                            //     tag: Constants.keyLoginButton,
+                            //     child: DesignButtons(
+                            //       color: DesignColor.primary,
+                            //       elevation: 0,
+                            //       fontSize: 16,
+                            //       fontWeight: 500,
+                            //       colorText: Colors.white,
+                            //       isTappedNotifier:
+                            //           ValueNotifier<bool>(isLoading),
+                            //       onPressed: () async {
+                            //         isConfirm = true;
+                            //         setState(() {});
+                            //       },
+                            //       textLabel: "",
+                            //       child: const DesignText(
+                            //         "Sent",
+                            //         fontSize: 16,
+                            //         fontWeight: 500,
+                            //         color: Colors.white,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
