@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/ui/theme/text.dart';
+import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -28,11 +29,9 @@ class _SettingScreenState extends State<SettingScreen> {
               20.height,
               const DesignText.body(
                 "ACCOUNT",
+                fontWeight: 600,
               ),
-              Divider(
-                color: Theme.of(context).colorScheme.surface,
-                height: 1,
-              ),
+              const Divider(color: DesignColor.grey300),
             ],
           ),
         ),
