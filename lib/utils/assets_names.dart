@@ -3,12 +3,12 @@ class AssetsName {
   static const String jsonSuccess = 'assets/lottie/payment-google.json';
   static const String jsonError = 'assets/lottie/error.json';
   // svg
-  static const String svgChat = 'assets/svg/chat.svg'; 
-  static const String svgPerfectMatch = 'assets/svg/perfect-match.svg'; 
-  static const String svgGenderMale = 'assets/svg/GenderMale.svg'; 
-  static const String svgGenderFemale = 'assets/svg/GenderFemale.svg'; 
-  static const String svgGenderIntersex = 'assets/svg/GenderIntersex.svg'; 
-  static const String svgEmpty = 'assets/svg/empty.svg'; 
+  static const String svgChat = 'assets/svg/chat.svg';
+  static const String svgPerfectMatch = 'assets/svg/perfect-match.svg';
+  static const String svgGenderMale = 'assets/svg/GenderMale.svg';
+  static const String svgGenderFemale = 'assets/svg/GenderFemale.svg';
+  static const String svgGenderIntersex = 'assets/svg/GenderIntersex.svg';
+  static const String svgEmpty = 'assets/svg/empty.svg';
   //  svg end
   // png start
 
@@ -24,5 +24,6 @@ class AssetsName {
   static const String pngNewIdeas = 'assets/img/intro/new-ideas.png';
   static const String pngFlowerLeft = 'assets/img/intro/flower-left.png';
   static const String pngFlower = 'assets/img/intro/flower.png';
+  static const String pngBg = 'assets/img/bg.png';
   // png end
 }

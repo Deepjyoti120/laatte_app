@@ -53,165 +53,174 @@ class _CommentSheetState extends State<CommentSheet> {
                   )),
             ),
             const SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
-                color: DesignColor.backgroundColor,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 14, 30, 14),
-                    child: Column(
-                      children: [
-                        const DesignText.title(
-                          "Relate",
-                          textAlign: TextAlign.center,
-                          color: DesignColor.primary,
-                        ),
-                        const SizedBox(height: 10),
-                        DesignFormField(
-                          controller: relate,
-                          labelText: "Relate",
-                          maxLines: 10,
-                          minLines: 6,
-                          readOnly: isConfirm,
-                          autofocus: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 12),
-                        ),
-                        if (isConfirm) const SizedBox(height: 10),
-                        if (isConfirm)
-                          SizedBox(
-                            height: 100,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: (widget.prompt.user?.photos ?? [])
-                                    .asMap()
-                                    .entries
-                                    .map((entry) {
-                                  int index = entry.key;
-                                  var e = entry.value;
-                                  return Padding(
-                                    padding: const EdgeInsets.all(4),
-                                    child: GestureDetector(
-                                      onTap: index == 0
-                                          ? () {
-                                              if (e.url != null) {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        InteractiveView(
-                                                            preview:
-                                                                e.url ?? ''),
-                                                  ),
-                                                );
-                                              }
-                                            }
-                                          : null, // Disable tap for other images
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: index == 0
-                                            ? CachedNetworkImage(
-                                                imageUrl: e.url!,
-                                                fit: BoxFit.cover,
-                                              )
-                                            : ImageFiltered(
-                                                imageFilter: ImageFilter.blur(
-                                                    sigmaX: 5,
-                                                    sigmaY: 5), // Blur effect
-                                                child: CachedNetworkImage(
-                                                  imageUrl: e.url!,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                        if (isConfirm) const SizedBox(height: 10),
-                        if (isConfirm)
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: Hero(
-                              tag: Constants.keyLoginButton,
-                              child: DesignButtons(
-                                color: DesignColor.primary,
-                                elevation: 0,
-                                fontSize: 16,
-                                fontWeight: 500,
-                                colorText: Colors.white,
-                                isTappedNotifier:
-                                    ValueNotifier<bool>(isLoading),
-                                onPressed: () async {
-                                  if (formKey.currentState?.validate() ??
-                                      false) {
-                                    final goRouter = GoRouter.of(context);
-                                    ApiService()
-                                        .addComment(
-                                      comment: relate.text,
-                                      prompt: widget.prompt,
-                                    )
-                                        .then((v) {
-                                      goRouter.pop(v);
-                                    });
-                                  }
-                                },
-                                textLabel: "",
-                                child: const DesignText(
-                                  "Confirm",
-                                  fontSize: 16,
-                                  fontWeight: 500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          )
-                        else
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: Hero(
-                              tag: Constants.keyLoginButton,
-                              child: DesignButtons(
-                                color: DesignColor.primary,
-                                elevation: 0,
-                                fontSize: 16,
-                                fontWeight: 500,
-                                colorText: Colors.white,
-                                isTappedNotifier:
-                                    ValueNotifier<bool>(isLoading),
-                                onPressed: () async {
-                                  isConfirm = true;
-                                  setState(() {});
-                                },
-                                textLabel: "",
-                                child: const DesignText(
-                                  "Sent",
-                                  fontSize: 16,
-                                  fontWeight: 500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.2),
                     ),
                   ),
-                  10.height,
-                  // if (Utils.isIOS) 30.height,
-                ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 14, 30, 14),
+                        child: Column(
+                          children: [
+                            const DesignText.title(
+                              "Relate",
+                              textAlign: TextAlign.center,
+                              color: DesignColor.primary,
+                            ),
+                            const SizedBox(height: 10),
+                            DesignFormField(
+                              controller: relate,
+                              labelText: "Relate",
+                              maxLines: 10,
+                              minLines: 6,
+                              fillColor: Colors.transparent,
+                              readOnly: isConfirm,
+                              style: const TextStyle(color: Colors.white),
+                              autofocus: true,
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 12),
+                            ),
+                            if (isConfirm) const SizedBox(height: 10),
+                            // if (isConfirm)
+                            SizedBox(
+                              height: isConfirm ? 100 : 0,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: (widget.prompt.user?.photos ?? [])
+                                      .asMap()
+                                      .entries
+                                      .map((entry) {
+                                    int index = entry.key;
+                                    var e = entry.value;
+                                    return Padding(
+                                      padding: const EdgeInsets.all(4),
+                                      child: GestureDetector(
+                                        onTap: index == 0
+                                            ? () {
+                                                if (e.url != null) {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          InteractiveView(
+                                                              preview:
+                                                                  e.url ?? ''),
+                                                    ),
+                                                  );
+                                                }
+                                              }
+                                            : null, // Disable tap for other images
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: index == 0
+                                              ? CachedNetworkImage(
+                                                  imageUrl: e.url!,
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : ImageFiltered(
+                                                  imageFilter: ImageFilter.blur(
+                                                      sigmaX: 5,
+                                                      sigmaY: 5), // Blur effect
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: e.url!,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                            10.height,
+                            if (isConfirm)
+                              SizedBox(
+                                width: double.infinity,
+                                height: 48,
+                                child: Hero(
+                                  tag: Constants.keyLoginButton,
+                                  child: DesignButtons(
+                                    color: DesignColor.primary,
+                                    elevation: 0,
+                                    fontSize: 16,
+                                    fontWeight: 500,
+                                    colorText: Colors.white,
+                                    isTappedNotifier:
+                                        ValueNotifier<bool>(isLoading),
+                                    onPressed: () async {
+                                      if (formKey.currentState?.validate() ??
+                                          false) {
+                                        final goRouter = GoRouter.of(context);
+                                        ApiService()
+                                            .addComment(
+                                          comment: relate.text,
+                                          prompt: widget.prompt,
+                                        )
+                                            .then((v) {
+                                          goRouter.pop(v);
+                                        });
+                                      }
+                                    },
+                                    textLabel: "",
+                                    child: const DesignText(
+                                      "Confirm",
+                                      fontSize: 16,
+                                      fontWeight: 500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            else
+                              SizedBox(
+                                width: double.infinity,
+                                height: 48,
+                                child: Hero(
+                                  tag: Constants.keyLoginButton,
+                                  child: DesignButtons(
+                                    color: DesignColor.primary,
+                                    elevation: 0,
+                                    fontSize: 16,
+                                    fontWeight: 500,
+                                    colorText: Colors.white,
+                                    isTappedNotifier:
+                                        ValueNotifier<bool>(isLoading),
+                                    onPressed: () async {
+                                      isConfirm = true;
+                                      setState(() {});
+                                    },
+                                    textLabel: "",
+                                    child: const DesignText(
+                                      "Sent",
+                                      fontSize: 16,
+                                      fontWeight: 500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                      10.height,
+                      // if (Utils.isIOS) 30.height,
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
