@@ -13,6 +13,7 @@ import 'package:laatte/views/home/welcome_screen.dart';
 import 'package:laatte/views/profile/profile.dart';
 import 'package:laatte/views/relate/add_relate.dart';
 import 'package:laatte/views/relate/relate.dart';
+import 'package:laatte/views/settings/setting.dart';
 import '../ui/custom/bottom_bar.dart';
 import '../ui/responsive/show_drawer_responsive.dart';
 
@@ -374,8 +375,8 @@ class _HomeControllerState extends State<HomeController> {
           inactiveColor: DesignColor.inActive,
         ),
         BottomBarItem(
-          icon: const Icon(FontAwesomeIcons.user),
-          title: Text('Profile',
+          icon: const Icon(FontAwesomeIcons.gear),
+          title: Text('Settings',
               style: TextStyle(
                 fontSize: 12,
                 color: appState.isDarkMode ? DesignColor.backgroundColor : null,
@@ -395,7 +396,8 @@ class _HomeControllerState extends State<HomeController> {
       RelateScreen(),
       AddRelate(),
       ChatScreen(),
-      ProfileScreen(),
+      SettingScreen(),
+      // ProfileScreen(),
     ];
     return pages[appState.currentPage];
     // return IndexedStack(
