@@ -59,11 +59,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     if (appState.goIrl) {
       return const IrlScreen();
     }
-    return Container(
-      color: Colors.black,
+    return SizedBox(
+      // color: Colors.black,
       width: double.infinity,
       child: Stack(
         children: [
+          Image.asset(
+            AssetsName.pngBg,
+            fit: BoxFit.fill,
+            height: double.infinity,
+            width: double.infinity,
+          ),
           SizedBox(
             height: 0,
             width: 0,

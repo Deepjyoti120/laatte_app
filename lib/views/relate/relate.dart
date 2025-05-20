@@ -39,60 +39,72 @@ class _RelateScreenState extends State<RelateScreen> {
   Widget build(BuildContext context) {
     // final appState = context.watch<AppStateCubit>();
     return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<MyPromptsBloc, MyPromptsState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case ResponseStatus.failure:
-                return const Center(child: Text('failed to fetch data'));
-              case ResponseStatus.success:
-                if (state.prompts.isEmpty) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Row(),
-                      SvgPicture.asset(
-                        AssetsName.svgEmpty,
-                        width: 100,
-                        height: 100,
-                      ),
-                      const DesignText("Please come back later"),
-                    ],
-                  );
-                }
-                return ListView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(12),
-                  itemCount: state.hasReachedMax
-                      ? state.prompts.length
-                      : state.prompts.length + 1,
-                  controller: _scrollController,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index >= state.prompts.length) {
-                      return const Center(child: DesignProgress());
-                    } else {
-                      final data = state.prompts[index];
-                      return GestureDetector(
-                        onTap: () {
-                          context.push(Routes.relateComment, extra: data);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child:
-                              IntrinsicHeight(child: RelateCard(prompt: data)),
-                        ),
+      body: Stack(
+        children: [
+          Image.asset(
+            AssetsName.pngBg,
+            fit: BoxFit.fill,
+            height: double.infinity,
+            width: double.infinity,
+          ),
+          SafeArea(
+            child: BlocBuilder<MyPromptsBloc, MyPromptsState>(
+              builder: (context, state) {
+                switch (state.status) {
+                  case ResponseStatus.failure:
+                    return const Center(child: Text('failed to fetch data'));
+                  case ResponseStatus.success:
+                    if (state.prompts.isEmpty) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Row(),
+                          SvgPicture.asset(
+                            AssetsName.svgEmpty,
+                            width: 100,
+                            height: 100,
+                          ),
+                          const DesignText("Please come back later"),
+                        ],
                       );
                     }
-                  },
-                );
-              case ResponseStatus.initial:
-                return const Center(child: DesignProgress());
-              default:
-                return const Center(child: DesignProgress());
-            }
-          },
-        ),
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(12),
+                      itemCount: state.hasReachedMax
+                          ? state.prompts.length
+                          : state.prompts.length + 1,
+                      controller: _scrollController,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index >= state.prompts.length) {
+                          return const Center(
+                            child: DesignProgress(color: Colors.white),
+                          );
+                        } else {
+                          final data = state.prompts[index];
+                          return GestureDetector(
+                            onTap: () {
+                              context.push(Routes.relateComment, extra: data);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: IntrinsicHeight(
+                                  child: RelateCard(prompt: data)),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  case ResponseStatus.initial:
+                    return const Center(child: DesignProgress());
+                  default:
+                    return const Center(child: DesignProgress());
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

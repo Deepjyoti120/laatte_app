@@ -8,6 +8,7 @@ import 'package:laatte/views/irl/irl.dart';
 import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
 import 'package:laatte/views/relate/add_relate.dart';
+import 'package:laatte/views/relate/matching_screen.dart';
 import 'package:laatte/views/relate/relate_comments.dart';
 import 'package:laatte/views/splash_screen.dart';
 import 'views/login/forgot_password.dart';
@@ -36,4 +37,5 @@ class Routes {
   static const String relateComment = RelateComment.route;
   static const String chatMessages = ChatMessages.route;
   static const String irlScreen = IrlScreen.route;
+  static const String matchingScreen = MatchingScreen.route;
 }

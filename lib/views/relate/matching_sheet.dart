@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/common_libs.dart';
+import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/custom/custom_text_form.dart';
 import 'package:laatte/ui/theme/text.dart';
@@ -9,6 +11,7 @@ import 'package:laatte/ui/widgets/interactiveview.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import '../../ui/theme/buttons.dart';
 
@@ -190,9 +193,12 @@ class _MatchingSheetState extends State<MatchingSheet> {
                                     )
                                         .then((v) {
                                       if (!context.mounted) return;
-                                      if (v) {
-                                        goRouter.pop(v);
-                                        Utils.showSnackBar(context, "Matched");
+                                      final isSuccess = v != null;
+                                      if (isSuccess) {
+                                        goRouter.pop(isSuccess);
+                                        context.push(Routes.matchingScreen,
+                                            extra: v);
+                                        // Utils.showSnackBar(context, "Matched");
                                       } else {
                                         Utils.showSnackBar(
                                             context, "Failed to match");

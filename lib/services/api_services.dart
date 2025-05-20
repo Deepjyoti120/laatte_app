@@ -692,7 +692,7 @@ class ApiService {
     return [];
   }
 
-  Future<bool> chatStart({
+  Future<String?> chatStart({
     required String receiverId,
     required Prompt prompt,
     required Comment comment,
@@ -709,12 +709,13 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 201) {
-        return true;
+        final data = res.data['data'];
+        return data['id'];
       }
     } on DioException catch (e) {
       Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
     }
-    return false;
+    return null;
   }
 
   Future<bool> chatSend({

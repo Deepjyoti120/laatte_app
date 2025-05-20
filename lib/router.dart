@@ -11,6 +11,7 @@ import 'package:laatte/views/irl/irl.dart';
 import 'package:laatte/views/login/create_account.dart';
 import 'package:laatte/views/login/login.dart';
 import 'package:laatte/views/login/otp_screen.dart';
+import 'package:laatte/views/relate/matching_screen.dart';
 import 'package:laatte/views/relate/relate_comments.dart';
 import 'package:laatte/views/splash_screen.dart';
 import 'main.dart';
@@ -151,6 +152,12 @@ final GoRouter goRouter = GoRouter(
       path: Routes.irlScreen,
       builder: (context, GoRouterState state) {
         return const IrlScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.matchingScreen,
+      builder: (context, GoRouterState state) {
+        return  MatchingScreen(chatId: state.extra.toString());
       },
     ),
   ],
