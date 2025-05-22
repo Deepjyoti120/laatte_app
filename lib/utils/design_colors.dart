@@ -196,4 +196,5 @@ class DesignColor {
   static const Color latteDarkCard = Color(0xFF282016);
   static const Color latteOrangeDark = Color(0xFFCD6036);
   static const Color latteOrangeLight = Color(0xFFFBEFDC);
+  static const Color latteOrangeLight1 = Color(0xFFF5E7C8);
 }

@@ -12,6 +12,7 @@ import 'package:laatte/utils/constants.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/basic_info.dart';
 import 'package:laatte/viewmodel/model/chat.dart';
+import 'package:laatte/viewmodel/model/chat_start.dart';
 import 'package:laatte/viewmodel/model/country_state.dart';
 import 'package:laatte/viewmodel/model/department.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
@@ -692,7 +693,7 @@ class ApiService {
     return [];
   }
 
-  Future<String?> chatStart({
+  Future<ChatStart?> chatStart({
     required String receiverId,
     required Prompt prompt,
     required Comment comment,
@@ -709,8 +710,8 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 201) {
-        final data = res.data['data'];
-        return data['id'];
+        final data = ChatStart.fromJson(res.data['data']);
+        return data;
       }
     } on DioException catch (e) {
       Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");

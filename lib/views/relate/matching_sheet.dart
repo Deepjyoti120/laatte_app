@@ -11,7 +11,7 @@ import 'package:laatte/ui/widgets/interactiveview.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
-import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
+import 'package:laatte/viewmodel/model/chat_start.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import '../../ui/theme/buttons.dart';
 
@@ -191,7 +191,7 @@ class _MatchingSheetState extends State<MatchingSheet> {
                                       prompt: widget.prompt,
                                       comment: widget.comment,
                                     )
-                                        .then((v) {
+                                        .then(( v) {
                                       if (!context.mounted) return;
                                       final isSuccess = v != null;
                                       if (isSuccess) {

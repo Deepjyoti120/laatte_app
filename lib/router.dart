@@ -1,5 +1,6 @@
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
+import 'package:laatte/viewmodel/model/chat_start.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import 'package:laatte/views/chat/chat_screen.dart';
 import 'package:laatte/views/employee/add_employee.dart';
@@ -157,7 +158,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: Routes.matchingScreen,
       builder: (context, GoRouterState state) {
-        return  MatchingScreen(chatId: state.extra.toString());
+        return MatchingScreen(chatStart: state.extra as ChatStart);
       },
     ),
   ],
