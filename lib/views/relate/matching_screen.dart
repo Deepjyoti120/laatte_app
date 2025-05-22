@@ -48,27 +48,55 @@ class _MatchingScreenState extends State<MatchingScreen> {
                   ),
                   40.height,
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          widget.chatStart.user1?.profilePicture ??
-                              "https://avatar.iran.liara.run/public/boy?username=Ash",
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        ),
+                      Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              widget.chatStart.user1?.profilePicture ??
+                                  "https://avatar.iran.liara.run/public/boy?username=Ash",
+                              height: 80,
+                              width: 80,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          12.height,
+                          DesignText(
+                            widget.chatStart.user1?.name ?? "",
+                            fontSize: 16,
+                            fontWeight: 500,
+                            color: Colors.white,
+                          ),
+                        ],
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          widget.chatStart.user2?.profilePicture ??
-                              "https://avatar.iran.liara.run/public/boy?username=Ash",
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        ),
+                      12.width,
+                      const DesignText(
+                        "&",
+                        color: Colors.white,
+                      ),
+                      12.width,
+                      Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              widget.chatStart.user2?.profilePicture ??
+                                  "https://avatar.iran.liara.run/public/boy?username=Ash",
+                              height: 80,
+                              width: 80,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          12.height,
+                          DesignText(
+                            widget.chatStart.user2?.name ?? "",
+                            fontSize: 16,
+                            fontWeight: 500,
+                            color: Colors.white,
+                          ),
+                        ],
                       ),
                     ],
                   ),
