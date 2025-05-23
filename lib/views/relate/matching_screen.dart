@@ -27,7 +27,7 @@ class _MatchingScreenState extends State<MatchingScreen> {
       body: Stack(
         children: [
           Image.asset(
-            AssetsName.pngBg,
+            AssetsName.pngMatchingBg,
             fit: BoxFit.fill,
             height: double.infinity,
             width: double.infinity,
@@ -83,7 +83,7 @@ class _MatchingScreenState extends State<MatchingScreen> {
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
                               widget.chatStart.user2?.profilePicture ??
-                                  "https://avatar.iran.liara.run/public/boy?username=Ash",
+                                  "https://avatar.iran.liara.run/public/boy?username=Deepjyoti",
                               height: 80,
                               width: 80,
                               fit: BoxFit.cover,

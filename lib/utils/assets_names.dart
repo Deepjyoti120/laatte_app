@@ -25,5 +25,6 @@ class AssetsName {
   static const String pngFlowerLeft = 'assets/img/intro/flower-left.png';
   static const String pngFlower = 'assets/img/intro/flower.png';
   static const String pngBg = 'assets/img/bg.png';
+  static const String pngMatchingBg = 'assets/img/bg.png';
   // png end
 }
