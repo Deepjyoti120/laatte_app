@@ -115,6 +115,31 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                     },
                   ),
                   10.height,
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: DesignButtons(
+                      color: DesignColor.primary,
+                      elevation: 0,
+                      fontSize: 16,
+                      fontWeight: 500,
+                      colorText: Colors.white,
+                      isTappedNotifier: ValueNotifier<bool>(false),
+                      onPressed: () async {},
+                      textLabel: 'Generate',
+                      child: isloading
+                          ? const DesignProgress(
+                              color: Colors.white,
+                            )
+                          : const DesignText(
+                              "Generate",
+                              fontSize: 16,
+                              fontWeight: 500,
+                              color: Colors.white,
+                            ),
+                    ),
+                  ),
+                  10.height,
                   Stack(
                     children: [
                       DesignContainer(
@@ -224,7 +249,6 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                             if (isSelected) {
                               tags.remove(e);
                             } else {
-                              // tags ??= [];
                               tags.add(e);
                             }
                           });
@@ -265,7 +289,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                     width: double.infinity,
                     height: 48,
                     child: DesignButtons(
-                      color: DesignColor.success600,
+                      color: DesignColor.primary,
                       elevation: 0,
                       fontSize: 16,
                       fontWeight: 500,
