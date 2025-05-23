@@ -32,6 +32,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   final _formKey = GlobalKey<FormState>();
   Position? _position;
   List<String> tags = [];
+  bool isGenerating = false;
 
   @override
   void initState() {
@@ -125,11 +126,32 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                       fontWeight: 500,
                       colorText: Colors.white,
                       isTappedNotifier: ValueNotifier<bool>(false),
-                      onPressed: () async {},
+                      onPressed: () async {
+                        setState(() {
+                          isGenerating = true;
+                        });
+                        _relate.text = await ApiService()
+                                .generatePrompt(text: _relate.text) ??
+                            "";
+                        setState(() {
+                          isGenerating = false;
+                        });
+                      },
                       textLabel: 'Generate',
-                      child: isloading
-                          ? const DesignProgress(
-                              color: Colors.white,
+                      child: isGenerating
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const DesignProgress.ai(color: Colors.white),
+                                6.width,
+                                const DesignText(
+                                  "Generating",
+                                  fontSize: 16,
+                                  fontWeight: 500,
+                                  color: Colors.white,
+                                ),
+                              ],
                             )
                           : const DesignText(
                               "Generate",

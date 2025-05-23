@@ -781,4 +781,28 @@ class ApiService {
     }
     return [];
   }
+
+  //  _relate.text = await ApiService().generatePrompt(
+  //                         prompt: _relate.text,
+  //                       );
+
+  Future<String?> generatePrompt({
+    required String text,
+  }) async {
+    String apiUrl = 'generate-text';
+    try {
+      var dataBody = {"text": text};
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 200) {
+        final data = res.data['data'];
+        return data;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return null;
+  }
 }
