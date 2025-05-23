@@ -25,6 +25,7 @@ class DesignFormField extends StatelessWidget {
     this.fillColor,
     this.maxLength,
     this.style,
+    this.labelStyle,
   });
   final TextEditingController controller;
   final String labelText;
@@ -46,6 +47,7 @@ class DesignFormField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Color? fillColor;
   final TextStyle? style;
+  final TextStyle? labelStyle;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -81,7 +83,7 @@ class DesignFormField extends StatelessWidget {
             labelText: labelText,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
-            labelStyle: const TextStyle(
+            labelStyle:labelStyle ??const TextStyle(
               color: DesignColor.grey400,
             ),
             filled: true,
