@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:file_picker/file_picker.dart' as file;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:laatte/common_libs.dart';
@@ -14,6 +15,7 @@ import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 
 import '../../services/api_services.dart';
@@ -87,6 +89,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final appState = context.watch<AppStateCubit>();
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -157,11 +160,11 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                             width: double.infinity,
                             height: 48,
                             child: DesignButtons(
-                              color: DesignColor.primary,
+                              color: DesignColor.latteyellowLight3,
                               elevation: 0,
                               fontSize: 16,
                               fontWeight: 500,
-                              colorText: Colors.white,
+                              colorText: Colors.black,
                               isTappedNotifier: ValueNotifier<bool>(false),
                               onPressed: () async {
                                 setState(() {
@@ -188,7 +191,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                           "Generating",
                                           fontSize: 16,
                                           fontWeight: 500,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                         ),
                                       ],
                                     )
@@ -196,7 +199,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                       "Generate",
                                       fontSize: 16,
                                       fontWeight: 500,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                     ),
                             ),
                           ),
@@ -360,6 +363,27 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                 ),
                               ),
                             ],
+                          ),
+                          10.height,
+                          SizedBox(
+                            width: double.infinity,
+                            height: 48,
+                            child: DesignButtons(
+                              color: DesignColor.latteyellowLight3,
+                              elevation: 0,
+                              fontSize: 16,
+                              fontWeight: 500,
+                              colorText: Colors.black,
+                              isTappedNotifier: ValueNotifier<bool>(false),
+                              onPressed: () async {},
+                              textLabel: 'Choose IRL Location',
+                              child: const DesignText(
+                                "Choose IRL Location",
+                                fontSize: 16,
+                                fontWeight: 500,
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                           10.height,
                           SizedBox(
