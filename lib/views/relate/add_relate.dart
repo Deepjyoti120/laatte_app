@@ -16,6 +16,7 @@ import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
+import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 
 import '../../services/api_services.dart';
@@ -38,6 +39,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   Position? _position;
   List<String> tags = [];
   bool isGenerating = false;
+  Irl? _irl;
 
   @override
   void initState() {
@@ -102,7 +104,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                   color: Colors.white.withOpacity(0.1),
                 ),
                 child: Image.asset(
-                  AssetsName.pngBg,
+                  AssetsName.pngBg1,
                   fit: BoxFit.fill,
                   height: double.infinity,
                   width: double.infinity,
@@ -111,7 +113,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
             ),
             SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -427,6 +429,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                       longitude:
                                           _position?.longitude.toString(),
                                       tags: tags,
+                                      irl: _irl,
                                     ),
                                   )
                                       .then((value) {

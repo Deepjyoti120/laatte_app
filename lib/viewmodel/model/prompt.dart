@@ -1,3 +1,4 @@
+import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 
 class Prompt {
@@ -13,6 +14,7 @@ class Prompt {
   String? updatedAt;
   List<Comment>? comments;
   UserReport? user;
+  Irl? irl;
 
   Prompt({
     this.id,
@@ -27,6 +29,7 @@ class Prompt {
     this.updatedAt,
     this.comments,
     this.user,
+    this.irl,
   });
 
   Prompt.fromJson(Map<String, dynamic> json) {
@@ -47,6 +50,7 @@ class Prompt {
       });
     }
     user = json['user'] != null ? UserReport.fromJson(json['user']) : null;
+    irl = json['irl'] != null ? Irl.fromJson(json['irl']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -66,6 +70,9 @@ class Prompt {
     }
     if (user != null) {
       data['user'] = user!.toJson();
+    }
+    if (irl != null) {
+      data['irl'] = irl!.toJson();
     }
     return data;
   }
