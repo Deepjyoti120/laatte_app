@@ -379,7 +379,12 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                               colorText: Colors.black,
                               isTappedNotifier: ValueNotifier<bool>(false),
                               onPressed: () async {
-                                selectIrl();
+                                selectIrl().then((v) {
+                                  if (v != null) {
+                                    _irl = v;
+                                    setState(() {});
+                                  }
+                                });
                               },
                               textLabel: "Choose IRL Location",
                               child: const DesignText(
@@ -496,7 +501,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
       // add linear bounce in animation curve
       backgroundColor: Colors.transparent,
       builder: (context) {
-        return SelectIrl();
+        return const SelectIrl();
       },
     );
   }

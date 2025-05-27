@@ -1,9 +1,12 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/common_libs.dart';
-import 'package:laatte/ui/blur_button.dart';
+import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/viewmodel/bloc/visit_irl_bloc.dart';
 
 class SelectIrl extends StatefulWidget {
   const SelectIrl({super.key});
@@ -15,6 +18,7 @@ class SelectIrl extends StatefulWidget {
 class _SelectIrlState extends State<SelectIrl> {
   @override
   Widget build(BuildContext context) {
+    final visits = context.watch<VisitIrlBloc>().state.visitIrls;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -54,22 +58,95 @@ class _SelectIrlState extends State<SelectIrl> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(30, 14, 30, 14),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const DesignText.title(
-                          "Relate",
+                        const DesignText(
+                          "IRL",
+                          color: DesignColor.white,
+                          fontSize: 30,
+                        ),
+                        const DesignText(
+                          "Start connecting with people \nat places you went today.",
+                          color: DesignColor.white,
+                          fontSize: 16,
                           textAlign: TextAlign.center,
-                          color: DesignColor.primary,
                         ),
-                        const SizedBox(height: 10),
                         10.height,
-                        SizedBox(
-                          height: 48,
-                          child: BlurBtn(
-                            title: "Sent",
-                            onTap: () {},
+                        if (visits.isNotEmpty)
+                          const DesignText(
+                            "Today You Were At...",
+                            color: DesignColor.white,
+                            fontSize: 20,
                           ),
-                        ),
+                        if (visits.isNotEmpty) 10.height,
+                        if (visits.isNotEmpty)
+                          ListView.builder(
+                            itemCount: visits.length,
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            itemBuilder: (context, index) {
+                              final visit = visits[index];
+                              if (visit == null) {
+                                return const SizedBox();
+                              }
+                              return GestureDetector(
+                                onTap: () {
+                                  context.pop(visit.irl);
+                                },
+                                child: DesignContainer(
+                                  width: double.infinity,
+                                  clipBehavior: Clip.antiAlias,
+                                  color: DesignColor.latteDarkCard,
+                                  isColor: true,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: SizedBox(
+                                          height: 100,
+                                          child: CachedNetworkImage(
+                                            imageUrl: visit.irl?.profile ?? "",
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          height: 100,
+                                          alignment: Alignment.center,
+                                          color: DesignColor.latteDarkCard,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: DesignText(
+                                              visit.irl?.name ?? "",
+                                              color: DesignColor.primary,
+                                              fontSize: 16,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        else
+                          const DesignText(
+                            "You have not visited any places today.",
+                            color: DesignColor.white,
+                            fontSize: 16,
+                            textAlign: TextAlign.center,
+                          ),
+                        10.height,
+                        const Row()
+                        // SizedBox(
+                        //   height: 48,
+                        //   child: BlurBtn(
+                        //     title: "Sent",
+                        //     onTap: () {},
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
