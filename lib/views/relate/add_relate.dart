@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart' as file;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -368,33 +369,70 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                             ],
                           ),
                           10.height,
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: DesignButtons(
-                              color: DesignColor.latteyellowLight3,
-                              elevation: 0,
-                              fontSize: 16,
-                              fontWeight: 500,
-                              colorText: Colors.black,
-                              isTappedNotifier: ValueNotifier<bool>(false),
-                              onPressed: () async {
-                                selectIrl().then((v) {
-                                  if (v != null) {
-                                    _irl = v;
-                                    setState(() {});
-                                  }
-                                });
-                              },
-                              textLabel: "Choose IRL Location",
-                              child: const DesignText(
-                                "Choose IRL Location",
+                          if (_irl == null)
+                            SizedBox(
+                              width: double.infinity,
+                              height: 48,
+                              child: DesignButtons(
+                                color: DesignColor.latteyellowLight3,
+                                elevation: 0,
                                 fontSize: 16,
                                 fontWeight: 500,
-                                color: Colors.black,
+                                colorText: Colors.black,
+                                isTappedNotifier: ValueNotifier<bool>(false),
+                                onPressed: () async {
+                                  selectIrl().then((v) {
+                                    if (v != null) {
+                                      _irl = v;
+                                      setState(() {});
+                                    }
+                                  });
+                                },
+                                textLabel: "Choose IRL Location",
+                                child: const DesignText(
+                                  "Choose IRL Location",
+                                  fontSize: 16,
+                                  fontWeight: 500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            )
+                          else
+                            DesignContainer(
+                              width: double.infinity,
+                              clipBehavior: Clip.antiAlias,
+                              color: DesignColor.latteDarkCard,
+                              isColor: true,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 100,
+                                      child: CachedNetworkImage(
+                                        imageUrl: _irl?.profile ?? "",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      height: 100,
+                                      alignment: Alignment.center,
+                                      color: DesignColor.latteDarkCard,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: DesignText(
+                                          _irl?.name ?? "",
+                                          color: DesignColor.primary,
+                                          fontSize: 16,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
                           10.height,
                           SizedBox(
                             width: double.infinity,
