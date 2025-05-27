@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -52,100 +54,131 @@ class _LoginState extends State<Login> {
     return Form(
       key: formKey,
       child: Scaffold(
-        body: Column(
+        body: Stack(
           children: [
-            Expanded(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.1),
+                ),
+                child: Image.asset(
+                  AssetsName.pngBg,
+                  fit: BoxFit.fill,
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
+              ),
+            ),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: DesignColor.latteyellowLight3,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Hero(
-                        tag: AssetsName.appLogo,
-                        child: SvgPicture.asset(
-                          AssetsName.appLogo,
-                          height: 160,
-                        ),
-                      ),
-                      30.height,
-                      const DesignText.titleSemiBold(
-                        "Where people meet thru thoughts ",
-                      ),
-                      6.height,
-                      const DesignText.body(
-                        'sign-in to experience new way of dating',
-                      ),
-                      30.height,
-                      DesignFormField(
-                        controller: _phone,
-                        labelText: "Phone",
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.phone,
-                          color: DesignColor.grey400,
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                      ),
-                      30.height,
-                      SizedBox(
-                        width: double.infinity,
-                        height: 48,
-                        child: Hero(
-                          tag: Constants.keyLoginButton,
-                          child: DesignButtons(
-                            color: DesignColor.primary,
-                            elevation: 0,
-                            fontSize: 16,
-                            fontWeight: 500,
-                            colorText: Colors.white,
-                            isTappedNotifier: ValueNotifier<bool>(isloading),
-                            onPressed: () async {
-                              if (formKey.currentState!.validate()) {
-                                final goRouter = GoRouter.of(context);
-                                if (!await acceptTermAndCondition) {
-                                  setState(() => isloading = false);
-                                  return;
-                                }
-                                setState(() => isloading = true);
-                                ApiService()
-                                    .otpRequest(phone: _phone.text)
-                                    .then((v) {
-                                  setState(() => isloading = false);
-                                  if (v) {
-                                    final String route =
-                                        "${Routes.otpScreen}?phone=${_phone.text}";
-                                    goRouter.go(route);
-                                  }
-                                });
-                              }
-                            },
-                            textLabel: "Continue",
-                            child: const DesignText(
-                              "Continue",
-                              fontSize: 16,
-                              fontWeight: 500,
-                              color: Colors.white,
+                      Expanded(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Hero(
+                                  tag: AssetsName.appLogo,
+                                  child: SvgPicture.asset(
+                                    AssetsName.appLogo,
+                                    height: 160,
+                                  ),
+                                ),
+                                30.height,
+                                const DesignText.titleSemiBold(
+                                  "Where people meet thru thoughts ",
+                                ),
+                                6.height,
+                                const DesignText.body(
+                                  'sign-in to experience new way of dating',
+                                ),
+                                30.height,
+                                DesignFormField(
+                                  controller: _phone,
+                                  labelText: "Phone",
+                                  fillColor: DesignColor.latteyellowLight3,
+                                  prefixIcon: const Icon(
+                                    FontAwesomeIcons.phone,
+                                    color: DesignColor.grey400,
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(10),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
+                                ),
+                                30.height,
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 48,
+                                  child: Hero(
+                                    tag: Constants.keyLoginButton,
+                                    child: DesignButtons(
+                                      color: DesignColor.primary,
+                                      elevation: 0,
+                                      fontSize: 16,
+                                      fontWeight: 500,
+                                      colorText: Colors.white,
+                                      isTappedNotifier:
+                                          ValueNotifier<bool>(isloading),
+                                      onPressed: () async {
+                                        if (formKey.currentState!.validate()) {
+                                          final goRouter = GoRouter.of(context);
+                                          if (!await acceptTermAndCondition) {
+                                            setState(() => isloading = false);
+                                            return;
+                                          }
+                                          setState(() => isloading = true);
+                                          ApiService()
+                                              .otpRequest(phone: _phone.text)
+                                              .then((v) {
+                                            setState(() => isloading = false);
+                                            if (v) {
+                                              final String route =
+                                                  "${Routes.otpScreen}?phone=${_phone.text}";
+                                              goRouter.go(route);
+                                            }
+                                          });
+                                        }
+                                      },
+                                      textLabel: "Continue",
+                                      child: const DesignText(
+                                        "Continue",
+                                        fontSize: 16,
+                                        fontWeight: 500,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                20.height,
+                              ],
                             ),
                           ),
                         ),
                       ),
-                      20.height,
+                      DesignText.body(
+                        "v${Constants.packageInfo?.version ?? ""}",
+                        // fontSize: 32,
+                        fontWeight: 500,
+                      ),
+                      if (Utils.isIOS) 30.height else 20.height
                     ],
                   ),
                 ),
               ),
             ),
-            DesignText.body(
-              "v${Constants.packageInfo?.version ?? ""}",
-              // fontSize: 32,
-              fontWeight: 500,
-            ),
-            if (Utils.isIOS) 30.height else 20.height
           ],
         ),
       ),

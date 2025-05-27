@@ -105,7 +105,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                   color: Colors.white.withOpacity(0.1),
                 ),
                 child: Image.asset(
-                  AssetsName.pngBg1,
+                  AssetsName.pngBg,
                   fit: BoxFit.fill,
                   height: double.infinity,
                   width: double.infinity,

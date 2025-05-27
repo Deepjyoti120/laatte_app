@@ -57,7 +57,7 @@ class _HomeControllerState extends State<HomeController> {
     final appState = context.watch<AppStateCubit>();
     return ResponsiveDrawer(
       child: Scaffold(
-        bottomNavigationBar: _buildBottomBar(appState),
+        // bottomNavigationBar: _buildBottomBar(appState),
         // Container(
         //   padding:
         //       const EdgeInsets.only(bottom: 30, right: 32, left: 32),
@@ -108,37 +108,37 @@ class _HomeControllerState extends State<HomeController> {
         body: Stack(
           children: [
             getBody(appState),
-            // Positioned(
-            //   bottom: 0,
-            //   left: 0,
-            //   right: 0,
-            //   child: Container(
-            //     padding: const EdgeInsets.only(bottom: 30, right: 32, left: 32),
-            //     // border radius: BorderRadius.circular(20),
-            //     child: BottomBarFloating(
-            //       items: const [
-            //         TabItem(icon: FontAwesomeIcons.house, title: "Home"),
-            //         TabItem(icon: FontAwesomeIcons.heart, title: "Relate"),
-            //         TabItem(icon: FontAwesomeIcons.plus, title: "Add"),
-            //         TabItem(icon: FontAwesomeIcons.comment, title: "Chat"),
-            //         TabItem(icon: FontAwesomeIcons.user, title: "Profile"),
-            //       ],
-            //       backgroundColor: DesignColor.latteOrangeLight,
-            //       color: DesignColor.grey700,
-            //       borderRadius: BorderRadius.circular(60),
-            //       colorSelected: DesignColor.latteOrangeDark,
-            //       indexSelected: appState.currentPage,
-            //       paddingVertical: 20,
-            //       animated: true,
-            //       curve: Curves.linear,
-            //       onTap: (int index) => setState(
-            //         () {
-            //           appState.currentPage = index;
-            //         },
-            //       ),
-            //     ),
-            //   ),
-            // )
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.only(bottom: 30, right: 32, left: 32),
+                // border radius: BorderRadius.circular(20),
+                child: BottomBarFloating(
+                  items: const [
+                    TabItem(icon: FontAwesomeIcons.house, title: "Home"),
+                    TabItem(icon: FontAwesomeIcons.heart, title: "Relate"),
+                    TabItem(icon: FontAwesomeIcons.plus, title: "Add"),
+                    TabItem(icon: FontAwesomeIcons.comment, title: "Chat"),
+                    TabItem(icon: FontAwesomeIcons.user, title: "Profile"),
+                  ],
+                  backgroundColor: DesignColor.latteOrangeLight,
+                  color: DesignColor.grey700,
+                  borderRadius: BorderRadius.circular(60),
+                  colorSelected: DesignColor.latteOrangeDark,
+                  indexSelected: appState.currentPage,
+                  paddingVertical: 20,
+                  animated: true,
+                  curve: Curves.linear,
+                  onTap: (int index) => setState(
+                    () {
+                      appState.currentPage = index;
+                    },
+                  ),
+                ),
+              ),
+            )
           ],
         ),
         // body: SafeArea(
