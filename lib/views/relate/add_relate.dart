@@ -18,6 +18,7 @@ import 'package:laatte/utils/utlis.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
+import 'package:laatte/views/relate/select_irl.dart';
 
 import '../../services/api_services.dart';
 
@@ -377,8 +378,10 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                               fontWeight: 500,
                               colorText: Colors.black,
                               isTappedNotifier: ValueNotifier<bool>(false),
-                              onPressed: () async {},
-                              textLabel: 'Choose IRL Location',
+                              onPressed: () async {
+                                selectIrl();
+                              },
+                              textLabel: "Choose IRL Location",
                               child: const DesignText(
                                 "Choose IRL Location",
                                 fontSize: 16,
@@ -479,6 +482,22 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
           ],
         ),
       ),
+    );
+  }
+
+  Future<Irl?> selectIrl() async {
+    return await showModalBottomSheet<Irl?>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
+      isScrollControlled: true,
+      isDismissible: false,
+      // enableDrag: false,
+      // add linear bounce in animation curve
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return SelectIrl();
+      },
     );
   }
 }
