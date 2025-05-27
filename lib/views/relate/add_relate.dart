@@ -20,7 +20,6 @@ import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import 'package:laatte/views/relate/select_irl.dart';
-
 import '../../services/api_services.dart';
 
 class AddRelate extends StatefulWidget {
