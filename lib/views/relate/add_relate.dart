@@ -93,6 +93,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppStateCubit>();
+    bool isSubmitable =
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -311,46 +312,40 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                             ],
                           ),
                           10.height,
-                          SizedBox(
-                            height: 120, // Adjust to fit 3 rows
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Wrap(
-                                direction: Axis.vertical, // 3 items per column
-                                spacing: 6,
-                                runSpacing: 1,
-                                children: Constants.tags.map((e) {
-                                  final isSelected = tags.contains(e);
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        if (isSelected) {
-                                          tags.remove(e);
-                                        } else {
-                                          tags.add(e);
-                                        }
-                                      });
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 6),
-                                      margin: const EdgeInsets.only(right: 6),
-                                      decoration: BoxDecoration(
-                                        color: isSelected
-                                            ? DesignColor.primary
-                                            : Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: DesignText.body(
-                                        e,
-                                        color: isSelected
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Wrap(
+                              children: Constants.tags.map((e) {
+                                final isSelected = tags.contains(e);
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (isSelected) {
+                                        tags.remove(e);
+                                      } else {
+                                        tags.add(e);
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 6),
+                                    margin: const EdgeInsets.only(right: 6),
+                                    decoration: BoxDecoration(
+                                      color: isSelected
+                                          ? DesignColor.primary
+                                          : Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
-                                  );
-                                }).toList(),
-                              ),
+                                    child: DesignText.body(
+                                      e,
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
                             ),
                           ),
                           // 10.height,
