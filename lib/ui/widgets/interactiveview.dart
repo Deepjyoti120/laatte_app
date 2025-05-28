@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class InteractiveView extends StatefulWidget {
-  const InteractiveView({super.key, required this.preview});
-  final String preview;
+  const InteractiveView({super.key, this.preview, this.file});
+  final String? preview;
+  final File? file;
 
   @override
   State<InteractiveView> createState() => _InteractiveViewState();
@@ -56,17 +59,25 @@ class _InteractiveViewState extends State<InteractiveView> {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: widget.preview,
+      tag: widget.preview ?? widget.file?.path ?? '',
       child: InteractiveViewer(
         transformationController: _transformationController,
         child: GestureDetector(
           onDoubleTapDown: handleDoubleTapDown,
           onDoubleTap: handleDoubleTap,
-          child: CachedNetworkImage(
-            imageUrl: widget.preview,
-            fit: BoxFit.contain,
-            height: double.infinity,
-          ),
+          child: widget.file != null
+              ? Image.file(
+                  widget.file!,
+                  fit: BoxFit.contain,
+                  height: double.infinity,
+                )
+              : widget.preview == null
+                  ? const SizedBox.shrink()
+                  : CachedNetworkImage(
+                      imageUrl: widget.preview!,
+                      fit: BoxFit.contain,
+                      height: double.infinity,
+                    ),
         ),
       ),
     );

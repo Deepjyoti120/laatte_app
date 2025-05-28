@@ -10,6 +10,7 @@ import 'package:laatte/ui/custom/custom_text_form.dart';
 import 'package:laatte/ui/theme/buttons.dart';
 import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
+import 'package:laatte/ui/widgets/interactiveview.dart';
 import 'package:laatte/ui/widgets/material_icon_button.dart';
 import 'package:laatte/ui/widgets/progress_circle.dart';
 import 'package:laatte/utils/assets_names.dart';
@@ -94,15 +95,90 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppStateCubit>();
-    bool isSubmittable = true;
+    bool isSubmittable = pickImage != null && tags.isNotEmpty;
     return Form(
       key: _formKey,
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          label: Text("data"),
-          onPressed: () {},
-        ),
+        floatingActionButton: isSubmittable
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 70),
+                child: FloatingActionButton.extended(
+                  label: haspermission
+                      ? GestureDetector(
+                          onTap: () {
+                            Utils.flutterToast(
+                              "Please allow location permission to save the prompt",
+                            );
+                          },
+                          child: const DesignText(
+                            "To Save Open Location Settings",
+                            fontSize: 16,
+                            fontWeight: 500,
+                            color: Colors.black,
+                          ),
+                        )
+                      : isloading
+                          ? const DesignProgress(
+                              color: Colors.black,
+                            )
+                          : const DesignText(
+                              "Save",
+                              fontSize: 16,
+                              fontWeight: 500,
+                              color: Colors.black,
+                            ),
+                  backgroundColor: DesignColor.latteyellowLight3,
+                  onPressed: () async {
+                    if (!haspermission) {
+                      await Geolocator.openLocationSettings();
+                      return;
+                    }
+                    if (isloading) {
+                      Utils.flutterToast("Please wait, processing...");
+                      return;
+                    }
+                    if (_formKey.currentState?.validate() ?? false) {
+                      _formKey.currentState?.save();
+                      if (pickImage == null) {
+                        return Utils.flutterToast("Image is required");
+                      }
+                      if (tags.isEmpty) {
+                        return Utils.flutterToast("Tags are required");
+                      }
+                      if (_tag.text.isNotEmpty) {
+                        tags.add("LastNightAt${_tag.text}");
+                      }
+                      setState(() => isloading = true);
+                      ApiService()
+                          .addPrompt(
+                        prompt: Prompt(
+                          bgPicture: await ApiService().upload(pickImage!),
+                          prompt: _relate.text,
+                          latitude: _position?.latitude.toString(),
+                          longitude: _position?.longitude.toString(),
+                          tags: tags,
+                          irl: _irl,
+                        ),
+                      )
+                          .then((value) {
+                        if (value) {
+                          pickImage = null;
+                          _relate.clear();
+                          tags.clear();
+                          if (mounted) {
+                            setState(() {});
+                          }
+                          Utils.flutterToast("Prompt added successfully");
+                          // goRouter.pop(true);
+                        }
+                        setState(() => isloading = false);
+                      });
+                    }
+                  },
+                ),
+              )
+            : null,
         body: Stack(
           alignment: Alignment.center,
           children: [
@@ -126,7 +202,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(40),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                   child: SingleChildScrollView(
                     child: Padding(
@@ -135,7 +211,6 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          10.height,
                           const DesignText(
                             "Add Prompt",
                             fontSize: 24,
@@ -242,20 +317,49 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                 }
                               },
                               textLabel: 'Generate',
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(PhosphorIcons.cameraPlus()),
-                                  6.width,
-                                  const DesignText(
-                                    "Upload a Photo",
-                                    fontSize: 16,
-                                    fontWeight: 500,
-                                    color: Colors.black,
-                                  ),
-                                ],
-                              ),
+                              child: pickImage == null
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(PhosphorIcons.cameraPlus()),
+                                        6.width,
+                                        const DesignText(
+                                          "Upload a Photo",
+                                          fontSize: 16,
+                                          fontWeight: 500,
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    InteractiveView(
+                                                        file: pickImage!),
+                                              ),
+                                            );
+                                          },
+                                          child: Image.file(pickImage!),
+                                        ),
+                                        6.width,
+                                        const DesignText(
+                                          "Remove",
+                                          fontSize: 16,
+                                          fontWeight: 500,
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    ),
                             ),
                           ),
                           // 10.height,
@@ -479,87 +583,87 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                               ),
                             ),
                           10.height,
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: DesignButtons(
-                              color: DesignColor.primary,
-                              elevation: 0,
-                              fontSize: 16,
-                              fontWeight: 500,
-                              colorText: Colors.white,
-                              isTappedNotifier: ValueNotifier<bool>(false),
-                              onPressed: () async {
-                                if (!haspermission) {
-                                  await Geolocator.openLocationSettings();
-                                  return;
-                                }
-                                // final goRouter = GoRouter.of(context);
-                                if (_formKey.currentState?.validate() ??
-                                    false) {
-                                  _formKey.currentState?.save();
-                                  if (pickImage == null) {
-                                    return Utils.flutterToast(
-                                        "Image is required");
-                                  }
-                                  if (tags.isEmpty) {
-                                    return Utils.flutterToast(
-                                        "Tags are required");
-                                  }
-                                  if (_tag.text.isNotEmpty) {
-                                    tags.add("LastNightAt${_tag.text}");
-                                  }
-                                  setState(() => isloading = true);
-                                  ApiService()
-                                      .addPrompt(
-                                    prompt: Prompt(
-                                      bgPicture:
-                                          await ApiService().upload(pickImage!),
-                                      prompt: _relate.text,
-                                      latitude: _position?.latitude.toString(),
-                                      longitude:
-                                          _position?.longitude.toString(),
-                                      tags: tags,
-                                      irl: _irl,
-                                    ),
-                                  )
-                                      .then((value) {
-                                    if (value) {
-                                      pickImage = null;
-                                      _relate.clear();
-                                      tags.clear();
-                                      if (mounted) {
-                                        setState(() {});
-                                      }
-                                      Utils.flutterToast(
-                                          "Prompt added successfully");
-                                      // goRouter.pop(true);
-                                    }
-                                    setState(() => isloading = false);
-                                  });
-                                }
-                              },
-                              textLabel: 'Save',
-                              child: haspermission
-                                  ? const DesignText(
-                                      "Open Location Settings",
-                                      fontSize: 16,
-                                      fontWeight: 500,
-                                      color: Colors.white,
-                                    )
-                                  : isloading
-                                      ? const DesignProgress(
-                                          color: Colors.white,
-                                        )
-                                      : const DesignText(
-                                          "Save",
-                                          fontSize: 16,
-                                          fontWeight: 500,
-                                          color: Colors.white,
-                                        ),
-                            ),
-                          ),
-                          8.height,
+                          // SizedBox(
+                          //   width: double.infinity,
+                          //   height: 48,
+                          //   child: DesignButtons(
+                          //     color: DesignColor.primary,
+                          //     elevation: 0,
+                          //     fontSize: 16,
+                          //     fontWeight: 500,
+                          //     colorText: Colors.white,
+                          //     isTappedNotifier: ValueNotifier<bool>(false),
+                          //     onPressed: () async {
+                          //       if (!haspermission) {
+                          //         await Geolocator.openLocationSettings();
+                          //         return;
+                          //       }
+                          //       // final goRouter = GoRouter.of(context);
+                          //       if (_formKey.currentState?.validate() ??
+                          //           false) {
+                          //         _formKey.currentState?.save();
+                          //         if (pickImage == null) {
+                          //           return Utils.flutterToast(
+                          //               "Image is required");
+                          //         }
+                          //         if (tags.isEmpty) {
+                          //           return Utils.flutterToast(
+                          //               "Tags are required");
+                          //         }
+                          //         if (_tag.text.isNotEmpty) {
+                          //           tags.add("LastNightAt${_tag.text}");
+                          //         }
+                          //         setState(() => isloading = true);
+                          //         ApiService()
+                          //             .addPrompt(
+                          //           prompt: Prompt(
+                          //             bgPicture:
+                          //                 await ApiService().upload(pickImage!),
+                          //             prompt: _relate.text,
+                          //             latitude: _position?.latitude.toString(),
+                          //             longitude:
+                          //                 _position?.longitude.toString(),
+                          //             tags: tags,
+                          //             irl: _irl,
+                          //           ),
+                          //         )
+                          //             .then((value) {
+                          //           if (value) {
+                          //             pickImage = null;
+                          //             _relate.clear();
+                          //             tags.clear();
+                          //             if (mounted) {
+                          //               setState(() {});
+                          //             }
+                          //             Utils.flutterToast(
+                          //                 "Prompt added successfully");
+                          //             // goRouter.pop(true);
+                          //           }
+                          //           setState(() => isloading = false);
+                          //         });
+                          //       }
+                          //     },
+                          //     textLabel: 'Save',
+                          //     child: haspermission
+                          //         ? const DesignText(
+                          //             "Open Location Settings",
+                          //             fontSize: 16,
+                          //             fontWeight: 500,
+                          //             color: Colors.white,
+                          //           )
+                          //         : isloading
+                          //             ? const DesignProgress(
+                          //                 color: Colors.white,
+                          //               )
+                          //             : const DesignText(
+                          //                 "Save",
+                          //                 fontSize: 16,
+                          //                 fontWeight: 500,
+                          //                 color: Colors.white,
+                          //               ),
+                          //   ),
+                          // ),
+                          // 8.height,
                         ],
                       ),
                     ),
