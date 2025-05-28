@@ -20,6 +20,7 @@ import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import 'package:laatte/views/relate/select_irl.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../services/api_services.dart';
 
 class AddRelate extends StatefulWidget {
@@ -97,12 +98,13 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
     return Form(
       key: _formKey,
       child: Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton.extended(
           label: Text("data"),
           onPressed: () {},
         ),
         body: Stack(
+          alignment: Alignment.center,
           children: [
             BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
@@ -213,109 +215,153 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                             ),
                           ),
                           10.height,
-                          Stack(
-                            children: [
-                              DesignContainer(
-                                width: double.infinity,
-                                clipBehavior: Clip.antiAlias,
-                                bordered: true,
-                                borderAllColor: DesignColor.latteyellowLight3,
-                                color: DesignColor.latteyellowLight3,
-                                isColor: true,
-                                child: Column(
-                                  children: [
-                                    6.height,
-                                    const DesignText.body('Upload a Photo'),
-                                    if (pickImage == null)
-                                      IconButton(
-                                          onPressed: () {
-                                            Utils.pickFiles(
-                                                    type: file.FileType.image)
-                                                .then(
-                                              (value) {
-                                                if (value.isNotEmpty) {
-                                                  pickImage = value.first;
-                                                  setState(() {});
-                                                }
-                                              },
-                                            );
-                                          },
-                                          icon: const Icon(
-                                            FontAwesomeIcons.camera,
-                                          )),
-                                    if (pickImage == null)
-                                      const Column(
-                                        children: [
-                                          DesignText.body(
-                                            "Note: Image is Required",
-                                            color: Colors.red,
-                                          ),
-                                          // DesignText.body(
-                                          //   'Accepted file format include: docx, png, pdf, bmp, png',
-                                          // ),
-                                        ],
-                                      ),
-                                    6.height,
-                                    if (pickImage != null)
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 4),
-                                        child: DesignContainer(
-                                          color: DesignColor.grey50,
-                                          isColor: true,
-                                          padding: const EdgeInsets.fromLTRB(
-                                              6, 2, 6, 2),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              ClipRRect(
-                                                clipBehavior: Clip.antiAlias,
-                                                borderRadius:
-                                                    BorderRadius.circular(60),
-                                                child: Image.file(
-                                                  pickImage!,
-                                                  height: 60,
-                                                  width: 60,
-                                                  fit: BoxFit.cover,
-                                                  errorBuilder: (context, error,
-                                                      stackTrace) {
-                                                    return Container();
-                                                  },
-                                                ),
-                                              ),
-                                              MaterialIconButton(
-                                                onPressed: () {
-                                                  pickImage = null;
-                                                  setState(() {});
-                                                },
-                                                color: DesignColor.grey50,
-                                                icon: const Icon(
-                                                  Icons.close,
-                                                  color: Colors.red,
-                                                  size: 20,
-                                                ),
-                                                size: 24,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 48,
+                            child: DesignButtons(
+                              color: DesignColor.latteyellowLight3,
+                              elevation: 0,
+                              fontSize: 16,
+                              fontWeight: 500,
+                              colorText: Colors.black,
+                              isTappedNotifier: ValueNotifier<bool>(false),
+                              onPressed: () async {
+                                if (pickImage == null) {
+                                  Utils.pickFiles(type: file.FileType.image)
+                                      .then(
+                                    (value) {
+                                      if (value.isNotEmpty) {
+                                        pickImage = value.first;
+                                        setState(() {});
+                                      }
+                                    },
+                                  );
+                                } else {
+                                  pickImage = null;
+                                  setState(() {});
+                                }
+                              },
+                              textLabel: 'Generate',
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(PhosphorIcons.cameraPlus()),
+                                  6.width,
+                                  const DesignText(
+                                    "Upload a Photo",
+                                    fontSize: 16,
+                                    fontWeight: 500,
+                                    color: Colors.black,
+                                  ),
+                                ],
                               ),
-                              const Positioned(
-                                top: 2,
-                                left: 4,
-                                child: DesignText(
-                                  '*',
-                                  fontSize: 16,
-                                  fontWeight: 600,
-                                  color: Colors.red,
-                                ),
-                              )
-                            ],
+                            ),
                           ),
+                          // 10.height,
+                          // Stack(
+                          //   children: [
+                          //     DesignContainer(
+                          //       width: double.infinity,
+                          //       clipBehavior: Clip.antiAlias,
+                          //       bordered: true,
+                          //       borderAllColor: DesignColor.latteyellowLight3,
+                          //       color: DesignColor.latteyellowLight3,
+                          //       isColor: true,
+                          //       child: Column(
+                          //         children: [
+                          //           6.height,
+                          //           const DesignText.body('Upload a Photo'),
+                          //           if (pickImage == null)
+                          //             IconButton(
+                          //                 onPressed: () {
+                          //                   Utils.pickFiles(
+                          //                           type: file.FileType.image)
+                          //                       .then(
+                          //                     (value) {
+                          //                       if (value.isNotEmpty) {
+                          //                         pickImage = value.first;
+                          //                         setState(() {});
+                          //                       }
+                          //                     },
+                          //                   );
+                          //                 },
+                          //                 icon: const Icon(
+                          //                   FontAwesomeIcons.camera,
+                          //                 )),
+                          //           if (pickImage == null)
+                          //             const Column(
+                          //               children: [
+                          //                 DesignText.body(
+                          //                   "Note: Image is Required",
+                          //                   color: Colors.red,
+                          //                 ),
+                          //                 // DesignText.body(
+                          //                 //   'Accepted file format include: docx, png, pdf, bmp, png',
+                          //                 // ),
+                          //               ],
+                          //             ),
+                          //           6.height,
+                          //           if (pickImage != null)
+                          //             Padding(
+                          //               padding:
+                          //                   const EdgeInsets.only(bottom: 4),
+                          //               child: DesignContainer(
+                          //                 color: DesignColor.grey50,
+                          //                 isColor: true,
+                          //                 padding: const EdgeInsets.fromLTRB(
+                          //                     6, 2, 6, 2),
+                          //                 child: Row(
+                          //                   mainAxisAlignment:
+                          //                       MainAxisAlignment.center,
+                          //                   children: [
+                          //                     ClipRRect(
+                          //                       clipBehavior: Clip.antiAlias,
+                          //                       borderRadius:
+                          //                           BorderRadius.circular(60),
+                          //                       child: Image.file(
+                          //                         pickImage!,
+                          //                         height: 60,
+                          //                         width: 60,
+                          //                         fit: BoxFit.cover,
+                          //                         errorBuilder: (context, error,
+                          //                             stackTrace) {
+                          //                           return Container();
+                          //                         },
+                          //                       ),
+                          //                     ),
+                          //                     MaterialIconButton(
+                          //                       onPressed: () {
+                          //                         pickImage = null;
+                          //                         setState(() {});
+                          //                       },
+                          //                       color: DesignColor.grey50,
+                          //                       icon: const Icon(
+                          //                         Icons.close,
+                          //                         color: Colors.red,
+                          //                         size: 20,
+                          //                       ),
+                          //                       size: 24,
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //     const Positioned(
+                          //       top: 2,
+                          //       left: 4,
+                          //       child: DesignText(
+                          //         '*',
+                          //         fontSize: 16,
+                          //         fontWeight: 600,
+                          //         color: Colors.red,
+                          //       ),
+                          //     )
+                          //   ],
+                          // ),
                           10.height,
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
