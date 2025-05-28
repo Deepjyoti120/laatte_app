@@ -26,7 +26,7 @@ class _IntroScreenState extends State<IntroScreen> {
       "title": "Welcome to ${Constants.appName}",
       "text":
           "Where people meet through thoughts. Connect beyond the surface and find meaningful relationships.",
-      "svg": AssetsName.svgChat,
+      "image": AssetsName.appLogo,
     },
     {
       "title": "More Than a Swipe, It’s a Thought",
@@ -49,6 +49,7 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     bool isLastScreen = currentPage == (splashData.length - 1);
     return Scaffold(
+      backgroundColor: DesignColor.latteyellowLight3,
       body: SizedBox(
         width: double.infinity,
         child: Column(

@@ -118,7 +118,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(40),
                   ),
                   child: SingleChildScrollView(
                     child: Padding(
@@ -318,7 +318,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                               child: Wrap(
                                 direction: Axis.vertical, // 3 items per column
                                 spacing: 6,
-                                runSpacing: 6,
+                                runSpacing: 1,
                                 children: Constants.tags.map((e) {
                                   final isSelected = tags.contains(e);
                                   return GestureDetector(
@@ -353,21 +353,21 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                               ),
                             ),
                           ),
-                          10.height,
-                          Row(
-                            children: [
-                              const DesignText("#LastNightAt"),
-                              6.width,
-                              Flexible(
-                                child: DesignFormField(
-                                  controller: _tag,
-                                  labelText: "tag",
-                                  isOptional: true,
-                                ),
-                              ),
-                            ],
-                          ),
-                          10.height,
+                          // 10.height,
+                          // Row(
+                          //   children: [
+                          //     const DesignText("#LastNightAt"),
+                          //     6.width,
+                          //     Flexible(
+                          //       child: DesignFormField(
+                          //         controller: _tag,
+                          //         labelText: "tag",
+                          //         isOptional: true,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          if (_irl == null) 10.height,
                           if (_irl == null)
                             SizedBox(
                               width: double.infinity,

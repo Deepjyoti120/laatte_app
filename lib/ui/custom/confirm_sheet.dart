@@ -55,13 +55,13 @@ class ConfirmSheet extends StatelessWidget {
               borderRadius: BorderRadius.vertical(
                 top: Radius.circular(16),
               ),
-              color: DesignColor.backgroundColor,
+              color: DesignColor.latteyellowLight3,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
-                SvgPicture.asset(
+                Image.asset(
                   assetPath ?? AssetsName.appLogo,
                   height: 80,
                 ),

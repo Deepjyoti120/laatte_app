@@ -97,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         tag: AssetsName.appLogo,
                         child: SlideAnimation(
                           verticalOffset: 20.0,
-                          child: SvgPicture.asset(
+                          child: Image.asset(
                             AssetsName.appLogo,
                             height: 80,
                             width: 80,

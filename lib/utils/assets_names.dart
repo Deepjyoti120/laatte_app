@@ -1,5 +1,5 @@
 class AssetsName {
-  static const String appLogo = 'assets/svg/chat.svg';
+  static const String appLogo = 'assets/img/logo.png';
   static const String jsonSuccess = 'assets/lottie/payment-google.json';
   static const String jsonError = 'assets/lottie/error.json';
   // svg

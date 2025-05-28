@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -120,177 +121,217 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
         body: StreamBuilder<int>(
             stream: timerStreamController.stream,
             builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-              return Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(
-                      flex: 2,
-                    ),
-                    Hero(
-                      tag: AssetsName.appLogo,
-                      child: SvgPicture.asset(
-                        AssetsName.appLogo,
-                        height: 60,
+              return Stack(
+                children: [
+                  BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.1),
+                      ),
+                      child: Image.asset(
+                        AssetsName.pngBg,
+                        fit: BoxFit.fill,
+                        height: double.infinity,
+                        width: double.infinity,
                       ),
                     ),
-                    30.height,
-                    GestureDetector(
-                      onTap: () {
-                        if (kDebugMode) {
-                          Utils.openLocationSettings();
-                        }
-                      },
-                      child: const DesignText.titleSemiBold(
-                        "Verify Code",
-                      ),
-                    ),
-                    6.height,
-                    DesignText.body(
-                      message,
-                      textAlign: TextAlign.center,
-                    ),
-                    20.height,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(
-                        6,
-                        (index) => OtpInput(
-                          textEditingController: textEditingController[index],
-                        ),
-                      ),
-                    ),
-                    30.height,
-                    SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Hero(
-                        tag: Constants.keyLoginButton,
-                        child: DesignButtons(
-                          color: DesignColor.primary,
-                          elevation: 0,
-                          fontSize: 16,
-                          fontWeight: 500,
-                          colorText: Colors.white,
-                          isTappedNotifier: ValueNotifier<bool>(false),
-                          onPressed: () async {
-                            final goRouter = GoRouter.of(context);
-                            if (!await Utils.isAllowGPS()) {
-                              if (!await allowGPS) {
-                                setState(() => isloading = false);
-                                return;
-                              }
-                            }
-                            if (formKey.currentState!.validate()) {
-                              setState(() => isloading = true);
-                              ApiService()
-                                  .otpLogin(
-                                otp: textEditingController
-                                    .map((e) => e.text)
-                                    .toList()
-                                    .join()
-                                    .toString(),
-                                phone: widget.phone,
-                              )
-                                  .then((user) async {
-                                if (user != null) {
-                                  await _verifyGPS();
-                                  if (_position == null) {
-                                    setState(() => isloading = false);
-                                    Utils.flutterToast(
-                                        'Please allow location service');
-                                    return;
-                                  }
-                                  final isUpdateLocation = await ApiService()
-                                      .updateLocation(_position!);
-                                  if (isUpdateLocation) {
-                                    if ((user.isProfileDone ?? false)) {
-                                      await Storage.remove(
-                                          Constants.currentRouteKey);
-                                      goRouter.go(Routes.homeController);
-                                    } else {
-                                      await Storage.set<String>(
-                                          Constants.currentRouteKey,
-                                          Routes.profileUpdateIntro);
-                                      goRouter.go(Routes.profileUpdateIntro);
-                                    }
-                                  } else {
-                                    formKey.currentState?.validate();
-                                    for (var i = 0;
-                                        i < textEditingController.length;
-                                        i++) {
-                                      textEditingController[i] =
-                                          TextEditingController();
-                                    }
-                                  }
-                                } else {
-                                  setState(() => isloading = false);
-                                }
-                              });
-                            }
-                          },
-                          textLabel: 'Verify',
-                          child: isloading
-                              ? const DesignProgress(color: Colors.white)
-                              : const DesignText(
-                                  "Verify",
-                                  fontSize: 16,
-                                  fontWeight: 500,
-                                  color: Colors.white,
-                                ),
-                        ),
-                      ),
-                    ),
-                    20.height,
-                    (snapshot.data != null && (snapshot.data ?? 0) == 0)
-                        ? SizedBox(
-                            height: 20,
-                            child: TextButton(
-                                onPressed: () async {
-                                  startTimer();
-                                  await ApiService()
-                                      .otpRequest(phone: widget.phone);
-                                },
-                                style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero),
-                                child: const Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    DesignText.body(
-                                      "Didn’t get the Code? ",
-                                    ),
-                                    DesignText.body(
-                                      "Resend",
-                                      fontWeight: 400,
-                                      color: DesignColor.blue,
-                                    ),
-                                  ],
-                                )),
-                          )
-                        : Row(
+                  ),
+                  SafeArea(
+                    child: IntrinsicHeight(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              const DesignText.body(
-                                "OTP Resend in ? ",
+                              const Spacer(
+                                flex: 2,
                               ),
+                              Hero(
+                                tag: AssetsName.appLogo,
+                                child: Image.asset(
+                                  AssetsName.appLogo,
+                                  height: 60,
+                                ),
+                              ),
+                              30.height,
+                              GestureDetector(
+                                onTap: () {
+                                  if (kDebugMode) {
+                                    Utils.openLocationSettings();
+                                  }
+                                },
+                                child: const DesignText.titleSemiBold(
+                                  "Verify Code",
+                                ),
+                              ),
+                              6.height,
                               DesignText.body(
-                                "${snapshot.data ?? 0} sec",
-                                fontWeight: 400,
-                                color: DesignColor.blue,
+                                message,
+                                textAlign: TextAlign.center,
+                              ),
+                              20.height,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: List.generate(
+                                  6,
+                                  (index) => OtpInput(
+                                    textEditingController:
+                                        textEditingController[index],
+                                  ),
+                                ),
+                              ),
+                              30.height,
+                              SizedBox(
+                                width: double.infinity,
+                                height: 48,
+                                child: Hero(
+                                  tag: Constants.keyLoginButton,
+                                  child: DesignButtons(
+                                    color: DesignColor.primary,
+                                    elevation: 0,
+                                    fontSize: 16,
+                                    fontWeight: 500,
+                                    colorText: Colors.white,
+                                    isTappedNotifier:
+                                        ValueNotifier<bool>(false),
+                                    onPressed: () async {
+                                      final goRouter = GoRouter.of(context);
+                                      if (!await Utils.isAllowGPS()) {
+                                        if (!await allowGPS) {
+                                          setState(() => isloading = false);
+                                          return;
+                                        }
+                                      }
+                                      if (formKey.currentState!.validate()) {
+                                        setState(() => isloading = true);
+                                        ApiService()
+                                            .otpLogin(
+                                          otp: textEditingController
+                                              .map((e) => e.text)
+                                              .toList()
+                                              .join()
+                                              .toString(),
+                                          phone: widget.phone,
+                                        )
+                                            .then((user) async {
+                                          if (user != null) {
+                                            await _verifyGPS();
+                                            if (_position == null) {
+                                              setState(() => isloading = false);
+                                              Utils.flutterToast(
+                                                  'Please allow location service');
+                                              return;
+                                            }
+                                            final isUpdateLocation =
+                                                await ApiService()
+                                                    .updateLocation(_position!);
+                                            if (isUpdateLocation) {
+                                              if ((user.isProfileDone ??
+                                                  false)) {
+                                                await Storage.remove(
+                                                    Constants.currentRouteKey);
+                                                goRouter
+                                                    .go(Routes.homeController);
+                                              } else {
+                                                await Storage.set<String>(
+                                                    Constants.currentRouteKey,
+                                                    Routes.profileUpdateIntro);
+                                                goRouter.go(
+                                                    Routes.profileUpdateIntro);
+                                              }
+                                            } else {
+                                              formKey.currentState?.validate();
+                                              for (var i = 0;
+                                                  i <
+                                                      textEditingController
+                                                          .length;
+                                                  i++) {
+                                                textEditingController[i] =
+                                                    TextEditingController();
+                                              }
+                                            }
+                                          } else {
+                                            setState(() => isloading = false);
+                                          }
+                                        });
+                                      }
+                                    },
+                                    textLabel: 'Verify',
+                                    child: isloading
+                                        ? const DesignProgress(
+                                            color: Colors.white)
+                                        : const DesignText(
+                                            "Verify",
+                                            fontSize: 16,
+                                            fontWeight: 500,
+                                            color: Colors.white,
+                                          ),
+                                  ),
+                                ),
+                              ),
+                              20.height,
+                              (snapshot.data != null &&
+                                      (snapshot.data ?? 0) == 0)
+                                  ? SizedBox(
+                                      height: 20,
+                                      child: TextButton(
+                                          onPressed: () async {
+                                            startTimer();
+                                            await ApiService().otpRequest(
+                                                phone: widget.phone);
+                                          },
+                                          style: TextButton.styleFrom(
+                                              padding: EdgeInsets.zero),
+                                          child: const Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              DesignText.body(
+                                                "Didn’t get the Code? ",
+                                              ),
+                                              DesignText.body(
+                                                "Resend",
+                                                fontWeight: 400,
+                                                color: DesignColor.blue,
+                                              ),
+                                            ],
+                                          )),
+                                    )
+                                  : Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const DesignText.body(
+                                          "OTP Resend in ? ",
+                                        ),
+                                        DesignText.body(
+                                          "${snapshot.data ?? 0} sec",
+                                          fontWeight: 400,
+                                          color: DesignColor.blue,
+                                        ),
+                                      ],
+                                    ),
+                              const Spacer(
+                                flex: 3,
                               ),
                             ],
                           ),
-                    const Spacer(
-                      flex: 3,
+                        ),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             }),
       ),
