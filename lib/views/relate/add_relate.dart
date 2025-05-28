@@ -93,10 +93,15 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppStateCubit>();
-    bool isSubmitable =
+    bool isSubmittable = true;
     return Form(
       key: _formKey,
       child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+          label: Text("data"),
+          onPressed: () {},
+        ),
         body: Stack(
           children: [
             BackdropFilter(

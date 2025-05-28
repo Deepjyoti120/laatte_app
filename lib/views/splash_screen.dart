@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,61 +71,98 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
         backgroundColor:
             appState.isDarkMode ? DesignColor.darkCard : Colors.white,
-        body: Padding(
-          padding: EdgeInsets.fromLTRB(20, 100, 20, Utils.isIOS ? 30 : 20),
-          child: SizedBox(
-            width: double.infinity,
-            child: AnimationConfiguration.synchronized(
-              duration: const Duration(seconds: 1),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const DesignText.title(
-                        "Welcome to",
-                        fontSize: 32,
-                        fontWeight: 500,
-                        color: DesignColor.primary,
-                      ).animate().fadeIn(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn,
-                            delay: const Duration(milliseconds: 200),
-                          ),
-                      6.height,
-                      Hero(
-                        tag: AssetsName.appLogo,
-                        child: SlideAnimation(
-                          verticalOffset: 20.0,
-                          child: Image.asset(
-                            AssetsName.appLogo,
-                            height: 80,
-                            width: 80,
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.1),
+                ),
+                child: Image.asset(
+                  AssetsName.pngBg,
+                  fit: BoxFit.fill,
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
+              ),
+            ),
+            SafeArea(
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          20, 100, 20, Utils.isIOS ? 30 : 20),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: AnimationConfiguration.synchronized(
+                          duration: const Duration(seconds: 1),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const DesignText.title(
+                                    "Welcome to",
+                                    fontSize: 32,
+                                    fontWeight: 500,
+                                    color: DesignColor.primary,
+                                  ).animate().fadeIn(
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeIn,
+                                        delay:
+                                            const Duration(milliseconds: 200),
+                                      ),
+                                  6.height,
+                                  Hero(
+                                    tag: AssetsName.appLogo,
+                                    child: SlideAnimation(
+                                      verticalOffset: 20.0,
+                                      child: Image.asset(
+                                        AssetsName.appLogo,
+                                        height: 80,
+                                        width: 80,
+                                      ),
+                                    ),
+                                  ),
+                                  20.height,
+                                  const DesignText.body(
+                                    Constants.appFullName,
+                                    fontWeight: 500,
+                                  ).animate().fadeIn(
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeIn,
+                                        delay:
+                                            const Duration(milliseconds: 200),
+                                      ),
+                                ],
+                              ),
+                              DesignText.body(
+                                "v${Constants.packageInfo?.version ?? ""}",
+                                // fontSize: 32,
+                                fontWeight: 500,
+                              )
+                            ],
                           ),
                         ),
                       ),
-                      20.height,
-                      const DesignText.body(
-                        Constants.appFullName,
-                        fontWeight: 500,
-                      ).animate().fadeIn(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn,
-                            delay: const Duration(milliseconds: 200),
-                          ),
-                    ],
+                    ),
                   ),
-                  DesignText.body(
-                    "v${Constants.packageInfo?.version ?? ""}",
-                    // fontSize: 32,
-                    fontWeight: 500,
-                  )
-                ],
+                ),
               ),
             ),
-          ),
+          ],
         ));
   }
 }
