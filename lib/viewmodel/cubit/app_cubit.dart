@@ -4,7 +4,6 @@ import 'package:laatte/services/storage.dart';
 import 'package:laatte/utils/constants.dart';
 import 'package:laatte/viewmodel/model/basic_info.dart';
 import 'package:laatte/viewmodel/model/irl.dart';
-import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 part 'app_state.dart';
 

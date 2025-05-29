@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
+import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
@@ -40,7 +41,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 settingsCard(
                   title: "Edit Profile",
                   onTap: () {
-                    context.push(Routes.profileScreen);
+                    context.push(Routes.profileUpdateIntro);
                   },
                 ),
                 const Divider(color: DesignColor.grey300),
@@ -57,7 +58,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       activeColor: DesignColor.primary,
                       value: appState.isAllowNotification,
                       onChanged: (value) {
-                          appState.isAllowNotification = value;
+                        appState.isAllowNotification = value;
                       },
                     ),
                   ),
@@ -95,7 +96,9 @@ class _SettingScreenState extends State<SettingScreen> {
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
                   title: "Logout",
-                  onTap: () {},
+                  onTap: () {
+                    close();
+                  },
                 ),
               ],
             ),
@@ -140,6 +143,55 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void close() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const DesignText(
+            "Logout",
+            fontSize: 16,
+            fontWeight: 600,
+            color: null,
+          ),
+          content: const DesignText(
+            "Are you sure you want to logout?",
+            fontSize: 14,
+            fontWeight: 400,
+            color: null,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const DesignText(
+                "Cancel",
+                fontSize: 14,
+                fontWeight: 400,
+                color: null,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                final goRouter = GoRouter.of(context);
+                TokenHandler.resetJwt().then((value) {
+                  goRouter.go(Routes.login);
+                });
+              },
+              child: const DesignText(
+                "Logout",
+                fontSize: 14,
+                fontWeight: 400,
+                color: null,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

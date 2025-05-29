@@ -1,17 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/ui/theme/buttons.dart';
-import 'package:laatte/ui/theme/container.dart';
-import 'package:laatte/utils/constants.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import '../../ui/theme/text.dart';
 import '../../utils/design_colors.dart';
-import '../widget/title_details.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String route = "/ProfileScreen";

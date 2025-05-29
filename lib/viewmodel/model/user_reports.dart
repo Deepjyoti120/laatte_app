@@ -63,7 +63,12 @@ class UserReport {
   Designation? designation;
   @HiveField(28)
   bool? isProfileDone;
+  @HiveField(29)
   List<Photo>? photos;
+  @HiveField(30)
+  String? occupation;
+  @HiveField(31)
+  String? education;
 
   UserReport({
     this.id,
@@ -96,6 +101,8 @@ class UserReport {
     this.designation,
     this.isProfileDone,
     this.photos,
+    this.occupation,
+    this.education,
   });
 
   UserReport.fromJson(Map<String, dynamic> json) {
@@ -136,6 +143,8 @@ class UserReport {
         photos!.add(Photo.fromJson(v));
       });
     }
+    occupation = json['occupation'];
+    education = json['education'];
   }
 
   Map<String, dynamic> toJson() {
@@ -174,6 +183,8 @@ class UserReport {
     if (photos != null) {
       data['photos'] = photos!.map((v) => v.toJson()).toList();
     }
+    data['occupation'] = occupation;
+    data['education'] = education;
     return data;
   }
 }

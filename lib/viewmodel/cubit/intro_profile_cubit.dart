@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:laatte/viewmodel/model/user_reports.dart';
 import '../../utils/enums.dart';
 part 'intro_profile_state.dart';
 
@@ -70,5 +71,14 @@ class IntroProfileCubit extends Cubit<IntroProfileInitial> {
     bio.clear();
     clearPhotos();
     dateOfBirth = null;
+  }
+
+  void setUpdateData(UserReport? userReport) {
+    if (userReport == null) return;
+    name.text = userReport.name ?? '';
+    occupation.text = userReport.occupation ?? '';
+    education.text = userReport.education ?? '';
+    bio.text = userReport.bio ?? '';
+    dateOfBirth = DateTime.parse(userReport.dob!);
   }
 }
