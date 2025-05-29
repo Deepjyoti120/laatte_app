@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:laatte/services/storage.dart';
+import 'package:laatte/utils/constants.dart';
 import 'package:laatte/viewmodel/model/basic_info.dart';
 import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/irl.dart';
@@ -73,7 +75,9 @@ class AppStateCubit extends Cubit<AppStateInitial> {
     // getProfile();
   }
 
-  Future<void> initializeHive() async {}
+  Future<void> initializeHive() async {
+    isAllowNotificationGetStorage();
+  }
 
   void clear() {
     currentPage = 0;
@@ -139,5 +143,22 @@ class AppStateCubit extends Cubit<AppStateInitial> {
   bool get setIrlToNull => state.setIrlToNull;
   set setIrlToNull(bool setIrlToNull) {
     emit(state.copyWith(setIrlToNull: setIrlToNull));
+  }
+
+  bool get isAllowNotification => state.isAllowNotification;
+  set isAllowNotification(bool isAllowNotification) {
+    isAllowNotificationSetStorage(isAllowNotification).then((e) {
+      emit(state.copyWith(isAllowNotification: isAllowNotification));
+    });
+  }
+
+  Future isAllowNotificationSetStorage(bool isAllowNotification) async {
+    await Storage.set<bool>(
+        Constants.isAllowNotificationKey, isAllowNotification);
+  }
+  Future isAllowNotificationGetStorage() async {
+    bool isAllowNotification =  Storage.get<bool>(
+        Constants.isAllowNotificationKey) ?? true;
+    emit(state.copyWith(isAllowNotification: isAllowNotification));
   }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 
 class SettingScreen extends StatefulWidget {
   static const String route = "/SettingScreen";
@@ -17,6 +19,7 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
+    final appState = context.watch<AppStateCubit>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -48,7 +51,16 @@ class _SettingScreenState extends State<SettingScreen> {
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
                   title: "Notifications",
-                  onTap: () {},
+                  trailingIcon: Transform.scale(
+                    scale: 0.7,
+                    child: Switch(
+                      activeColor: DesignColor.primary,
+                      value: appState.isAllowNotification,
+                      onChanged: (value) {
+                          appState.isAllowNotification = value;
+                      },
+                    ),
+                  ),
                 ),
                 20.height,
                 const DesignText.body(
@@ -95,7 +107,9 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Widget settingsCard({
     required String title,
-    required VoidCallback onTap,
+    VoidCallback? onTap,
+    // Widget? leadingIcon,
+    Widget? trailingIcon,
   }) {
     return Material(
       borderRadius: BorderRadius.circular(8),
@@ -113,9 +127,14 @@ class _SettingScreenState extends State<SettingScreen> {
                 fontWeight: 600,
                 color: DesignColor.grey900,
               ),
-              const Icon(
-                Icons.arrow_forward_ios,
-                color: DesignColor.grey500,
+              SizedBox(
+                width: 24,
+                height: 24,
+                child: trailingIcon ??
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      color: DesignColor.grey500,
+                    ),
               )
             ],
           ),

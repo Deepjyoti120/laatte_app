@@ -15,6 +15,7 @@ class AppStateInitial extends AppStateState {
   final Irl? irlPreLoad;
   // final List<String> activeCards;
   final BasicInfo? basicInfo;
+  final bool isAllowNotification;
 
   AppStateInitial({
     this.currentPage = 0,
@@ -28,6 +29,7 @@ class AppStateInitial extends AppStateState {
     this.irl,
     this.setIrlToNull = false,
     this.irlPreLoad,
+    this.isAllowNotification = true,
   });
 
   AppStateInitial copyWith({
@@ -42,6 +44,7 @@ class AppStateInitial extends AppStateState {
     Irl? irl,
     bool? setIrlToNull,
     Irl? irlPreLoad,
+    bool? isAllowNotification,
   }) {
     return AppStateInitial(
       currentPage: currentPage ?? this.currentPage,
@@ -55,6 +58,7 @@ class AppStateInitial extends AppStateState {
       irl: this.setIrlToNull ? null : (irl ?? this.irl),
       setIrlToNull: setIrlToNull ?? this.setIrlToNull,
       irlPreLoad: irlPreLoad ?? this.irlPreLoad,
+      isAllowNotification: isAllowNotification ?? this.isAllowNotification,
     );
   }
 }

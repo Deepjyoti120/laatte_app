@@ -42,6 +42,7 @@ class Constants {
   static String profileBox = 'profileBox$buildNumber';
   static String profileKey = 'profileKey';
   static String currentRouteKey = 'currentRoute';
+  static String isAllowNotificationKey = 'isAllowNotification';
   // for Hive end
 
   static String termAndCondition =
