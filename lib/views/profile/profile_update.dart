@@ -2,15 +2,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 
-class ProfileScreen extends StatefulWidget {
-  static const String route = "/ProfileScreen";
-  const ProfileScreen({super.key});
+class ProfileUpdateScreen extends StatefulWidget {
+  static const String route = "/ProfileUpdateScreen";
+  const ProfileUpdateScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<ProfileUpdateScreen> createState() => _ProfileUpdateScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   @override
   void initState() {
     super.initState();
