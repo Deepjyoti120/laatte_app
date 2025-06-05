@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/token_handler.dart';
@@ -46,11 +47,6 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
-                  title: "Privacy Policy",
-                  onTap: () {},
-                ),
-                const Divider(color: DesignColor.grey300),
-                settingsCard(
                   title: "Notifications",
                   trailingIcon: Transform.scale(
                     scale: 0.7,
@@ -63,25 +59,30 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                   ),
                 ),
-                20.height,
-                const DesignText.body(
-                  "PREFERENCES",
-                  fontWeight: 600,
-                ),
-                const Divider(color: DesignColor.grey300),
-                settingsCard(
-                  title: "Appearance",
-                  onTap: () {},
-                ),
-                const Divider(color: DesignColor.grey300),
-                settingsCard(
-                  title: "Discovery Settings",
-                  onTap: () {},
-                ),
+                // 20.height,
+                // const DesignText.body(
+                //   "PREFERENCES",
+                //   fontWeight: 600,
+                // ),
+                // const Divider(color: DesignColor.grey300),
+                // settingsCard(
+                //   title: "Appearance",
+                //   onTap: () {},
+                // ),
+                // const Divider(color: DesignColor.grey300),
+                // settingsCard(
+                //   title: "Discovery Settings",
+                //   onTap: () {},
+                // ),
                 20.height,
                 const DesignText.body(
                   "SUPPORT",
                   fontWeight: 600,
+                ),
+                const Divider(color: DesignColor.grey300),
+                settingsCard(
+                  title: "Privacy Policy",
+                  onTap: () {},
                 ),
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
@@ -99,6 +100,11 @@ class _SettingScreenState extends State<SettingScreen> {
                   onTap: () {
                     close();
                   },
+                  trailingIcon: const Icon(
+                    FontAwesomeIcons.rightFromBracket,
+                    size: 18,
+                    color: DesignColor.red,
+                  ),
                 ),
               ],
             ),

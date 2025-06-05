@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/ui/blur_button.dart';
-import 'package:laatte/ui/controls/buttons.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/enums.dart';
