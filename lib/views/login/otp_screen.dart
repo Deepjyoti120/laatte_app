@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
+import 'package:laatte/services/firebase_service.dart';
 import 'package:laatte/services/storage.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
@@ -64,6 +65,11 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     startTimer();
     setDummyLoginDetails();
+    runInit();
+  }
+
+  Future<void> runInit() async {
+    await FirebaseService().requestNotificationPermission();
   }
 
   setDummyLoginDetails() {

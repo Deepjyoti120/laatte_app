@@ -81,12 +81,12 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
-                  title: "Privacy Policy",
+                  title: "Give Feedback",
                   onTap: () {},
                 ),
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
-                  title: "Give Feedback",
+                  title: "Privacy Policy",
                   onTap: () {},
                 ),
                 const Divider(color: DesignColor.grey300),
