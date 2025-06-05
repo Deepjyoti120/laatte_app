@@ -8,6 +8,7 @@ import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/ui/controls/buttons.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
+import 'package:laatte/utils/enums.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
@@ -196,9 +197,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   direction) async {
                                 selectedIndex = currentIndex ?? 0;
                                 setState(() {});
-                                if (direction == CardSwiperDirection.right) {
-                                  return await acceptSwipe(previousIndex,
-                                      prompt: prompt.listPrompt[previousIndex]);
+                                Prompt data = prompt.listPrompt[previousIndex];
+                                bool isAd =
+                                    PromptTypes.advertise.name == data.type;
+                                if (!isAd) {
+                                  if (direction == CardSwiperDirection.right) {
+                                    return await acceptSwipe(previousIndex,
+                                        prompt: data);
+                                  }
                                 }
                                 return true;
                               },

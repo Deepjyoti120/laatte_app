@@ -15,6 +15,7 @@ class Prompt {
   List<Comment>? comments;
   UserReport? user;
   Irl? irl;
+  String? type;
 
   Prompt({
     this.id,
@@ -30,6 +31,7 @@ class Prompt {
     this.comments,
     this.user,
     this.irl,
+    this.type,
   });
 
   Prompt.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class Prompt {
     }
     user = json['user'] != null ? UserReport.fromJson(json['user']) : null;
     irl = json['irl'] != null ? Irl.fromJson(json['irl']) : null;
+    type = json['type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +77,7 @@ class Prompt {
     if (irl != null) {
       data['irl'] = irl!.toJson();
     }
+    data['type'] = type;
     return data;
   }
 }

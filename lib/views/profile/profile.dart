@@ -1,11 +1,10 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/common_libs.dart';
-import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
+import 'package:laatte/viewmodel/model/user_reports.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String route = "/ProfileScreen";
-  const ProfileScreen({super.key});
-
+  const ProfileScreen({super.key, required this.userReport});
+  final UserReport userReport;
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -19,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<UserReportBloc>().state.userReport;
+    // final user = context.watch<UserReportBloc>().state.userReport;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

@@ -2,6 +2,7 @@ import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/viewmodel/model/chat_start.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
+import 'package:laatte/viewmodel/model/user_reports.dart';
 import 'package:laatte/views/chat/chat_screen.dart';
 import 'package:laatte/views/employee/add_employee.dart';
 import 'package:laatte/views/employee/employee.dart';
@@ -90,7 +91,8 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: Routes.profileScreen,
       builder: (context, GoRouterState state) {
-        return const ProfileScreen();
+        UserReport userReport = state.extra as UserReport;
+        return   ProfileScreen(userReport: userReport);
       },
     ),
     GoRoute(
