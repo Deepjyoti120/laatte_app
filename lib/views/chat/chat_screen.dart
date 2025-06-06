@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:laatte/common_libs.dart';
+import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/services/socket_services.dart';
 import 'package:laatte/ui/theme/container.dart';
@@ -102,23 +104,28 @@ class _ChatMessagesState extends State<ChatMessages> {
         children: [
           Hero(
             tag: chatUser?.id ?? widget.chatId,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: DesignColor.yellow,
-                  width: 2,
+            child: GestureDetector(
+              onTap: () {
+                context.push(Routes.profileScreen, extra: chatUser);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: DesignColor.yellow,
+                    width: 2,
+                  ),
                 ),
-              ),
-              width: 54,
-              height: 54,
-              child: ClipRRect(
-                clipBehavior: Clip.antiAlias,
-                borderRadius: BorderRadius.circular(60),
-                child: Image.network(
-                  chatUser?.profilePicture ?? "",
-                  alignment: Alignment.center,
-                  fit: BoxFit.fill,
+                width: 54,
+                height: 54,
+                child: ClipRRect(
+                  clipBehavior: Clip.antiAlias,
+                  borderRadius: BorderRadius.circular(60),
+                  child: Image.network(
+                    chatUser?.profilePicture ?? "",
+                    alignment: Alignment.center,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
