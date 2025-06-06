@@ -94,7 +94,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         return GestureDetector(
                           onTap: () async {
                             context.read<SocketBloc>().add(SocketMessage(
-                                chatId: chat.id, setChatID: true));
+                                  chatId: chat.id,
+                                  setChatID: true,
+                                  chatUser: chat.user,
+                                ));
                             context
                                 .push(Routes.chatMessages, extra: chat.id)
                                 .then((e) {
@@ -114,23 +117,26 @@ class _ChatScreenState extends State<ChatScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: DesignColor.yellow,
-                                          width: 2,
+                                    Hero(
+                                      tag: chat.user?.id ?? chat.id ?? 'profile$index',
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: DesignColor.yellow,
+                                            width: 2,
+                                          ),
                                         ),
-                                      ),
-                                      width: 54,
-                                      height: 54,
-                                      child: ClipRRect(
-                                        clipBehavior: Clip.antiAlias,
-                                        borderRadius: BorderRadius.circular(60),
-                                        child: Image.network(
-                                          chat.user?.profilePicture ?? "",
-                                          alignment: Alignment.center,
-                                          fit: BoxFit.fill,
+                                        width: 54,
+                                        height: 54,
+                                        child: ClipRRect(
+                                          clipBehavior: Clip.antiAlias,
+                                          borderRadius: BorderRadius.circular(60),
+                                          child: Image.network(
+                                            chat.user?.profilePicture ?? "",
+                                            alignment: Alignment.center,
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
                                       ),
                                     ),

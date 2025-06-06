@@ -7,13 +7,16 @@ class SocketState extends Equatable {
   final List<Chat> chats;
   final List<Map<String, dynamic>>? messages;
   final String? chatId;
+  final UserReport? chatUser;
+
   const SocketState({
     this.status = ResponseStatus.initial,
     this.statusMessages = ResponseStatus.initial,
     this.error,
     this.chats = const [],
     this.messages,
-    this.chatId
+    this.chatId,
+    this.chatUser,
   });
 
   SocketState copyWith({
@@ -22,7 +25,8 @@ class SocketState extends Equatable {
     String? error,
     List<Chat>? chats,
     List<Map<String, dynamic>>? messages,
-    String? chatId
+    String? chatId,
+    UserReport? chatUser,
   }) {
     return SocketState(
       status: status ?? this.status,
@@ -30,7 +34,8 @@ class SocketState extends Equatable {
       error: error ?? this.error,
       chats: chats ?? this.chats,
       messages: messages ?? this.messages,
-      chatId: chatId ?? this.chatId
+      chatId: chatId ?? this.chatId,
+      chatUser: chatUser ?? this.chatUser,
     );
   }
 
@@ -41,7 +46,8 @@ class SocketState extends Equatable {
         error,
         chats,
         messages,
-        chatId
+        chatId,
+        chatUser,
       ];
 }
 

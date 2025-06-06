@@ -6,6 +6,7 @@ import 'package:laatte/services/socket_services.dart';
 import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
+import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 
@@ -58,13 +59,10 @@ class _ChatMessagesState extends State<ChatMessages> {
   }
 
   void sendMessage() async {
-    setState(() {
-      isLoading = true;
-    });
+    setState(() => isLoading = true);
     if (messageController.text.isNotEmpty) {
       final userReportBloc = context.read<UserReportBloc>();
       final user = userReportBloc.state.userReport;
-
       if (user == null || user.id == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("User not found!")),
@@ -75,7 +73,6 @@ class _ChatMessagesState extends State<ChatMessages> {
         chatId: widget.chatId,
         message: messageController.text.trim(),
       );
-
       // socketService.sendMessage(
       //   widget.chatId,
       //   user.id!,
@@ -83,10 +80,7 @@ class _ChatMessagesState extends State<ChatMessages> {
       // );
       messageController.clear();
     }
-
-    setState(() {
-      isLoading = false;
-    });
+    setState(() => isLoading = false);
   }
 
   @override
@@ -98,11 +92,41 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.read<UserReportBloc>().state.userReport;
+    final user = context.watch<UserReportBloc>().state.userReport;
+    final chatUser = context.watch<SocketBloc>().state.chatUser;
     final size = MediaQuery.sizeOf(context);
     final messages = context.watch<SocketBloc>().state.messages;
     return Scaffold(
-      appBar: AppBar(title: const DesignText("Messages")),
+      appBar: AppBar(
+          title: Row(
+        children: [
+          Hero(
+            tag: chatUser?.id ?? widget.chatId,
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: DesignColor.yellow,
+                  width: 2,
+                ),
+              ),
+              width: 54,
+              height: 54,
+              child: ClipRRect(
+                clipBehavior: Clip.antiAlias,
+                borderRadius: BorderRadius.circular(60),
+                child: Image.network(
+                  chatUser?.profilePicture ?? "",
+                  alignment: Alignment.center,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
+          8.width,
+          DesignText(chatUser?.name ?? ''),
+        ],
+      )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),

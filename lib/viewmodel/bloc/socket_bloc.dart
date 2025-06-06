@@ -111,6 +111,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
           state.copyWith(
             statusMessages: ResponseStatus.success,
             messages: messages,
+            chatUser: event.chatUser,
           ),
         );
       }
@@ -133,7 +134,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       }
       //
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       emit(state.copyWith(status: ResponseStatus.failure));
     }
   }

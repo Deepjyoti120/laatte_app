@@ -20,9 +20,11 @@ class SocketMessage extends SocketEvent {
   final String? chatId;
   final bool setChatID;
   final Map<String, dynamic>? event;
+  final UserReport? chatUser;
   const SocketMessage({
     this.chatId,
     this.event,
     this.setChatID = false,
+    this.chatUser,
   });
 }
