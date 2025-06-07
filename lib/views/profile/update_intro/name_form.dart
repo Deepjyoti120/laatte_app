@@ -21,7 +21,7 @@ class NameForm extends StatelessWidget {
             const DesignText.title(
               "What’s your name?",
               textAlign: TextAlign.center,
-              color: DesignColor.primary,
+              color: DesignColor.latteyellowDark3,
               fontSize: 24,
             ),
             6.height,
@@ -29,6 +29,7 @@ class NameForm extends StatelessWidget {
               "Please enter your name to continue.",
               fontSize: 18,
               textAlign: TextAlign.center,
+              color: DesignColor.latteyellowDark3,
             ),
           ],
         )

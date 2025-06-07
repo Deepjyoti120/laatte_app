@@ -24,13 +24,14 @@ class SelectPhoto extends StatelessWidget {
             const DesignText.title(
               "Being with your best photos",
               textAlign: TextAlign.center,
-              color: DesignColor.primary,
+              color: DesignColor.latteyellowDark3,
               fontSize: 24,
             ),
             6.height,
             const DesignText.body(
               "Upload 2 photos to start. Add 4 or more to make your profile stand out.",
               fontSize: 18,
+              color: DesignColor.latteyellowDark3,
               textAlign: TextAlign.center,
             ),
           ],

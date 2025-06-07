@@ -22,13 +22,14 @@ class OthersForm extends StatelessWidget {
             const DesignText.title(
               "Other information",
               textAlign: TextAlign.center,
-              color: DesignColor.primary,
               fontSize: 24,
+              color: DesignColor.latteyellowDark3,
             ),
             6.height,
             const DesignText.body(
               "Tell us more about yourself",
               fontSize: 18,
+              color: DesignColor.latteyellowDark3,
               textAlign: TextAlign.center,
             ),
           ],

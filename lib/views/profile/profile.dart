@@ -54,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 final data = chatUser?.photos?[index];
                 if (data == null) {
                   return const Center(
-                    child: Text("No photos available"),
+                    child: DesignText("No photos available"),
                   );
                 }
                 return GestureDetector(

@@ -76,7 +76,7 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
                         clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(60),
-                          color: DesignColor.primary,
+                          color: DesignColor.latteyellowDark3,
                         ),
                         child: const Icon(
                           FontAwesomeIcons.caretLeft,
@@ -88,7 +88,7 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
                       const Text(
                         'Previous',
                         style: TextStyle(
-                          color: DesignColor.primary,
+                          color: DesignColor.latteyellowDark3,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
@@ -123,7 +123,7 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
                           const Text(
                             'Next',
                             style: TextStyle(
-                              color: DesignColor.primary,
+                              color: DesignColor.latteyellowDark3,
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
@@ -135,7 +135,7 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
                             clipBehavior: Clip.antiAlias,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(60),
-                              color: DesignColor.primary,
+                              color: DesignColor.latteyellowDark3,
                             ),
                             child: const Icon(
                               FontAwesomeIcons.caretRight,

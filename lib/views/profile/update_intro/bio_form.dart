@@ -21,7 +21,7 @@ class BioForm extends StatelessWidget {
             const DesignText.title(
               "Bio",
               textAlign: TextAlign.center,
-              color: DesignColor.primary,
+              color: DesignColor.latteyellowDark3,
               fontSize: 24,
             ),
             6.height,
