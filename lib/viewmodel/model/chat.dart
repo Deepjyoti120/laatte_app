@@ -1,22 +1,30 @@
-
 import 'package:laatte/viewmodel/model/user_reports.dart';
 
 class Chat {
   String? id;
   String? createdAt;
   String? updatedAt;
+  String? timeago;
   UserReport? user;
   LastMessage? lastMessage;
 
-  Chat({this.id, this.createdAt, this.updatedAt, this.user , this.lastMessage});
+  Chat({
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.user,
+    this.lastMessage,
+    this.timeago,
+  });
 
   Chat.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    timeago = json['timeago'];
     user = json['user'] != null ? UserReport.fromJson(json['user']) : null;
     lastMessage = json['lastMessage'] != null
-        ?   LastMessage.fromJson(json['lastMessage'])
+        ? LastMessage.fromJson(json['lastMessage'])
         : null;
   }
 
@@ -25,6 +33,7 @@ class Chat {
     data['id'] = id;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    data['timeago'] = timeago;
     if (user != null) {
       data['user'] = user!.toJson();
     }

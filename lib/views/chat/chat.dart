@@ -110,61 +110,76 @@ class _ChatScreenState extends State<ChatScreen> {
                             });
                           },
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 6),
-                            child: Card(
-                              color: DesignColor.backgroundColorDarkMode,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Hero(
-                                      tag: chat.user?.id ?? chat.id ?? 'profile$index',
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            color: DesignColor.yellow,
-                                            width: 2,
-                                          ),
+                            padding: const EdgeInsets.only(bottom: 4, top: 4),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Hero(
+                                    tag: chat.user?.id ??
+                                        chat.id ??
+                                        'profile$index',
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: DesignColor.yellow,
+                                          width: 2,
                                         ),
-                                        width: 54,
-                                        height: 54,
-                                        child: ClipRRect(
-                                          clipBehavior: Clip.antiAlias,
-                                          borderRadius: BorderRadius.circular(60),
-                                          child: Image.network(
-                                            chat.user?.profilePicture ?? "",
-                                            alignment: Alignment.center,
-                                            fit: BoxFit.fill,
-                                          ),
+                                      ),
+                                      width: 54,
+                                      height: 54,
+                                      child: ClipRRect(
+                                        clipBehavior: Clip.antiAlias,
+                                        borderRadius: BorderRadius.circular(60),
+                                        child: Image.network(
+                                          chat.user?.profilePicture ?? "",
+                                          alignment: Alignment.center,
+                                          fit: BoxFit.fill,
                                         ),
                                       ),
                                     ),
-                                    8.width,
-                                    Flexible(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          DesignText(
-                                            chat.user?.name ?? "",
-                                            fontSize: 16,
-                                            fontWeight: 500,
-                                            color: Colors.white,
-                                          ),
-                                          if (chat.lastMessage != null)
-                                            DesignText(
-                                              chat.lastMessage?.content ?? '',
-                                              fontSize: 14,
-                                              fontWeight: 400,
-                                              color: Colors.white,
-                                              maxLines: 2,
+                                  ),
+                                  8.width,
+                                  Flexible(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            DesignText.title(
+                                              chat.user?.name ?? "",
+                                              // fontSize: 16,
+                                              // fontWeight: 500,
+                                              // color: Colors.black,
                                             ),
-                                        ],
-                                      ),
+                                            if (chat.lastMessage != null)
+                                              DesignText(
+                                                chat.lastMessage?.content ?? '',
+                                                fontSize: 14,
+                                                fontWeight: 400,
+                                                // color: Colors.white,
+                                                maxLines: 2,
+                                              ),
+                                          ],
+                                        ),
+                                        6.width,
+                                        DesignText(
+                                          chat.timeago ?? '',
+                                          fontSize: 13,
+                                          fontWeight: 400,
+                                          // color: Colors.white,
+                                          maxLines: 1,
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
