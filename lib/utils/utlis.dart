@@ -641,4 +641,18 @@ class Utils {
       return 'Just now';
     }
   }
+
+  static int dateOfAge(String? dob) {
+    if (dob == null || dob.isEmpty) {
+      return 0;
+    }
+    final now = DateTime.now();
+    final dateOfBirth = DateTime.tryParse(dob);
+    int age = now.year - dateOfBirth!.year;
+    if (now.month < dateOfBirth.month ||
+        (now.month == dateOfBirth.month && now.day < dateOfBirth.day)) {
+      age--;
+    }
+    return age;
+  }
 }

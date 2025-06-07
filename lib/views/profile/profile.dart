@@ -4,6 +4,8 @@ import 'package:laatte/common_libs.dart';
 import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
+import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/utils/utlis.dart';
 import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 
@@ -16,6 +18,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool showbottomCard = true;
+  int currentIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -37,90 +41,99 @@ class _ProfileScreenState extends State<ProfileScreen> {
         // elevation: 0,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Hero(
-                //   tag: chatUser?.id ?? "",
-                //   child: GestureDetector(
-                //     onTap: () {},
-                //     child: Container(
-                //       decoration: BoxDecoration(
-                //         shape: BoxShape.circle,
-                //         border: Border.all(
-                //           color: DesignColor.yellow,
-                //           width: 2,
-                //         ),
-                //       ),
-                //       width: 54,
-                //       height: 54,
-                //       child: ClipRRect(
-                //         clipBehavior: Clip.antiAlias,
-                //         borderRadius: BorderRadius.circular(60),
-                //         child: Image.network(
-                //           chatUser?.profilePicture ?? "",
-                //           alignment: Alignment.center,
-                //           fit: BoxFit.fill,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                DesignContainer(
-                  // width: double.infinity,
-                  clipBehavior: Clip.antiAlias,
-                  color: DesignColor.latteDarkCard,
-                  isColor: true,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 100,
-                        child: Hero(
-                          tag: chatUser?.id ?? "",
-                          child: CachedNetworkImage(
-                            imageUrl: chatUser?.profilePicture ?? "",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+        child: Stack(
+          children: [
+            PageView.builder(
+              itemCount: chatUser?.photos?.length,
+              onPageChanged: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+              itemBuilder: (context, index) {
+                final data = chatUser?.photos?[index];
+                if (data == null) {
+                  return const Center(
+                    child: Text("No photos available"),
+                  );
+                }
+                return GestureDetector(
+                  onTap: () {
+                    setState(() => showbottomCard = !showbottomCard);
+                  },
+                  child: Hero(
+                    tag: chatUser?.id ?? "",
+                    transitionOnUserGestures: false,
+                    child: CachedNetworkImage(
+                      imageUrl: data.url ?? "",
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
                       ),
-                      Container(
-                        height: 100,
-                        alignment: Alignment.topLeft,
-                        color: DesignColor.latteDarkCard,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              DesignText.title(
-                                chatUser?.name ?? "",
-                                color: DesignColor.latteYellowSmall,
-                                fontSize: 16,
-                                textAlign: TextAlign.center,
-                              ),
-                              Flexible(
-                                child: DesignText.body(
-                                  chatUser?.bio ?? "",
-                                  color: DesignColor.latteYellowSmall,
-                                  fontSize: 16,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                  ),
+                );
+              },
+            ),
+            if (showbottomCard)
+              Positioned(
+                left: 12,
+                right: 12,
+                bottom: 12,
+                child: Column(
+                  children: [
+                    DesignContainer(
+                      // width: double.infinity,
+                      clipBehavior: Clip.antiAlias,
+                      color: Colors.black,
+                      isColor: true,
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                DesignText.title(
+                                  chatUser?.name ?? "",
+                                  color: DesignColor.latteyellowText,
+                                  fontSize: 26,
                                   textAlign: TextAlign.center,
                                 ),
-                              ),
-                            ],
-                          ),
+                                DesignText.title(
+                                  " ${Utils.dateOfAge(chatUser?.dob).toString()}",
+                                  color: DesignColor.latteyellowText,
+                                  fontSize: 26,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                            4.height,
+                            DesignText.body(
+                              chatUser?.bio ?? "",
+                              color: DesignColor.latteyellowText,
+                              fontSize: 16,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
+                    ),
+                    6.height,
+                    DesignText(
+                      "${currentIndex + 1} of ${chatUser?.photos?.length ?? 0}",
+                      color: Colors.white,
+                      fontSize: 14,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+          ],
         ),
       ),
     );
