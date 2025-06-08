@@ -49,12 +49,13 @@ class _ProfileUpdateIntroState extends State<ProfileUpdateIntro> {
   Widget build(BuildContext context) {
     final appState = context.watch<IntroProfileCubit>();
     return Scaffold(
-      // backgroundColor: DesignColor.backgroundColor,
+      backgroundColor: DesignColor.latteBackground,
       bottomNavigationBar: BottomAppBar(
+        color: DesignColor.latteBackground,
         child: SafeArea(
             child: Container(
           height: 50,
-          color: DesignColor.backgroundColor,
+          color: DesignColor.latteBackground,
           child: Row(
             mainAxisAlignment: appState.currentPage != 0
                 ? MainAxisAlignment.spaceBetween
