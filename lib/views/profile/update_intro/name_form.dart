@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:laatte/ui/theme/text_style.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +51,7 @@ class NameForm extends StatelessWidget {
           child: DesignFormField(
             controller: appState.name,
             labelText: "Name",
+            fillColor: DesignColor.latteBackground,
             // autofocus: true,
             prefixIcon: const Icon(
               FontAwesomeIcons.circleUser,

@@ -50,6 +50,7 @@ class BioForm extends StatelessWidget {
             controller: appState.bio,
             labelText: "Bio",
             maxLines: 10,
+            fillColor: DesignColor.latteBackground,
             minLines: 6,
             autofocus: true,
             contentPadding:

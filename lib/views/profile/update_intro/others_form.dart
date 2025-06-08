@@ -54,6 +54,7 @@ class OthersForm extends StatelessWidget {
                 controller: appState.occupation,
                 labelText: "Occupation",
                 autofocus: true,
+                fillColor: DesignColor.latteBackground,
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
               )
@@ -73,6 +74,7 @@ class OthersForm extends StatelessWidget {
                 controller: appState.education,
                 labelText: "Education",
                 autofocus: true,
+                fillColor: DesignColor.latteBackground,
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
               )

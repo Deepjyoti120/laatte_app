@@ -83,9 +83,10 @@ class DesignFormField extends StatelessWidget {
             labelText: labelText,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
-            labelStyle:labelStyle ??const TextStyle(
-              color: DesignColor.grey400,
-            ),
+            labelStyle: labelStyle ??
+                const TextStyle(
+                  color: DesignColor.grey400,
+                ),
             filled: true,
             isDense: true,
             floatingLabelAlignment: FloatingLabelAlignment.start,
