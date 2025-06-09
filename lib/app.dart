@@ -61,13 +61,13 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         backgroundColor: Colors.black.withOpacity(0.85),
         behavior: SnackBarBehavior.floating,
       );
-      Connectivity().onConnectivityChanged.listen((result) {
-        if (result.contains(ConnectivityResult.none)) {
-          scaffoldMessengerKey.currentState?.showSnackBar(noInternetSnackBar);
-        } else {
-          scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
-        }
-      });
+      // Connectivity().onConnectivityChanged.listen((result) {
+      //   if (result.contains(ConnectivityResult.none)) {
+      //     scaffoldMessengerKey.currentState?.showSnackBar(noInternetSnackBar);
+      //   } else {
+      //     scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
+      //   }
+      // });
     });
   }
 
