@@ -30,6 +30,23 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
     final user = context.watch<UserReportBloc>().state.userReport;
     final appState = context.watch<IntroProfileCubit>();
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: DesignColor.latteBackground,
+        elevation: 0,
+        title: const DesignText.title(
+          "Update Profile",
+          color: DesignColor.primary,
+          fontSize: 20,
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(FontAwesomeIcons.arrowLeft,
+              color: DesignColor.primary),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

@@ -13,6 +13,7 @@ import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:laatte/viewmodel/bloc/visit_irl_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
+import 'package:laatte/viewmodel/cubit/profile_update_cubit.dart';
 import 'viewmodel/bloc/my_prompts_bloc.dart';
 
 class App extends StatefulWidget {
@@ -110,6 +111,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           ),
           BlocProvider(
             create: (context) => VisitIrlBloc(),
+          ),
+          BlocProvider(
+            create: (context) => ProfileUpdateCubit(),
           ),
         ],
         child: MaterialApp.router(
