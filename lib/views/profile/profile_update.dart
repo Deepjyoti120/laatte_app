@@ -8,7 +8,8 @@ import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
-import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
+import 'package:laatte/viewmodel/cubit/profile_update_cubit.dart';
+import 'package:laatte/viewmodel/model/file_link_pair.dart';
 
 class ProfileUpdateScreen extends StatefulWidget {
   static const String route = "/ProfileUpdateScreen";
@@ -23,12 +24,19 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   void initState() {
     super.initState();
     // context.read<UserReportBloc>().add(UserReportFetched());
+    runInit();
+  }
+
+  void runInit() async {
+    final user = context.read<UserReportBloc>().state.userReport;
+    final profile = context.read<ProfileUpdateCubit>();
+    profile.setUpdateData(user);
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<UserReportBloc>().state.userReport;
-    final appState = context.watch<IntroProfileCubit>();
+    // final user = context.watch<UserReportBloc>().state.userReport;
+    final profile = context.watch<ProfileUpdateCubit>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: DesignColor.latteBackground,
@@ -97,16 +105,21 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 4,
                     itemBuilder: (context, index) {
-                      bool ishavePhoto = appState.photos.length > index;
-                      if (ishavePhoto && appState.photos[index] != null) {
+                      bool ishavePhoto = profile.photos.length > index;
+                      if (ishavePhoto && profile.photos[index] != null) {
                         return Stack(
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: Image.file(
-                                appState.photos[index]!,
-                                fit: BoxFit.fill,
-                              ),
+                              child: profile.photos[index]!.link != null
+                                  ? Image.network(
+                                      profile.photos[index]!.link!,
+                                      fit: BoxFit.fill,
+                                    )
+                                  : Image.file(
+                                      profile.photos[index]!.file!,
+                                      fit: BoxFit.fill,
+                                    ),
                             ),
                             Positioned(
                               right: 4,
@@ -114,7 +127,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                               child: GestureDetector(
                                 onTap: () {
                                   // appState.removePhoto(appState.photos[index]!);
-                                  appState.removePhoto(appState.photos[index]!);
+                                  profile.removePhoto(profile.photos[index]!);
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -135,7 +148,10 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                         onTap: () {
                           Utils.pickFiles(type: FileType.image).then((value) {
                             if (value.isNotEmpty) {
-                              appState.addPhoto(value.first);
+                              profile.addPhoto(FileLinkPair(
+                                file: value.first,
+                                link: null,
+                              ));
                             }
                           });
                         },
