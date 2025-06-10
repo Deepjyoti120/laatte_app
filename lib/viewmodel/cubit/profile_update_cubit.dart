@@ -79,5 +79,14 @@ class ProfileUpdateCubit extends Cubit<ProfileUpdateInitial> {
     education.text = userReport.education ?? '';
     bio.text = userReport.bio ?? '';
     dateOfBirth = DateTime.parse(userReport.dob!);
+    final photos = userReport.photos
+            ?.map((e) => FileLinkPair(
+                  link: e.url,
+                  file: null,
+                ))
+            .toList()
+            .cast<FileLinkPair?>() ??
+        [];
+    emit(state.copyWith(photos: photos));
   }
 }

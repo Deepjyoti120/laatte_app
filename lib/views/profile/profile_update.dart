@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -111,9 +112,9 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: profile.photos[index]!.link != null
-                                  ? Image.network(
-                                      profile.photos[index]!.link!,
+                              child: profile.photos[index]?.link != null
+                                  ? CachedNetworkImage(
+                                      imageUrl: profile.photos[index]!.link!,
                                       fit: BoxFit.fill,
                                     )
                                   : Image.file(
