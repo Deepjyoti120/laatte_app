@@ -418,22 +418,15 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                         isTappedNotifier: ValueNotifier<bool>(isloading),
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            //   final goRouter = GoRouter.of(context);
-                            //   if (!await acceptTermAndCondition) {
-                            //     setState(() => isloading = false);
-                            //     return;
-                            //   }
                             setState(() => isloading = true);
+                            final profileCtx = context.read<UserReportBloc>();
                             ApiService().editProfile(profile).then((v) async {
-                              await ApiService().profile;
+                              profileCtx.add(UserReportFetched());
                               setState(() => isloading = false);
                               if (v) {
-                                setState(() => isloading = false);
-                                if (v) {
-                                  Utils.flutterToast(
-                                    "Profile updated successfully",
-                                  );
-                                }
+                                Utils.flutterToast(
+                                  "Profile updated successfully",
+                                );
                               }
                             });
                           }
