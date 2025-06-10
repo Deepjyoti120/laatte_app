@@ -52,7 +52,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
           icon: const Icon(FontAwesomeIcons.arrowLeft,
               color: DesignColor.primary),
           onPressed: () {
-            Navigator.pop(context);
+            context.pop();
           },
         ),
       ),
