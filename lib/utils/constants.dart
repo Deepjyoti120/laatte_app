@@ -81,4 +81,8 @@ class Constants {
     "DMDisasters",
     "RomanticFail"
   ];
+  static const String privacyPolicy =
+      'https://sites.google.com/view/laatte/privacy-policy';
+  static const String helpAndSupport =
+      'https://sites.google.com/view/laatte-help';
 }

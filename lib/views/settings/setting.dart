@@ -8,6 +8,7 @@ import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/utils/utlis.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -87,12 +88,16 @@ class _SettingScreenState extends State<SettingScreen> {
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
                   title: "Privacy Policy",
-                  onTap: () {},
+                  onTap: () {
+                    Utils.launchUrl2(url: Constants.privacyPolicy);
+                  },
                 ),
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
                   title: "Help & Support",
-                  onTap: () {},
+                  onTap: () {
+                    Utils.launchUrl2(url: Constants.helpAndSupport);
+                  },
                 ),
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
