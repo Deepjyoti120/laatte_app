@@ -8,6 +8,7 @@ import 'package:laatte/services/firebase_service.dart';
 import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/utils/constants.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
+import 'package:laatte/viewmodel/cubit/profile_update_cubit.dart';
 import 'package:laatte/viewmodel/model/basic_info.dart';
 import 'package:laatte/viewmodel/model/chat.dart';
 import 'package:laatte/viewmodel/model/chat_start.dart';
@@ -802,5 +803,39 @@ class ApiService {
       Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
     }
     return null;
+  }
+
+  Future<bool> editProfile(ProfileUpdateCubit state) async {
+    String apiUrl = 'user/update-profile';
+    List listOfPhotos = [];
+    for (var e in state.photos) {
+      if (e != null) {
+        if (e.file != null) {
+          listOfPhotos.add(await upload(e.file!));
+        } else {
+          final finalLink = (e.link ?? "").split('/').last;
+          listOfPhotos.add(finalLink);
+        }
+      }
+    }
+    try {
+      var dataBody = {
+        "name": state.name.text,
+        "occupation": state.occupation.text,
+        "education": state.education.text,
+        "bio": state.bio.text,
+        "photos": listOfPhotos.map((e) => e.toString()).toList(),
+      };
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 200) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
   }
 }

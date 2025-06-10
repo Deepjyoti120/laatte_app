@@ -49,8 +49,10 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(FontAwesomeIcons.arrowLeft,
-              color: DesignColor.primary),
+          icon: const Icon(
+            FontAwesomeIcons.arrowLeft,
+            color: DesignColor.primary,
+          ),
           onPressed: () {
             context.pop();
           },
