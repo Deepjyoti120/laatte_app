@@ -551,6 +551,7 @@ class ApiService {
         "occupation": state.occupation.text,
         "education": state.education.text,
         "bio": state.bio.text,
+        "gender": state.gender.name,
         "photos": listOfPhotos.map((e) => e.toString()).toList(),
       };
       Response res = await dio.post(
@@ -824,6 +825,7 @@ class ApiService {
         "occupation": state.occupation.text,
         "education": state.education.text,
         "bio": state.bio.text,
+        "gender": state.gender.name,
         "photos": listOfPhotos.map((e) => e.toString()).toList(),
       };
       Response res = await dio.post(
