@@ -13,6 +13,7 @@ import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
+import 'package:laatte/views/home/filter_dialog.dart';
 import 'package:laatte/views/irl/irl.dart';
 import 'package:laatte/views/relate/relate_card.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -301,18 +302,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   Future<bool> showFilter(int index, {required Prompt prompt}) async {
-    return await showAdaptiveDialog<bool>(
+    return await showDialog<bool>(
           context: context,
-          // shape: const RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
-          // isScrollControlled: true,
-          // isDismissible: false,
-          // enableDrag: false,
-          // add linear bounce in animation curve
-          // backgroundColor: Colors.transparent,
+          barrierColor: Colors.black.withOpacity(0.6),
           builder: (context) {
-            return CommentSheet(
-              prompt: prompt,
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              backgroundColor: Colors.transparent,
+              child: const FilterDialog(),
             );
           },
         ) ??
