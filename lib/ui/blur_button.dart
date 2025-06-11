@@ -6,13 +6,13 @@ import 'package:laatte/utils/extensions.dart';
 class BlurBtn extends StatelessWidget {
   const BlurBtn({
     super.key,
-    required this.title,
+    this.title,
     this.onTap,
     this.icon,
     this.colorText,
   });
   // add title and onTap
-  final String title;
+  final String? title;
   final VoidCallback? onTap;
   final IconData? icon;
   final Color? colorText;
@@ -39,11 +39,12 @@ class BlurBtn extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  DesignText.titleSemi(
-                    title,
-                    color: colorText ?? Colors.white,
-                  ),
-                  if (icon != null) 8.width,
+                  if (title != null)
+                    DesignText.titleSemi(
+                      title ?? '',
+                      color: colorText ?? Colors.white,
+                    ),
+                  if (icon != null && title != null) 8.width,
                   if (icon != null)
                     Icon(
                       icon ?? Icons.arrow_forward,

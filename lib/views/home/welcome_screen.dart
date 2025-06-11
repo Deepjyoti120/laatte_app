@@ -15,6 +15,7 @@ import 'package:laatte/viewmodel/model/prompt.dart';
 import 'package:laatte/views/home/comment_sheet.dart';
 import 'package:laatte/views/irl/irl.dart';
 import 'package:laatte/views/relate/relate_card.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../ui/theme/text.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -266,20 +267,56 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Positioned(
             top: 60,
             right: 30,
-            child: BlurBtn(
-              title: appState.irl == null ? "Go IRL" : "Go Normal",
-              icon: appState.irl == null
-                  ? FontAwesomeIcons.locationArrow
-                  : FontAwesomeIcons.xmark,
-              onTap: () {
-                // context.push(Routes.irlScreen);
-                appState.goIrl = !appState.goIrl;
-              },
+            child: Row(
+              children: [
+                SizedBox(
+                  height: 26,
+                  child: BlurBtn(
+                    icon: PhosphorIcons.sliders(),
+                    onTap: () {
+                      showFilter(2, prompt: Prompt());
+                    },
+                  ),
+                ),
+                6.width,
+                SizedBox(
+                  height: 26,
+                  child: BlurBtn(
+                    title: appState.irl == null ? "Go IRL" : "Go Normal",
+                    icon: appState.irl == null
+                        ? FontAwesomeIcons.locationArrow
+                        : FontAwesomeIcons.xmark,
+                    onTap: () {
+                      // context.push(Routes.irlScreen);
+                      appState.goIrl = !appState.goIrl;
+                    },
+                  ),
+                ),
+              ],
             ),
           )
         ],
       ),
     );
+  }
+
+  Future<bool> showFilter(int index, {required Prompt prompt}) async {
+    return await showAdaptiveDialog<bool>(
+          context: context,
+          // shape: const RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
+          // isScrollControlled: true,
+          // isDismissible: false,
+          // enableDrag: false,
+          // add linear bounce in animation curve
+          // backgroundColor: Colors.transparent,
+          builder: (context) {
+            return CommentSheet(
+              prompt: prompt,
+            );
+          },
+        ) ??
+        false;
   }
 
   Future<bool> acceptSwipe(int index, {required Prompt prompt}) async {
