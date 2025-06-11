@@ -11,6 +11,7 @@ import 'package:laatte/views/profile/profile_update.dart';
 import 'package:laatte/views/relate/add_relate.dart';
 import 'package:laatte/views/relate/matching_screen.dart';
 import 'package:laatte/views/relate/relate_comments.dart';
+import 'package:laatte/views/settings/feedback.dart';
 import 'package:laatte/views/splash_screen.dart';
 import 'views/login/forgot_password.dart';
 import 'views/login/otp_screen.dart';
@@ -40,4 +41,5 @@ class Routes {
   static const String irlScreen = IrlScreen.route;
   static const String matchingScreen = MatchingScreen.route;
   static const String profileUpdateScreen = ProfileUpdateScreen.route;
+  static const String feedbackScreen = FeedbackScreen.route;
 }

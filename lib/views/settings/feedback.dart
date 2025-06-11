@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
@@ -11,19 +9,39 @@ import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 
-class SettingScreen extends StatefulWidget {
-  static const String route = "/SettingScreen";
-  const SettingScreen({super.key});
+class FeedbackScreen extends StatefulWidget {
+  static const String route = "/FeedbackScreen";
+  const FeedbackScreen({super.key});
 
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
+  State<FeedbackScreen> createState() => _FeedbackScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class _FeedbackScreenState extends State<FeedbackScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppStateCubit>();
     return Scaffold(
+      backgroundColor: DesignColor.latteBackground,
+      appBar: AppBar(
+        backgroundColor: DesignColor.latteBackground,
+        elevation: 0,
+        title: const DesignText.title(
+          "Feedback",
+          color: DesignColor.primary,
+          fontSize: 20,
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            FontAwesomeIcons.arrowLeft,
+            color: DesignColor.primary,
+          ),
+          onPressed: () {
+            context.pop();
+          },
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -33,86 +51,13 @@ class _SettingScreenState extends State<SettingScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                const DesignText.titleSemiBold("Settings"),
-                30.height,
-                const DesignText.body(
-                  "ACCOUNT",
-                  fontWeight: 600,
+                const DesignText.title(
+                  "We value your feedback! Please let us know how we can improve.",
+                  fontWeight: 400,
+                  color: DesignColor.grey900,
+                  textAlign: TextAlign.center,
                 ),
-                const Divider(color: DesignColor.grey300),
-                settingsCard(
-                  title: "Edit Profile",
-                  onTap: () {
-                    context.push(Routes.profileUpdateScreen);
-                  },
-                ),
-                const Divider(color: DesignColor.grey300),
-                settingsCard(
-                  title: "Notifications",
-                  trailingIcon: Transform.scale(
-                    scale: 0.7,
-                    child: Switch(
-                      activeColor: DesignColor.primary,
-                      value: appState.isAllowNotification,
-                      onChanged: (value) {
-                        appState.isAllowNotification = value;
-                      },
-                    ),
-                  ),
-                ),
-                // 20.height,
-                // const DesignText.body(
-                //   "PREFERENCES",
-                //   fontWeight: 600,
-                // ),
-                // const Divider(color: DesignColor.grey300),
-                // settingsCard(
-                //   title: "Appearance",
-                //   onTap: () {},
-                // ),
-                // const Divider(color: DesignColor.grey300),
-                // settingsCard(
-                //   title: "Discovery Settings",
-                //   onTap: () {},
-                // ),
                 20.height,
-                const DesignText.body(
-                  "SUPPORT",
-                  fontWeight: 600,
-                ),
-                const Divider(color: DesignColor.grey300),
-                settingsCard(
-                  title: "Give Feedback",
-                  onTap: () {
-                    context.push(Routes.feedbackScreen);
-                  },
-                ),
-                const Divider(color: DesignColor.grey300),
-                settingsCard(
-                  title: "Privacy Policy",
-                  onTap: () {
-                    Utils.launchUrl2(url: Constants.privacyPolicy);
-                  },
-                ),
-                const Divider(color: DesignColor.grey300),
-                settingsCard(
-                  title: "Help & Support",
-                  onTap: () {
-                    Utils.launchUrl2(url: Constants.helpAndSupport);
-                  },
-                ),
-                const Divider(color: DesignColor.grey300),
-                settingsCard(
-                  title: "Logout",
-                  onTap: () {
-                    close();
-                  },
-                  trailingIcon: const Icon(
-                    FontAwesomeIcons.rightFromBracket,
-                    size: 18,
-                    color: DesignColor.red,
-                  ),
-                ),
               ],
             ),
           ),

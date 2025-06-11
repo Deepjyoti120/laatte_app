@@ -16,6 +16,7 @@ import 'package:laatte/views/login/otp_screen.dart';
 import 'package:laatte/views/profile/profile_update.dart';
 import 'package:laatte/views/relate/matching_screen.dart';
 import 'package:laatte/views/relate/relate_comments.dart';
+import 'package:laatte/views/settings/feedback.dart';
 import 'package:laatte/views/splash_screen.dart';
 import 'main.dart';
 import 'views/login/forgot_password.dart';
@@ -92,7 +93,7 @@ final GoRouter goRouter = GoRouter(
       path: Routes.profileScreen,
       builder: (context, GoRouterState state) {
         UserReport userReport = state.extra as UserReport;
-        return   ProfileScreen(userReport: userReport);
+        return ProfileScreen(userReport: userReport);
       },
     ),
     GoRoute(
@@ -168,6 +169,12 @@ final GoRouter goRouter = GoRouter(
       path: Routes.profileUpdateScreen,
       builder: (context, GoRouterState state) {
         return const ProfileUpdateScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.feedbackScreen,
+      builder: (context, GoRouterState state) {
+        return const FeedbackScreen();
       },
     ),
   ],

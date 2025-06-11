@@ -840,4 +840,23 @@ class ApiService {
     }
     return false;
   }
+
+  Future<bool> feedback(String feedback) async {
+    String apiUrl = 'feedback';
+    try {
+      var dataBody = {
+        "feedback": feedback,
+      };
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 201) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
+  }
 }
