@@ -58,8 +58,9 @@ class _FilterDialogState extends State<FilterDialog> {
                           height: 48,
                           child: BlurBtn(
                             title: "Sent",
-                            // colorText: DesignColor.primary,
-                            onTap: () {},
+                            onTap: () {
+                              //
+                            },
                           ),
                         ),
                       ],
