@@ -6,6 +6,7 @@ import 'package:laatte/ui/blur_container.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
+import 'package:laatte/utils/enums.dart';
 import 'package:laatte/utils/extensions.dart';
 
 class FilterDialog extends StatefulWidget {
@@ -18,6 +19,9 @@ class FilterDialog extends StatefulWidget {
 
 class _FilterDialogState extends State<FilterDialog> {
   bool isLoading = false;
+  RangeValues _filterAges = const RangeValues(21, 35);
+  GenderTypes _genderType = GenderTypes.male;
+  double _radius = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +51,13 @@ class _FilterDialogState extends State<FilterDialog> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        6.height,
                         const DesignText.title(
                           "Filters",
                           textAlign: TextAlign.center,
                           color: DesignColor.primary,
                         ),
                         16.height,
-                        // age, gender, Radius,
                         BlurContainer(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -66,23 +70,25 @@ class _FilterDialogState extends State<FilterDialog> {
                                 SliderTheme(
                                   data: SliderTheme.of(context).copyWith(
                                     trackHeight: 2,
+                                    thumbColor: Colors.white,
                                     overlayShape: const RoundSliderOverlayShape(
                                       overlayRadius: 16,
                                     ),
+                                    activeTrackColor: DesignColor.primary,
                                   ),
-                                  child: Slider(
-                                    value: 1,
-                                    max: 100,
-                                    activeColor: DesignColor.primary,
+                                  child: RangeSlider(
+                                    values: _filterAges,
+                                    min: 21,
+                                    max: 50,
                                     inactiveColor:
                                         Colors.white.withOpacity(0.4),
-                                    thumbColor: Colors.white,
-                                    // divisions: 5,
-                                    label: "_currentDiscreteSliderValue"
-                                        .toString(),
-                                    onChanged: (double value) {
+                                    labels: RangeLabels(
+                                      _filterAges.start.round().toString(),
+                                      _filterAges.end.round().toString(),
+                                    ),
+                                    onChanged: (RangeValues values) {
                                       setState(() {
-                                        // _currentDiscreteSliderValue = value;
+                                        _filterAges = values;
                                       });
                                     },
                                   ),
@@ -109,18 +115,16 @@ class _FilterDialogState extends State<FilterDialog> {
                                     ),
                                   ),
                                   child: Slider(
-                                    value: 1,
-                                    max: 100,
+                                    value: _radius,
+                                    max: 150,
                                     activeColor: DesignColor.primary,
                                     inactiveColor:
                                         Colors.white.withOpacity(0.4),
                                     thumbColor: Colors.white,
-                                    // divisions: 5,
-                                    label: "_currentDiscreteSliderValue"
-                                        .toString(),
+                                    label: _radius.round().toString(),
                                     onChanged: (double value) {
                                       setState(() {
-                                        // _currentDiscreteSliderValue = value;
+                                        _radius = value;
                                       });
                                     },
                                   ),
@@ -136,78 +140,97 @@ class _FilterDialogState extends State<FilterDialog> {
                             Column(
                               children: [
                                 BlurContainer(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: SvgPicture.asset(
-                                    AssetsName.svgGenderMale,
-                                    width: 24,
-                                    colorFilter: ColorFilter.mode(
-                                      // appState.gender == GenderTypes.male
-                                      //     ? DesignColor.primary
-                                      // :
-                                      Colors.white,
-                                      BlendMode.srcIn,
+                                  onTap: () {
+                                    setState(() {
+                                      _genderType = GenderTypes.male;
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: SvgPicture.asset(
+                                      AssetsName.svgGenderMale,
+                                      width: 24,
+                                      colorFilter: ColorFilter.mode(
+                                        _genderType == GenderTypes.male
+                                            ? Colors.white
+                                            : Colors.white.withOpacity(0.4),
+                                        BlendMode.srcIn,
+                                      ),
                                     ),
                                   ),
-                                )),
+                                ),
                                 2.height,
-                                const DesignText(
+                                DesignText(
                                   "Male",
                                   fontSize: 12,
                                   fontWeight: 600,
-                                  color: Colors.white,
+                                  color: _genderType == GenderTypes.male
+                                      ? Colors.white
+                                      : Colors.white.withOpacity(0.4),
                                 )
                               ],
                             ),
                             Column(
                               children: [
                                 BlurContainer(
+                                    onTap: () {
+                                      setState(() {
+                                        _genderType = GenderTypes.female;
+                                      });
+                                    },
                                     child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: SvgPicture.asset(
-                                    AssetsName.svgGenderFemale,
-                                    width: 24,
-                                    colorFilter: ColorFilter.mode(
-                                      // appState.gender == GenderTypes.male
-                                      //     ? DesignColor.primary
-                                      // :
-                                      Colors.white,
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                )),
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: SvgPicture.asset(
+                                        AssetsName.svgGenderFemale,
+                                        width: 24,
+                                        colorFilter: ColorFilter.mode(
+                                          _genderType == GenderTypes.female
+                                              ? Colors.white
+                                              : Colors.white.withOpacity(0.4),
+                                          BlendMode.srcIn,
+                                        ),
+                                      ),
+                                    )),
                                 2.height,
-                                const DesignText(
+                                DesignText(
                                   "Female",
                                   fontSize: 12,
                                   fontWeight: 600,
-                                  color: Colors.white,
+                                  color: _genderType == GenderTypes.female
+                                      ? Colors.white
+                                      : Colors.white.withOpacity(0.4),
                                 )
                               ],
                             ),
                             Column(
                               children: [
                                 BlurContainer(
+                                    onTap: () {
+                                      setState(() {
+                                        _genderType = GenderTypes.other;
+                                      });
+                                    },
                                     child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: SvgPicture.asset(
-                                    AssetsName.svgGenderIntersex,
-                                    width: 24,
-                                    colorFilter: ColorFilter.mode(
-                                      // appState.gender == GenderTypes.male
-                                      //     ? DesignColor.primary
-                                      // :
-                                      Colors.white.withOpacity(0.4),
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                )),
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: SvgPicture.asset(
+                                        AssetsName.svgGenderIntersex,
+                                        width: 24,
+                                        colorFilter: ColorFilter.mode(
+                                          _genderType == GenderTypes.other
+                                              ? Colors.white
+                                              : Colors.white.withOpacity(0.4),
+                                          BlendMode.srcIn,
+                                        ),
+                                      ),
+                                    )),
                                 2.height,
                                 DesignText(
                                   "Other",
                                   fontSize: 12,
                                   fontWeight: 600,
-                                  color: Colors.white.withOpacity(0.4),
+                                  color: _genderType == GenderTypes.other
+                                      ? Colors.white
+                                      : Colors.white.withOpacity(0.4),
                                 )
                               ],
                             ),
@@ -219,6 +242,8 @@ class _FilterDialogState extends State<FilterDialog> {
                           child: BlurBtn(
                             title: "Apply",
                             onTap: () {
+                              _filterAges.start.round();
+                              _filterAges.end.round();
                               context.pop();
                             },
                           ),
@@ -226,7 +251,7 @@ class _FilterDialogState extends State<FilterDialog> {
                       ],
                     ),
                   ),
-                  10.height,
+                  20.height,
                 ],
               ),
             ),
