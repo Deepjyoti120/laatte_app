@@ -1,11 +1,10 @@
 import 'dart:ui';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
-import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/blur_button.dart';
-import 'package:laatte/ui/custom/custom_text_form.dart';
+import 'package:laatte/ui/blur_container.dart';
 import 'package:laatte/ui/theme/text.dart';
-import 'package:laatte/ui/widgets/interactiveview.dart';
+import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 
@@ -19,7 +18,7 @@ class FilterDialog extends StatefulWidget {
 
 class _FilterDialogState extends State<FilterDialog> {
   bool isLoading = false;
-  bool isConfirm = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,17 +48,178 @@ class _FilterDialogState extends State<FilterDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const DesignText.title(
-                          "Relate",
+                          "Filters",
                           textAlign: TextAlign.center,
                           color: DesignColor.primary,
                         ),
+                        16.height,
+                        // age, gender, Radius,
+                        BlurContainer(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                const DesignText.body(
+                                  "Age",
+                                  color: Colors.white,
+                                ),
+                                SliderTheme(
+                                  data: SliderTheme.of(context).copyWith(
+                                    trackHeight: 2,
+                                    overlayShape: const RoundSliderOverlayShape(
+                                      overlayRadius: 16,
+                                    ),
+                                  ),
+                                  child: Slider(
+                                    value: 1,
+                                    max: 100,
+                                    activeColor: DesignColor.primary,
+                                    inactiveColor:
+                                        Colors.white.withOpacity(0.4),
+                                    thumbColor: Colors.white,
+                                    // divisions: 5,
+                                    label: "_currentDiscreteSliderValue"
+                                        .toString(),
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        // _currentDiscreteSliderValue = value;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         10.height,
+                        BlurContainer(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                const DesignText.body(
+                                  "Radius",
+                                  color: Colors.white,
+                                ),
+                                SliderTheme(
+                                  data: SliderTheme.of(context).copyWith(
+                                    trackHeight: 2,
+                                    overlayShape: const RoundSliderOverlayShape(
+                                      overlayRadius: 16,
+                                    ),
+                                  ),
+                                  child: Slider(
+                                    value: 1,
+                                    max: 100,
+                                    activeColor: DesignColor.primary,
+                                    inactiveColor:
+                                        Colors.white.withOpacity(0.4),
+                                    thumbColor: Colors.white,
+                                    // divisions: 5,
+                                    label: "_currentDiscreteSliderValue"
+                                        .toString(),
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        // _currentDiscreteSliderValue = value;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        10.height,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                BlurContainer(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: SvgPicture.asset(
+                                    AssetsName.svgGenderMale,
+                                    width: 24,
+                                    colorFilter: ColorFilter.mode(
+                                      // appState.gender == GenderTypes.male
+                                      //     ? DesignColor.primary
+                                      // :
+                                      Colors.white,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                )),
+                                2.height,
+                                const DesignText(
+                                  "Male",
+                                  fontSize: 12,
+                                  fontWeight: 600,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                BlurContainer(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: SvgPicture.asset(
+                                    AssetsName.svgGenderFemale,
+                                    width: 24,
+                                    colorFilter: ColorFilter.mode(
+                                      // appState.gender == GenderTypes.male
+                                      //     ? DesignColor.primary
+                                      // :
+                                      Colors.white,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                )),
+                                2.height,
+                                const DesignText(
+                                  "Female",
+                                  fontSize: 12,
+                                  fontWeight: 600,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                BlurContainer(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: SvgPicture.asset(
+                                    AssetsName.svgGenderIntersex,
+                                    width: 24,
+                                    colorFilter: ColorFilter.mode(
+                                      // appState.gender == GenderTypes.male
+                                      //     ? DesignColor.primary
+                                      // :
+                                      Colors.white.withOpacity(0.4),
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                )),
+                                2.height,
+                                DesignText(
+                                  "Other",
+                                  fontSize: 12,
+                                  fontWeight: 600,
+                                  color: Colors.white.withOpacity(0.4),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                        16.height,
                         SizedBox(
                           height: 48,
                           child: BlurBtn(
-                            title: "Sent",
+                            title: "Apply",
                             onTap: () {
-                              //
+                              context.pop();
                             },
                           ),
                         ),
