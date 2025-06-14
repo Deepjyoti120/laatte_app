@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/ui/blur_button.dart';
@@ -8,6 +9,7 @@ import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 
 class FilterDialog extends StatefulWidget {
   const FilterDialog({
@@ -22,6 +24,17 @@ class _FilterDialogState extends State<FilterDialog> {
   RangeValues _filterAges = const RangeValues(21, 35);
   GenderTypes _genderType = GenderTypes.male;
   double _radius = 10;
+
+  @override
+  void initState() {
+    super.initState();
+    runInit();
+  }
+
+  runInit() async {
+    final user =  context.read<UserReportBloc>().state.userReport;
+    // _radius = user.r.toDouble();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +146,7 @@ class _FilterDialogState extends State<FilterDialog> {
                             ),
                           ),
                         ),
-                        10.height,
+                        16.height,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
