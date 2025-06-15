@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:laatte/common_libs.dart';
+import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/ui/blur_container.dart';
 import 'package:laatte/ui/theme/text.dart';
@@ -11,6 +12,7 @@ import 'package:laatte/utils/enums.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FilterDialog extends StatefulWidget {
   const FilterDialog({
@@ -273,9 +275,27 @@ class _FilterDialogState extends State<FilterDialog> {
                         SizedBox(
                           height: 48,
                           child: BlurBtn(
-                            title: "Apply",
+                            title: isLoading ? 'Loading...' : "Apply",
+                            icon: isLoading ? PhosphorIcons.circle() : null,
                             onTap: () {
-                              context.pop();
+                              setState(() {
+                                isLoading = true;
+                              });
+                              final goRouter = GoRouter.of(context);
+    //                           _radius = user?.radius?.toDouble() ?? 0.0;
+    // final genderType = Utils.getGenderType(user?.filterGender ?? '');
+    // _genderType = genderType;
+    // _filterAges = RangeValues(
+    //   user?.filterAgeFrom?.toDouble() ?? 21.0,
+    //   user?.filterAgeTo?.toDouble() ?? 35.0,
+    // );
+                              ApiService().filterUpdate(
+                                radius: _radius,
+                                genderType: _genderType ,
+                                filterAges: _filterAges,
+                              ).then((v) {
+                                goRouter.pop();
+                              });
                             },
                           ),
                         ),

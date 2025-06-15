@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/services/firebase_service.dart';
 import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/utils/constants.dart';
+import 'package:laatte/utils/enums.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/cubit/profile_update_cubit.dart';
 import 'package:laatte/viewmodel/model/basic_info.dart';
@@ -853,6 +854,32 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 201) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return false;
+  }
+
+  Future<bool> filterUpdate({
+    required double radius,
+    required GenderTypes genderType,
+    required RangeValues filterAges,
+  }) async {
+    String apiUrl = 'user/filter-update';
+    try {
+      var dataBody = {
+        "radius": radius,
+        "filter_gender": genderType.name,
+        "filter_age_from": filterAges.start,
+        "filter_age_to": filterAges.end,
+      };
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 200) {
         return true;
       }
     } on DioException catch (e) {
