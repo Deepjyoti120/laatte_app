@@ -54,21 +54,21 @@ class _RelateScreenState extends State<RelateScreen> {
                   case ResponseStatus.failure:
                     return const Center(child: Text('failed to fetch data'));
                   case ResponseStatus.success:
-                    if (state.prompts.isEmpty) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Row(),
-                          SvgPicture.asset(
-                            AssetsName.svgEmpty,
-                            width: 100,
-                            height: 100,
-                          ),
-                          const DesignText("Please come back later"),
-                        ],
-                      );
-                    }
+                    // if (state.prompts.isEmpty) {
+                    //   return Column(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     crossAxisAlignment: CrossAxisAlignment.center,
+                    //     children: [
+                    //       const Row(),
+                    //       SvgPicture.asset(
+                    //         AssetsName.svgEmpty,
+                    //         width: 100,
+                    //         height: 100,
+                    //       ),
+                    //       const DesignText("Please come back later"),
+                    //     ],
+                    //   );
+                    // }
                     return ListView.builder(
                       shrinkWrap: true,
                       padding: const EdgeInsets.all(12),

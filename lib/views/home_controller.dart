@@ -10,7 +10,6 @@ import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/views/chat/chat.dart';
 import 'package:laatte/views/home/welcome_screen.dart';
-import 'package:laatte/views/profile/profile.dart';
 import 'package:laatte/views/relate/add_relate.dart';
 import 'package:laatte/views/relate/relate.dart';
 import 'package:laatte/views/settings/setting.dart';

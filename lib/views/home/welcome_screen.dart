@@ -126,47 +126,47 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Column(
                 children: [
                   const Spacer(),
-                  if (prompt.isEmpty)
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Row(),
-                        SvgPicture.asset(
-                          AssetsName.svgEmpty,
-                          width: 100,
-                          height: 100,
-                        ),
-                        const DesignText(
-                          "Please come back later",
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
+                  // if (prompt.isEmpty)
+                  // Column(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     const Row(),
+                  //     SvgPicture.asset(
+                  //       AssetsName.svgEmpty,
+                  //       width: 100,
+                  //       height: 100,
+                  //     ),
+                  //     const DesignText(
+                  //       "Please come back later",
+                  //       color: Colors.white,
+                  //     ),
+                  //   ],
+                  // ),
                   if (prompt.listPrompt.isNotEmpty)
                     Flexible(
                       flex: 2,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          if (isEnd)
-                            SizedBox(
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    AssetsName.svgEmpty,
-                                    width: 100,
-                                    height: 100,
-                                  ),
-                                  const DesignText(
-                                    "Please come back later",
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
+                          // if (isEnd)
+                          //   SizedBox(
+                          //     width: double.infinity,
+                          //     child: Column(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       crossAxisAlignment: CrossAxisAlignment.center,
+                          //       children: [
+                          //         SvgPicture.asset(
+                          //           AssetsName.svgEmpty,
+                          //           width: 100,
+                          //           height: 100,
+                          //         ),
+                          //         const DesignText(
+                          //           "Please come back later",
+                          //           color: Colors.white,
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
                           if (!isEnd)
                             CardSwiper(
                               controller: _swiperController,
