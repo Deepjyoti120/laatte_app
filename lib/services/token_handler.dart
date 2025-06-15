@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:laatte/viewmodel/bloc/socket_bloc.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:ntp/ntp.dart';
 
@@ -26,10 +27,11 @@ class TokenHandler {
   static Future<void> resetJwt() async {
     navigatorKey.currentContext?.read<AppStateCubit>().clear();
     navigatorKey.currentContext?.read<IntroProfileCubit>().clear();
+    navigatorKey.currentContext?.read<SocketBloc>().add(SocketReset());
     await Hive.deleteFromDisk();
     await storage.deleteAll();
   }
- 
+
   // Validate Toke Start
   static Future<bool> isTokenExpired(String token) async {
     if (token.isEmpty) {

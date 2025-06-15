@@ -28,3 +28,5 @@ class SocketMessage extends SocketEvent {
     this.chatUser,
   });
 }
+
+class SocketReset extends SocketEvent {}

@@ -51,6 +51,10 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       _onSocketMessage,
       transformer: throttleDroppable(throttleDuration),
     );
+    on<SocketReset>(
+      _onSocketReset,
+      transformer: throttleDroppable(throttleDuration),
+    );
   }
   Future<void> _onSocketFetched(
     SocketFetched event,
@@ -137,6 +141,13 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       debugPrint(e.toString());
       emit(state.copyWith(status: ResponseStatus.failure));
     }
+  }
+
+  Future<void> _onSocketReset(
+    SocketReset event,
+    Emitter<SocketState> emit,
+  ) async {
+    emit(state.copyWith(status: ResponseStatus.initial));
   }
 
   @override
