@@ -870,10 +870,10 @@ class ApiService {
     String apiUrl = 'user/filter-update';
     try {
       var dataBody = {
-        "radius": radius,
+        "radius": radius.toInt(),
         "filter_gender": genderType.name,
-        "filter_age_from": filterAges.start,
-        "filter_age_to": filterAges.end,
+        "filter_age_from": filterAges.start.toInt(),
+        "filter_age_to": filterAges.end.toInt(),
       };
       Response res = await dio.post(
         apiUrl,

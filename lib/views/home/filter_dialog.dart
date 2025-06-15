@@ -282,18 +282,16 @@ class _FilterDialogState extends State<FilterDialog> {
                                 isLoading = true;
                               });
                               final goRouter = GoRouter.of(context);
-    //                           _radius = user?.radius?.toDouble() ?? 0.0;
-    // final genderType = Utils.getGenderType(user?.filterGender ?? '');
-    // _genderType = genderType;
-    // _filterAges = RangeValues(
-    //   user?.filterAgeFrom?.toDouble() ?? 21.0,
-    //   user?.filterAgeTo?.toDouble() ?? 35.0,
-    // );
-                              ApiService().filterUpdate(
+                              final userReportBloc =
+                                  context.read<UserReportBloc>();
+                              ApiService()
+                                  .filterUpdate(
                                 radius: _radius,
-                                genderType: _genderType ,
+                                genderType: _genderType,
                                 filterAges: _filterAges,
-                              ).then((v) {
+                              )
+                                  .then((v) {
+                                userReportBloc.add(UserReportFetched());
                                 goRouter.pop();
                               });
                             },
