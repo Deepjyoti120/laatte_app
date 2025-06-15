@@ -46,13 +46,20 @@ class UserReportAdapter extends TypeAdapter<UserReport> {
       updatedAt: fields[26] as String?,
       designation: fields[27] as Designation?,
       isProfileDone: fields[28] as bool?,
+      photos: (fields[29] as List?)?.cast<Photo>(),
+      occupation: fields[30] as String?,
+      education: fields[31] as String?,
+      radius: fields[32] as num?,
+      filterAgeFrom: fields[33] as num?,
+      filterAgeTo: fields[34] as num?,
+      filterGender: fields[35] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserReport obj) {
     writer
-      ..writeByte(29)
+      ..writeByte(36)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -110,7 +117,21 @@ class UserReportAdapter extends TypeAdapter<UserReport> {
       ..writeByte(27)
       ..write(obj.designation)
       ..writeByte(28)
-      ..write(obj.isProfileDone);
+      ..write(obj.isProfileDone)
+      ..writeByte(29)
+      ..write(obj.photos)
+      ..writeByte(30)
+      ..write(obj.occupation)
+      ..writeByte(31)
+      ..write(obj.education)
+      ..writeByte(32)
+      ..write(obj.radius)
+      ..writeByte(33)
+      ..write(obj.filterAgeFrom)
+      ..writeByte(34)
+      ..write(obj.filterAgeTo)
+      ..writeByte(35)
+      ..write(obj.filterGender);
   }
 
   @override

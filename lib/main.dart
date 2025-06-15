@@ -12,6 +12,7 @@ import 'package:laatte/viewmodel/model/basic_info.dart';
 import 'package:laatte/viewmodel/model/country_state.dart';
 import 'package:laatte/viewmodel/model/department.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
+import 'package:laatte/viewmodel/model/photo_model.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import 'utils/constants.dart';
 
@@ -30,6 +31,7 @@ void main() async {
   Hive.registerAdapter(DesignationAdapter());
   Hive.registerAdapter(CountryAdapter());
   Hive.registerAdapter(CountryStateAdapter());
+  Hive.registerAdapter(PhotoAdapter());
   await Storage.init();
   runApp(
     BlocProvider<AppStateCubit>(

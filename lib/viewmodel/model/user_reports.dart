@@ -69,6 +69,14 @@ class UserReport {
   String? occupation;
   @HiveField(31)
   String? education;
+  @HiveField(32)
+  num? radius;
+  @HiveField(33)
+  num? filterAgeFrom;
+  @HiveField(34)
+  num? filterAgeTo;
+  @HiveField(35)
+  String? filterGender;
 
   UserReport({
     this.id,
@@ -103,6 +111,10 @@ class UserReport {
     this.photos,
     this.occupation,
     this.education,
+    this.radius,
+    this.filterAgeFrom,
+    this.filterAgeTo,
+    this.filterGender,
   });
 
   UserReport.fromJson(Map<String, dynamic> json) {
@@ -145,6 +157,10 @@ class UserReport {
     }
     occupation = json['occupation'];
     education = json['education'];
+    radius = json['radius'];
+    filterAgeFrom = json['filter_age_from'];
+    filterAgeTo = json['filter_age_to'];
+    filterGender = json['filter_gender'];
   }
 
   Map<String, dynamic> toJson() {
@@ -185,6 +201,10 @@ class UserReport {
     }
     data['occupation'] = occupation;
     data['education'] = education;
+    data['radius'] = radius;
+    data['filter_age_from'] = filterAgeFrom;
+    data['filter_age_to'] = filterAgeTo;
+    data['filter_gender'] = filterGender;
     return data;
   }
 }

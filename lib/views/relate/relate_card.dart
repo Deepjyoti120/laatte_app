@@ -33,33 +33,34 @@ class RelateCard extends StatelessWidget {
                   (prompt.prompt ?? ""),
                   color: Colors.white,
                 ),
-                6.height,
-                Wrap(
-                  children: (prompt.tags ?? [])
-                      .map(
-                        (tag) => Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: Colors.white.withOpacity(0.2),
+                if (prompt.tags?.isNotEmpty ?? false) 6.height,
+                if (prompt.tags?.isNotEmpty ?? false)
+                  Wrap(
+                    children: (prompt.tags ?? [])
+                        .map(
+                          (tag) => Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.2),
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(6, 2, 6, 2),
-                              child: DesignText.body(
-                                tag,
-                                fontSize: 12,
-                                color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(6, 2, 6, 2),
+                                child: DesignText.body(
+                                  tag,
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      )
-                      .toList(),
-                ),
+                        )
+                        .toList(),
+                  ),
               ],
             ),
           ),

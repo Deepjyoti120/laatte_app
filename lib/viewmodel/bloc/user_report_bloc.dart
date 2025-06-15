@@ -73,6 +73,7 @@ class UserReportBloc extends Bloc<UserReportEvent, UserReportState> {
       );
       // }
     } catch (_) {
+      print(_);
       emit(state.copyWith(status: ResponseStatus.failure));
     }
   }

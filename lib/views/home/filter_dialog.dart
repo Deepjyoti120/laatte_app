@@ -9,6 +9,7 @@ import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/utils/utlis.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 
 class FilterDialog extends StatefulWidget {
@@ -32,8 +33,15 @@ class _FilterDialogState extends State<FilterDialog> {
   }
 
   runInit() async {
-    final user =  context.read<UserReportBloc>().state.userReport;
-    // _radius = user.r.toDouble();
+    final user = context.read<UserReportBloc>().state.userReport;
+    _radius = user?.radius?.toDouble() ?? 0.0;
+    final genderType = Utils.getGenderType(user?.filterGender ?? '');
+    _genderType = genderType;
+    _filterAges = RangeValues(
+      user?.filterAgeFrom?.toDouble() ?? 21.0,
+      user?.filterAgeTo?.toDouble() ?? 35.0,
+    );
+    setState(() {});
   }
 
   @override
@@ -88,6 +96,11 @@ class _FilterDialogState extends State<FilterDialog> {
                                       overlayRadius: 16,
                                     ),
                                     activeTrackColor: DesignColor.primary,
+                                    valueIndicatorShape:
+                                        const PaddleSliderValueIndicatorShape(),
+                                    showValueIndicator:
+                                        ShowValueIndicator.onlyForContinuous,
+                                    valueIndicatorColor: DesignColor.primary,
                                   ),
                                   child: RangeSlider(
                                     values: _filterAges,
@@ -126,6 +139,13 @@ class _FilterDialogState extends State<FilterDialog> {
                                     overlayShape: const RoundSliderOverlayShape(
                                       overlayRadius: 16,
                                     ),
+                                    valueIndicatorShape:
+                                        const PaddleSliderValueIndicatorShape(),
+                                    showValueIndicator:
+                                        ShowValueIndicator.onlyForContinuous,
+                                    valueIndicatorColor: Colors.white,
+                                    // valueIndicatorTextStyle:
+                                    //     const TextStyle(color: Colors.black),
                                   ),
                                   child: Slider(
                                     value: _radius,
@@ -255,8 +275,6 @@ class _FilterDialogState extends State<FilterDialog> {
                           child: BlurBtn(
                             title: "Apply",
                             onTap: () {
-                              _filterAges.start.round();
-                              _filterAges.end.round();
                               context.pop();
                             },
                           ),

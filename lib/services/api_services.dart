@@ -285,6 +285,7 @@ class ApiService {
       String apiUrl = 'user/profile';
       Response res = await dio.get(apiUrl);
       if (res.statusCode == 200) {
+        final dd = res.data['data']['filter_gender'];
         final data = UserReport.fromJson(res.data['data']);
         return data;
       }

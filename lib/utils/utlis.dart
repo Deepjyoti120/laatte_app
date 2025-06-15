@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'dart:developer' as developer;
 import 'dart:math';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:laatte/utils/enums.dart' as enums;
 import 'package:ntp/ntp.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -654,5 +654,18 @@ class Utils {
       age--;
     }
     return age;
+  }
+
+  static enums.GenderTypes getGenderType(String type) {
+    switch (type.toLowerCase()) {
+      case 'male':
+        return enums.GenderTypes.male;
+      case 'female':
+        return enums.GenderTypes.female;
+      case 'other':
+        return enums.GenderTypes.other;
+      default:
+        return enums.GenderTypes.none;
+    }
   }
 }
