@@ -47,3 +47,5 @@ storeFile=../../keystore.jks
 
 
 
+
+/Users/deepjyotibaishya/Library/Android/sdk --install "cmdline-tools;latest"

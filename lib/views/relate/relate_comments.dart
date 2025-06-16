@@ -20,9 +20,11 @@ class _RelateCommentState extends State<RelateComment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DesignColor.latteCream,
       appBar: AppBar(
         elevation: 0,
         title: const DesignText("Comments"),
+        backgroundColor: DesignColor.latteCream,
       ),
       body: ListView.builder(
         itemCount: widget.prompt.comments?.length,
@@ -36,11 +38,11 @@ class _RelateCommentState extends State<RelateComment> {
                 matchNow(index);
               },
               child: DesignContainer(
-                blurRadius: 0,
-                borderAllColor: DesignColor.grey300,
-                bordered: true,
+                blurRadius: 20,
+                borderAllColor: DesignColor.latteCream,
+                // bordered: true,
                 isColor: true,
-                color: DesignColor.grey50,
+                color: DesignColor.latteCream,
                 borderRadius: BorderRadius.circular(12),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -48,7 +50,7 @@ class _RelateCommentState extends State<RelateComment> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(
-                            10), // Optional: Add rounded corners
+                            60), // Optional: Add rounded corners
                         child: ImageFiltered(
                           imageFilter: ImageFilter.blur(
                               sigmaX: 5,

@@ -32,13 +32,13 @@ class AddRelate extends StatefulWidget {
 
 class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   final _relate = TextEditingController();
-  final _tag = TextEditingController();
+  // final _tag = TextEditingController();
   bool isloading = false;
   File? pickImage;
   bool haspermission = false;
   final _formKey = GlobalKey<FormState>();
   Position? _position;
-  List<String> tags = [];
+  // List<String> tags = [];
   bool isGenerating = false;
   Irl? _irl;
 
@@ -93,7 +93,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppStateCubit>();
-    bool isSubmittable = pickImage != null && tags.isNotEmpty;
+    bool isSubmittable = pickImage != null;
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -141,12 +141,12 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                       if (pickImage == null) {
                         return Utils.flutterToast("Image is required");
                       }
-                      if (tags.isEmpty) {
-                        return Utils.flutterToast("Tags are required");
-                      }
-                      if (_tag.text.isNotEmpty) {
-                        tags.add("LastNightAt${_tag.text}");
-                      }
+                      // if (tags.isEmpty) {
+                      //   return Utils.flutterToast("Tags are required");
+                      // }
+                      // if (_tag.text.isNotEmpty) {
+                      //   tags.add("LastNightAt${_tag.text}");
+                      // }
                       setState(() => isloading = true);
                       ApiService()
                           .addPrompt(
@@ -155,7 +155,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                           prompt: _relate.text,
                           latitude: _position?.latitude.toString(),
                           longitude: _position?.longitude.toString(),
-                          tags: tags,
+                          tags: [],
                           irl: _irl,
                         ),
                       )
@@ -163,7 +163,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                         if (value) {
                           pickImage = null;
                           _relate.clear();
-                          tags.clear();
+                          // tags.clear();
                           if (mounted) {
                             setState(() {});
                           }
@@ -464,43 +464,43 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                           //     )
                           //   ],
                           // ),
-                          10.height,
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Wrap(
-                              children: Constants.tags.map((e) {
-                                final isSelected = tags.contains(e);
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      if (isSelected) {
-                                        tags.remove(e);
-                                      } else {
-                                        tags.add(e);
-                                      }
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 6),
-                                    margin: const EdgeInsets.only(right: 6),
-                                    decoration: BoxDecoration(
-                                      color: isSelected
-                                          ? DesignColor.primary
-                                          : Colors.grey[200],
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: DesignText.body(
-                                      e,
-                                      color: isSelected
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          ),
+                          // 10.height,
+                          // SingleChildScrollView(
+                          //   scrollDirection: Axis.horizontal,
+                          //   child: Wrap(
+                          //     children: Constants.tags.map((e) {
+                          //       final isSelected = tags.contains(e);
+                          //       return GestureDetector(
+                          //         onTap: () {
+                          //           setState(() {
+                          //             if (isSelected) {
+                          //               tags.remove(e);
+                          //             } else {
+                          //               tags.add(e);
+                          //             }
+                          //           });
+                          //         },
+                          //         child: Container(
+                          //           padding: const EdgeInsets.symmetric(
+                          //               horizontal: 12, vertical: 6),
+                          //           margin: const EdgeInsets.only(right: 6),
+                          //           decoration: BoxDecoration(
+                          //             color: isSelected
+                          //                 ? DesignColor.primary
+                          //                 : Colors.grey[200],
+                          //             borderRadius: BorderRadius.circular(20),
+                          //           ),
+                          //           child: DesignText.body(
+                          //             e,
+                          //             color: isSelected
+                          //                 ? Colors.white
+                          //                 : Colors.black,
+                          //           ),
+                          //         ),
+                          //       );
+                          //     }).toList(),
+                          //   ),
+                          // ),
                           // 10.height,
                           // Row(
                           //   children: [
@@ -545,36 +545,52 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                               ),
                             )
                           else
-                            DesignContainer(
-                              width: double.infinity,
-                              clipBehavior: Clip.antiAlias,
-                              color: DesignColor.latteDarkCard,
-                              isColor: true,
-                              child: Row(
+                            GestureDetector(
+                              onTap: () {
+                                selectIrl().then((v) {
+                                  if (v != null) {
+                                    _irl = v;
+                                    setState(() {});
+                                  }
+                                });
+                              },
+                              child: Column(
                                 children: [
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: 100,
-                                      child: CachedNetworkImage(
-                                        imageUrl: _irl?.profile ?? "",
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      height: 100,
-                                      alignment: Alignment.center,
-                                      color: DesignColor.latteDarkCard,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: DesignText(
-                                          _irl?.name ?? "",
-                                          color: DesignColor.primary,
-                                          fontSize: 16,
-                                          textAlign: TextAlign.center,
+                                  10.height,
+                                  DesignContainer(
+                                    width: double.infinity,
+                                    clipBehavior: Clip.antiAlias,
+                                    color: DesignColor.latteDarkCard,
+                                    isColor: true,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: SizedBox(
+                                            height: 50,
+                                            child: CachedNetworkImage(
+                                              imageUrl: _irl?.profile ?? "",
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        Expanded(
+                                          child: Container(
+                                            height: 50,
+                                            alignment: Alignment.center,
+                                            color: DesignColor.latteDarkCard,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: DesignText(
+                                                _irl?.name ?? "",
+                                                color: DesignColor.primary,
+                                                fontSize: 16,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],

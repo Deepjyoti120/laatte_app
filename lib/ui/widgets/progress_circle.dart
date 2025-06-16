@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
+// import 'package:rive/rive.dart';
 
 class DesignProgressAnimation extends StatefulWidget {
   const DesignProgressAnimation({
@@ -97,33 +97,11 @@ class DesignProgress extends StatelessWidget {
     return SizedBox(
       height: size ?? 20,
       width: size ?? 20,
-      child: isAi
-          ? const RiveAnimation.asset(
-              "assets/rive/ai.riv",
-              artboard: "animate",
-              // animations: const ['in', 'loop'],
-              // onInit: (artboard) {
-              //   // if (color != null) {
-              //   // Assuming the color input name is 'color'
-              //   final controller = StateMachineController.fromArtboard(
-              //     artboard,
-              //     'state_machine_name',
-              //   );
-              //   artboard.addController(controller!);
-              //   final colorInput = controller.findInput<Color>('color');
-              //   if (colorInput != null) {
-              //     colorInput.value = color!;
-              //     // }
-              //   }
-              // },
-            )
-          : // Use the default CircularProgressIndicator if isAi is false
-
-          CircularProgressIndicator(
-              strokeWidth: 1.5,
-              color: color,
-              value: value,
-            ),
+      child: CircularProgressIndicator(
+        strokeWidth: 1.5,
+        color: color,
+        value: value,
+      ),
     );
   }
 }

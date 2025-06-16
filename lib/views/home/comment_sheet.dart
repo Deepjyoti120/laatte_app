@@ -95,6 +95,7 @@ class _CommentSheetState extends State<CommentSheet> {
                             if (isConfirm) const SizedBox(height: 10),
                             // if (isConfirm)
                             SizedBox(
+                              // height: 160,
                               height: isConfirm ? 160 : 0,
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
