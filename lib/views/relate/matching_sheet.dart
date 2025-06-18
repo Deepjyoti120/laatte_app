@@ -1,17 +1,15 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/custom/custom_text_form.dart';
+import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/ui/widgets/interactiveview.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
-import 'package:laatte/viewmodel/model/chat_start.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import '../../ui/theme/buttons.dart';
 
@@ -35,6 +33,7 @@ class _MatchingSheetState extends State<MatchingSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final promptUser = widget.comment.user;
     return Form(
       key: formKey,
       child: Padding(
@@ -43,215 +42,214 @@ class _MatchingSheetState extends State<MatchingSheet> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            GestureDetector(
-              onTap: () {
-                context.pop();
-              },
-              child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(60)),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 40, 40, 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
                   child: Container(
-                    alignment: Alignment.center,
-                    child: const Icon(Icons.close, color: Colors.white),
-                  )),
-            ),
-            const SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
-                color: DesignColor.backgroundColor,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 14, 30, 14),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.4),
+                      ),
+                    ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const DesignText.title(
-                          "Match now",
-                          textAlign: TextAlign.center,
-                          color: DesignColor.primary,
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 14, 30, 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextFormField(
+                                controller: relate,
+                                autofocus: true,
+                                onTapOutside: (event) {
+                                  FocusScope.of(context).unfocus();
+                                },
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.transparent,
+                                  hintStyle: const TextStyle(
+                                    color: Colors.white54,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 16, horizontal: 12),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 10),
-                        DesignFormField(
-                          controller: relate,
-                          labelText: "Relate",
-                          maxLines: 10,
-                          minLines: 6,
-                          readOnly: isConfirm,
-                          autofocus: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 12),
+                        Divider(
+                          height: 1,
+                          color: Colors.white.withOpacity(0.4),
                         ),
-                        if (isConfirm) const SizedBox(height: 10),
-                        if (isConfirm)
-                          SizedBox(
-                            height: 100,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: (widget.comment.user?.photos ?? [])
-                                    .asMap()
-                                    .entries
-                                    .map((entry) {
-                                  int index = entry.key;
-                                  var e = entry.value;
-                                  return Padding(
-                                    padding: const EdgeInsets.all(4),
-                                    child: GestureDetector(
-                                      onTap: index == 0
-                                          ? () {
-                                              if (e.url != null) {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        InteractiveView(
-                                                            preview:
-                                                                e.url ?? ''),
-                                                  ),
-                                                );
+                        8.height,
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 30, 14),
+                          child: Column(
+                            children: [
+                              if (isConfirm)
+                                SizedBox(
+                                    width: double.infinity,
+                                    height: 48,
+                                    child: TextButton(
+                                        onPressed: () {
+                                          if (formKey.currentState
+                                                  ?.validate() ??
+                                              false) {
+                                            final goRouter =
+                                                GoRouter.of(context);
+                                            ApiService()
+                                                .chatStart(
+                                              receiverId:
+                                                  widget.comment.user?.id ?? '',
+                                              prompt: widget.prompt,
+                                              comment: widget.comment,
+                                            )
+                                                .then((v) {
+                                              if (!context.mounted) return;
+                                              final isSuccess = v != null;
+                                              if (isSuccess) {
+                                                goRouter.pop(isSuccess);
+                                                context.push(
+                                                    Routes.matchingScreen,
+                                                    extra: v);
+                                              } else {
+                                                Utils.showSnackBar(
+                                                    context, "Failed to match");
                                               }
-                                            }
-                                          : null, // Disable tap for other images
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: index == 0
-                                            ? CachedNetworkImage(
-                                                imageUrl: e.url!,
-                                                fit: BoxFit.cover,
-                                              )
-                                            : ImageFiltered(
-                                                imageFilter: ImageFilter.blur(
-                                                    sigmaX: 5,
-                                                    sigmaY: 5), // Blur effect
-                                                child: CachedNetworkImage(
-                                                  imageUrl: e.url!,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                        // SizedBox(
-                        //   height: 100,
-                        //   child: SingleChildScrollView(
-                        //     scrollDirection: Axis.horizontal,
-                        //     child: Row(
-                        //       children: (widget.comment.user?.photos ?? [])
-                        //           .map((e) => Padding(
-                        //                 padding: const EdgeInsets.all(4),
-                        //                 child: ClipRRect(
-                        //                   borderRadius:
-                        //                       BorderRadius.circular(8),
-                        //                   child: Image.network(
-                        //                     e.url!,
-                        //                     fit: BoxFit.cover,
-                        //                   ),
-                        //                 ),
-                        //               ))
-                        //           .toList(),
-                        //     ),
-                        //   ),
-                        // ),
-                        if (isConfirm) const SizedBox(height: 10),
-                        if (isConfirm)
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: Hero(
-                              tag: Constants.keyLoginButton,
-                              child: DesignButtons(
-                                color: DesignColor.primary,
-                                elevation: 0,
-                                fontSize: 16,
-                                fontWeight: 500,
-                                colorText: Colors.white,
-                                isTappedNotifier:
-                                    ValueNotifier<bool>(isLoading),
-                                onPressed: () async {
-                                  if (formKey.currentState?.validate() ??
-                                      false) {
-                                    final goRouter = GoRouter.of(context);
-                                    ApiService()
-                                        .chatStart(
-                                      receiverId: widget.comment.user?.id ?? '',
-                                      prompt: widget.prompt,
-                                      comment: widget.comment,
-                                    )
-                                        .then(( v) {
-                                      if (!context.mounted) return;
-                                      final isSuccess = v != null;
-                                      if (isSuccess) {
-                                        goRouter.pop(isSuccess);
-                                        context.push(Routes.matchingScreen,
-                                            extra: v);
-                                        // Utils.showSnackBar(context, "Matched");
-                                      } else {
-                                        Utils.showSnackBar(
-                                            context, "Failed to match");
-                                      }
-                                    });
-                                  }
-                                },
-                                textLabel: "",
-                                child: const DesignText(
-                                  "Confirm",
-                                  fontSize: 16,
-                                  fontWeight: 500,
-                                  color: Colors.white,
+                                            });
+                                          }
+                                        },
+                                        child: const DesignText.title(
+                                          "Confirm",
+                                          color: DesignColor.primary,
+                                        )))
+                              else
+                                SizedBox(
+                                  height: 48,
+                                  child: TextButton(
+                                      onPressed: () {
+                                        if (formKey.currentState?.validate() ??
+                                            false) {
+                                          isConfirm = true;
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: const DesignText.title(
+                                        "Match",
+                                        color: DesignColor.primary,
+                                      )),
                                 ),
-                              ),
-                            ),
-                          )
-                        else
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: Hero(
-                              tag: Constants.keyLoginButton,
-                              child: DesignButtons(
-                                color: DesignColor.primary,
-                                elevation: 0,
-                                fontSize: 16,
-                                fontWeight: 500,
-                                colorText: Colors.white,
-                                isTappedNotifier:
-                                    ValueNotifier<bool>(isLoading),
-                                onPressed: () async {
-                                  isConfirm = true;
-                                  setState(() {});
-                                },
-                                textLabel: "",
-                                child: const DesignText(
-                                  "Match",
-                                  fontSize: 16,
-                                  fontWeight: 500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
+                            ],
                           ),
+                        ),
+                        10.height,
                       ],
                     ),
                   ),
-                  10.height,
-                  // if (Utils.isIOS) 30.height,
-                ],
+                ),
               ),
             ),
+            if (isConfirm) 40.height,
+            if (promptUser != null)
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                height: isConfirm ? 180 : 0,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: DesignColor.latteCream,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 160,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: DesignContainer(
+                            width: double.infinity,
+                            clipBehavior: Clip.antiAlias,
+                            color: DesignColor.latteDarkCard,
+                            isColor: true,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => InteractiveView(
+                                            preview:
+                                                promptUser.profilePicture ?? '',
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Hero(
+                                      tag: promptUser.profilePicture ?? "",
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            promptUser.profilePicture ?? "",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    color: DesignColor.latteGreyDark,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          DesignText.title(
+                                            "${promptUser.name ?? ""}, ${Utils.dateOfAge(promptUser.dob).toString()}",
+                                            color:
+                                                DesignColor.latteGreyDarkText,
+                                            // fontSize: 16,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          DesignText(
+                                            promptUser.bio ?? "",
+                                            color:
+                                                DesignColor.latteGreyDarkText,
+                                            // fontSize: 16,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       ),

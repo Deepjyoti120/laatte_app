@@ -82,7 +82,7 @@ class _RelateCommentState extends State<RelateComment> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
           isScrollControlled: true,
-          isDismissible: false,
+          isDismissible: true,
           backgroundColor: Colors.transparent,
           builder: (context) {
             return MatchingSheet(

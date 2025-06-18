@@ -61,12 +61,6 @@ class _CommentSheetState extends State<CommentSheet> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // const DesignText.title(
-                              //   "Relate",
-                              //   textAlign: TextAlign.center,
-                              //   color: DesignColor.primary,
-                              // ),
-                              // const SizedBox(height: 10),
                               TextFormField(
                                 controller: relate,
                                 autofocus: true,
@@ -161,78 +155,83 @@ class _CommentSheetState extends State<CommentSheet> {
                 decoration: const BoxDecoration(
                   color: DesignColor.latteCream,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (isConfirm) const SizedBox(height: 10),
-                    SizedBox(
-                      height: 160,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: DesignContainer(
-                          width: double.infinity,
-                          clipBehavior: Clip.antiAlias,
-                          color: DesignColor.latteDarkCard,
-                          isColor: true,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => InteractiveView(
-                                          preview:
-                                              promptUser.profilePicture ?? '',
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 160,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: DesignContainer(
+                            width: double.infinity,
+                            clipBehavior: Clip.antiAlias,
+                            color: DesignColor.latteDarkCard,
+                            isColor: true,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => InteractiveView(
+                                            preview:
+                                                promptUser.profilePicture ?? '',
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Hero(
+                                      tag: promptUser.profilePicture ?? "",
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            promptUser.profilePicture ?? "",
+                                        fit: BoxFit.cover,
                                       ),
-                                    );
-                                  },
-                                  child: Hero(
-                                    tag: promptUser.profilePicture ?? "",
-                                    child: CachedNetworkImage(
-                                      imageUrl: promptUser.profilePicture ?? "",
-                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  color: DesignColor.latteGreyDark,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        DesignText.title(
-                                          "${promptUser.name ?? ""}, ${Utils.dateOfAge(promptUser.dob).toString()}",
-                                          color: DesignColor.latteGreyDarkText,
-                                          // fontSize: 16,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        DesignText(
-                                          promptUser.bio ?? "",
-                                          color: DesignColor.latteGreyDarkText,
-                                          // fontSize: 16,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    color: DesignColor.latteGreyDark,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          DesignText.title(
+                                            "${promptUser.name ?? ""}, ${Utils.dateOfAge(promptUser.dob).toString()}",
+                                            color:
+                                                DesignColor.latteGreyDarkText,
+                                            // fontSize: 16,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          DesignText(
+                                            promptUser.bio ?? "",
+                                            color:
+                                                DesignColor.latteGreyDarkText,
+                                            // fontSize: 16,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
           ],
