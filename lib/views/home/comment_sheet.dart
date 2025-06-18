@@ -166,7 +166,7 @@ class _CommentSheetState extends State<CommentSheet> {
                   children: [
                     if (isConfirm) const SizedBox(height: 10),
                     SizedBox(
-                      height: isConfirm ? 160 : 0,
+                      height: 160,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: DesignContainer(
