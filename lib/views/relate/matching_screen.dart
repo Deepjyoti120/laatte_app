@@ -27,7 +27,7 @@ class _MatchingScreenState extends State<MatchingScreen> {
       body: Stack(
         children: [
           Image.asset(
-            AssetsName.pngMatchingBg,
+            AssetsName.pngBg1,
             fit: BoxFit.fill,
             height: double.infinity,
             width: double.infinity,

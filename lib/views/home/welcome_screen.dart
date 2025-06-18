@@ -323,14 +323,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
           isScrollControlled: true,
-          isDismissible: false,
+          isDismissible: true,
           // enableDrag: false,
           // add linear bounce in animation curve
           backgroundColor: Colors.transparent,
           builder: (context) {
-            return CommentSheet(
-              prompt: prompt,
-            );
+            return CommentSheet(prompt: prompt);
           },
         ) ??
         false;

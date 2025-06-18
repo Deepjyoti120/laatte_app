@@ -105,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   textAlign: TextAlign.center,
                                 ),
                                 DesignText.title(
-                                  " ${Utils.dateOfAge(chatUser?.dob).toString()}",
+                                  ", ${Utils.dateOfAge(chatUser?.dob).toString()}",
                                   color: DesignColor.latteyellowText,
                                   fontSize: 26,
                                   textAlign: TextAlign.center,
