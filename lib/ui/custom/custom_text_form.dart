@@ -6,7 +6,8 @@ class DesignFormField extends StatelessWidget {
   const DesignFormField({
     super.key,
     required this.controller,
-    required this.labelText,
+     this.labelText,
+    this.hintText,
     this.keyboardType,
     this.maxLines,
     this.minLines,
@@ -26,9 +27,11 @@ class DesignFormField extends StatelessWidget {
     this.maxLength,
     this.style,
     this.labelStyle,
+    this.borderRadius,
   });
   final TextEditingController controller;
-  final String labelText;
+  final String? labelText;
+  final String? hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextInputType? keyboardType;
@@ -48,6 +51,7 @@ class DesignFormField extends StatelessWidget {
   final Color? fillColor;
   final TextStyle? style;
   final TextStyle? labelStyle;
+  final BorderRadius? borderRadius;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -83,6 +87,7 @@ class DesignFormField extends StatelessWidget {
             labelText: labelText,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
+            hintText: hintText,
             labelStyle: labelStyle ??
                 const TextStyle(
                   color: DesignColor.grey400,
@@ -94,21 +99,24 @@ class DesignFormField extends StatelessWidget {
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             contentPadding: contentPadding ?? const EdgeInsets.all(10),
             //contentPadding: const EdgeInsets.fromLTRB(16, 6, 16, 6),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: DesignColor.grey300, width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            focusedBorder: OutlineInputBorder(
+              borderSide:
+                  const BorderSide(color: DesignColor.grey300, width: 1),
+              borderRadius: borderRadius ?? BorderRadius.circular(8),
             ),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: DesignColor.grey300, width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  const BorderSide(color: DesignColor.grey300, width: 1),
+              borderRadius: borderRadius ?? BorderRadius.circular(8),
             ),
-            border: const OutlineInputBorder(
-              borderSide: BorderSide(color: DesignColor.grey300, width: 1.0),
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            border: OutlineInputBorder(
+              borderSide:
+                  const BorderSide(color: DesignColor.grey300, width: 1.0),
+              borderRadius: borderRadius ?? BorderRadius.circular(8),
             ),
-            errorBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red, width: 1.0),
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.red, width: 1.0),
+              borderRadius: borderRadius ?? BorderRadius.circular(8),
             ),
           ),
           textCapitalization: TextCapitalization.sentences,

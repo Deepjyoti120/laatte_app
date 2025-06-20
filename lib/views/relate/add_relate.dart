@@ -217,9 +217,10 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                           10.height,
                           DesignFormField(
                             controller: _relate,
-                            labelText: "Something that made you smile today...",
+                            hintText: "Something that made you smile today...",
                             maxLines: 10,
                             minLines: 6,
+                            borderRadius: BorderRadius.circular(30),
                             maxLength: 180,
                             autofocus: true,
                             style: const TextStyle(color: Colors.black),
