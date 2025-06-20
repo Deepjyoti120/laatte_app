@@ -16,6 +16,8 @@ class GenderForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final appState = context.watch<IntroProfileCubit>();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         30.height,
         Column(

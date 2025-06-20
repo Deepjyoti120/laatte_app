@@ -58,7 +58,7 @@ class _FilterDialogState extends State<FilterDialog> {
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(50),
               border: Border.all(
                 color: Colors.white.withOpacity(0.4),
               ),

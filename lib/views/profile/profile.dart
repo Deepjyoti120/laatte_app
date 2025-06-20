@@ -33,12 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         title: const DesignText(
           "Profile",
-          // color: DesignColor.latteYellowSmall,
-          // fontSize: 18,
         ),
-        // centerTitle: true,
-        // backgroundColor: DesignColor.latteDarkCard,
-        // elevation: 0,
       ),
       body: SafeArea(
         child: Stack(
@@ -85,13 +80,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   children: [
                     DesignContainer(
-                      // width: double.infinity,
                       clipBehavior: Clip.antiAlias,
                       color: Colors.black,
                       isColor: true,
                       alignment: Alignment.topLeft,
+                      borderRadius: BorderRadius.circular(50),
                       child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(30.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               chatUser?.bio ?? "",
                               color: DesignColor.latteyellowText,
                               fontSize: 16,
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.justify,
                             ),
                           ],
                         ),

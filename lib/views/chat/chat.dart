@@ -76,7 +76,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   children: [
                     12.height,
                     const Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      padding: EdgeInsets.only(left: 20, right: 20, top: 12),
                       child: DesignText(
                         "Chats",
                         fontSize: 20,

@@ -225,20 +225,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           if (appState.irl != null)
             Positioned(
-              top: 90,
+              top: 110,
               left: 30,
               child: Row(
                 children: [
                   const Icon(
-                    // FontAwesomeIcons.locationPin, need border
                     FontAwesomeIcons.locationDot,
                     color: Colors.white,
-                    size: 16,
+                    size: 20,
                   ),
                   6.width,
                   DesignText(
                     appState.irl?.name ?? '',
                     color: Colors.white,
+                    fontSize: 20,
                   )
                 ],
               ),

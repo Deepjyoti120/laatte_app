@@ -41,6 +41,13 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 const Divider(color: DesignColor.grey300),
                 settingsCard(
+                  title: "My Profile",
+                  onTap: () {
+                    context.push(Routes.profileUpdateScreen);
+                  },
+                ),
+                const Divider(color: DesignColor.grey300),
+                settingsCard(
                   title: "Edit Profile",
                   onTap: () {
                     context.push(Routes.profileUpdateScreen);

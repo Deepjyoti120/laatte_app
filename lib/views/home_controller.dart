@@ -112,7 +112,7 @@ class _HomeControllerState extends State<HomeController> {
               left: 0,
               right: 0,
               child: Container(
-                padding: const EdgeInsets.only(bottom: 30, right: 32, left: 32),
+                padding: const EdgeInsets.only(bottom: 30, right: 12, left: 12),
                 // border radius: BorderRadius.circular(20),
                 child: BottomBarFloating(
                   items: const [
@@ -124,7 +124,7 @@ class _HomeControllerState extends State<HomeController> {
                   ],
                   backgroundColor: DesignColor.latteOrangeLight,
                   color: DesignColor.grey700,
-                  borderRadius: BorderRadius.circular(60),
+                  borderRadius: BorderRadius.circular(40),
                   colorSelected: DesignColor.latteOrangeDark,
                   indexSelected: appState.currentPage,
                   paddingVertical: 20,

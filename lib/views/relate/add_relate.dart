@@ -200,7 +200,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   child: SingleChildScrollView(
                     child: Padding(
