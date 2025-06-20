@@ -9,6 +9,7 @@ import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -23,6 +24,7 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppStateCubit>();
+    final user = context.watch<UserReportBloc>().state.userReport;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -43,7 +45,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 settingsCard(
                   title: "My Profile",
                   onTap: () {
-                    context.push(Routes.profileUpdateScreen);
+                    context.push(Routes.profileScreen, extra: user!);
                   },
                 ),
                 const Divider(color: DesignColor.grey300),

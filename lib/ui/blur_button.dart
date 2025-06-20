@@ -4,18 +4,22 @@ import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/extensions.dart';
 
 class BlurBtn extends StatelessWidget {
+  final String? title;
+  final VoidCallback? onTap;
+  final IconData? icon;
+  final Color? colorText;
+  final BorderRadiusGeometry? borderRadius;
+  final EdgeInsetsGeometry? padding;
+
   const BlurBtn({
     super.key,
     this.title,
     this.onTap,
     this.icon,
     this.colorText,
+    this.borderRadius,
+    this.padding,
   });
-  // add title and onTap
-  final String? title;
-  final VoidCallback? onTap;
-  final IconData? icon;
-  final Color? colorText;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +32,13 @@ class BlurBtn extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: borderRadius ?? BorderRadius.circular(12),
               border: Border.all(
                 color: Colors.white.withOpacity(0.2),
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
+              padding: padding ?? const EdgeInsets.fromLTRB(8, 2, 8, 2),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
