@@ -18,7 +18,7 @@ class RelateCard extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(26),
             border: Border.all(
               color: Colors.white.withOpacity(0.2),
             ),
