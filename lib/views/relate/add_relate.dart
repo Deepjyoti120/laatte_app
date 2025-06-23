@@ -199,7 +199,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: DesignColor.latteOrangeLight2,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: SingleChildScrollView(
