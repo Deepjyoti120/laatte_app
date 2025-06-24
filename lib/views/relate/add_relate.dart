@@ -337,18 +337,26 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                           MainAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    InteractiveView(
-                                                        file: pickImage!),
-                                              ),
-                                            );
-                                          },
-                                          child: Image.file(pickImage!),
+                                        // GestureDetector(
+                                        //   onTap: () {
+                                        //     Navigator.push(
+                                        //       context,
+                                        //       MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             InteractiveView(
+                                        //                 file: pickImage!),
+                                        //       ),
+                                        //     );
+                                        //   },
+                                        //   child: Image.file(pickImage!),
+                                        // ),
+                                        Flexible(
+                                          child: DesignText(
+                                            pickImage?.path.split('/').last ??
+                                                '',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                         6.width,
                                         const DesignText(
@@ -516,19 +524,40 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                           //     ),
                           //   ],
                           // ),
-                          if (_irl == null) 10.height,
-                          if (_irl == null)
-                            SizedBox(
-                              width: double.infinity,
-                              height: 48,
-                              child: DesignButtons(
-                                color: DesignColor.latteyellowLight3,
-                                elevation: 0,
-                                fontSize: 16,
-                                fontWeight: 500,
-                                colorText: Colors.black,
-                                isTappedNotifier: ValueNotifier<bool>(false),
-                                onPressed: () async {
+                          if (appState.irl != null)
+                            if (_irl == null) 10.height,
+                          if (appState.irl != null)
+                            if (_irl == null)
+                              SizedBox(
+                                width: double.infinity,
+                                height: 48,
+                                child: DesignButtons(
+                                  color: DesignColor.latteyellowLight3,
+                                  elevation: 0,
+                                  fontSize: 16,
+                                  fontWeight: 500,
+                                  colorText: Colors.black,
+                                  isTappedNotifier: ValueNotifier<bool>(false),
+                                  onPressed: () async {
+                                    selectIrl().then((v) {
+                                      if (v != null) {
+                                        _irl = v;
+                                        setState(() {});
+                                      }
+                                    });
+                                  },
+                                  textLabel: "Choose IRL Location",
+                                  child: const DesignText(
+                                    "Choose IRL Location",
+                                    fontSize: 16,
+                                    fontWeight: 500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
+                            else
+                              GestureDetector(
+                                onTap: () {
                                   selectIrl().then((v) {
                                     if (v != null) {
                                       _irl = v;
@@ -536,67 +565,14 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                     }
                                   });
                                 },
-                                textLabel: "Choose IRL Location",
-                                child: const DesignText(
-                                  "Choose IRL Location",
-                                  fontSize: 16,
-                                  fontWeight: 500,
-                                  color: Colors.black,
+                                child: Flexible(
+                                  child: DesignText(
+                                    _irl?.name ?? "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ),
-                            )
-                          else
-                            GestureDetector(
-                              onTap: () {
-                                selectIrl().then((v) {
-                                  if (v != null) {
-                                    _irl = v;
-                                    setState(() {});
-                                  }
-                                });
-                              },
-                              child: Column(
-                                children: [
-                                  10.height,
-                                  DesignContainer(
-                                    width: double.infinity,
-                                    clipBehavior: Clip.antiAlias,
-                                    color: DesignColor.latteDarkCard,
-                                    isColor: true,
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: SizedBox(
-                                            height: 50,
-                                            child: CachedNetworkImage(
-                                              imageUrl: _irl?.profile ?? "",
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            height: 50,
-                                            alignment: Alignment.center,
-                                            color: DesignColor.latteDarkCard,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: DesignText(
-                                                _irl?.name ?? "",
-                                                color: DesignColor.primary,
-                                                fontSize: 16,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           10.height,
                           // SizedBox(
                           //   width: double.infinity,
