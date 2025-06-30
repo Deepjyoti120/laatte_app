@@ -14,7 +14,7 @@ import 'package:laatte/ui/widgets/progress_circle.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';

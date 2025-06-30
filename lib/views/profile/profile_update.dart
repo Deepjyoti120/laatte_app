@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/custom/custom_text_form.dart';
+import 'package:laatte/ui/image_crop.dart';
 import 'package:laatte/ui/theme/buttons.dart';
 import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
@@ -13,7 +14,7 @@ import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:laatte/viewmodel/cubit/profile_update_cubit.dart';
 import 'package:laatte/viewmodel/model/file_link_pair.dart';
@@ -161,17 +162,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                           );
                         }
                         return GestureDetector(
-                          onTap: () {
-                            Utils.pickFiles(type: fp.FileType.image)
-                                .then((value) {
-                              if (value.isNotEmpty) {
-                                profile.addPhoto(FileLinkPair(
-                                  file: value.first,
-                                  link: null,
-                                ));
-                              }
-                            });
-                          },
+                          onTap: _pickImage,
                           child: DottedBorder(
                             color: DesignColor.grey400,
                             strokeWidth: 2,
@@ -448,5 +439,25 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
         ),
       ),
     );
+  }
+
+  void _pickImage() async {
+    final profile = context.read<ProfileUpdateCubit>();
+    final result = await Utils.pickFiles(type: fp.FileType.image);
+    if (!mounted) return;
+    if (result.isNotEmpty) {
+      final cropped = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (ctx) => ImageCropScreen(file: result.first),
+        ),
+      );
+      if (cropped != null) {
+        profile.addPhoto(FileLinkPair(
+          file: cropped,
+          link: null,
+        ));
+      }
+    }
   }
 }

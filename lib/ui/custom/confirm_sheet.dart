@@ -3,7 +3,7 @@ import 'package:laatte/common_libs.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import '../theme/buttons.dart';
 import '../theme/text.dart';
 

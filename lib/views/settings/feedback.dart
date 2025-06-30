@@ -9,7 +9,7 @@ import 'package:laatte/ui/theme/buttons.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 
 class FeedbackScreen extends StatefulWidget {

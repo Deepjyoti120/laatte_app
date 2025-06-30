@@ -5,7 +5,7 @@ import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 

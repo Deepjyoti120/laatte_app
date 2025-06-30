@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:developer' as developer;
 import 'dart:math';
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,7 +9,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:laatte/utils/enums.dart' as enums;
 import 'package:ntp/ntp.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:ui' as ui;
 
 class Utils {
   static flutterToast(msg) {
@@ -667,5 +670,29 @@ class Utils {
       default:
         return enums.GenderTypes.none;
     }
+  }
+
+  static Future<File> convertUint8ListToFile(
+      Uint8List data, String filename) async {
+    final tempDir = await getTemporaryDirectory();
+    final file = File('${tempDir.path}/$filename');
+    return await file.writeAsBytes(data);
+  }
+
+ static Future<File> convertUiImageToFile(ui.Image image, String filename) async {
+    final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+
+    if (byteData == null) {
+      throw Exception("Failed to convert image to byte data");
+    }
+
+    final Uint8List pngBytes = byteData.buffer.asUint8List();
+
+    final directory = await getTemporaryDirectory();
+    final filePath = '${directory.path}/$filename';
+
+    final file = File(filePath);
+    await file.writeAsBytes(pngBytes);
+    return file;
   }
 }

@@ -10,7 +10,7 @@ import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/enums.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 

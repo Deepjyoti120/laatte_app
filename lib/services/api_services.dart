@@ -19,7 +19,7 @@ import 'package:laatte/viewmodel/model/designation.dart';
 import 'package:laatte/viewmodel/model/irl.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import 'package:laatte/viewmodel/model/visit_irl.dart';
-import '../utils/utlis.dart';
+import '../utils/utils.dart';
 import '../viewmodel/cubit/intro_profile_cubit.dart';
 import '../viewmodel/model/prompt.dart';
 

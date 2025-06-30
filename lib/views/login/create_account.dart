@@ -6,7 +6,7 @@ import 'package:laatte/ui/custom/custom_text_form.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import '../../ui/theme/buttons.dart';
 import '../../utils/assets_names.dart';
 

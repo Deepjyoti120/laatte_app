@@ -12,7 +12,7 @@ import 'package:laatte/services/storage.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import 'package:laatte/utils/extensions.dart';
 import '../services/token_handler.dart';
 import '../utils/constants.dart';

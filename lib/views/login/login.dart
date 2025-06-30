@@ -14,7 +14,7 @@ import '../../common_libs.dart';
 import '../../routes.dart';
 import '../../ui/custom/custom_text_form.dart';
 import '../../ui/theme/buttons.dart';
-import '../../utils/utlis.dart';
+import '../../utils/utils.dart';
 
 class Login extends StatefulWidget {
   static const String route = "/Login";

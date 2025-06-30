@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../ui/theme/text.dart';
 import '../../utils/design_colors.dart';
-import '../../utils/utlis.dart';
+import '../../utils/utils.dart';
 import 'digital_clock.dart';
 
 class ShowTodayCard extends StatefulWidget {

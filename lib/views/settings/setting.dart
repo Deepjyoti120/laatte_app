@@ -8,7 +8,7 @@ import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/bloc/user_report_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 

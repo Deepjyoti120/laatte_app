@@ -11,7 +11,7 @@ import 'package:laatte/services/api_services.dart';
 import 'package:laatte/services/firebase_service.dart';
 import 'package:laatte/services/storage.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import '../../ui/custom/confirm_sheet.dart';
 import '../../ui/theme/buttons.dart';
 import '../../ui/theme/text.dart';

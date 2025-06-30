@@ -9,7 +9,7 @@ import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/ui/widgets/interactiveview.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
-import 'package:laatte/utils/utlis.dart';
+import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 import '../../ui/theme/buttons.dart';
 

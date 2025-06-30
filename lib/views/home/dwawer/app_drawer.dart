@@ -10,7 +10,7 @@ import '../../../ui/theme/text.dart';
 import '../../../utils/assets_names.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/design_colors.dart';
-import '../../../utils/utlis.dart';
+import '../../../utils/utils.dart';
 import '../../../viewmodel/bloc/user_report_bloc.dart';
 import '../../../viewmodel/cubit/app_cubit.dart';
 
