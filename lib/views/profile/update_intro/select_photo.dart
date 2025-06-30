@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:laatte/ui/image_crop.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
@@ -100,9 +101,16 @@ class SelectPhoto extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   Utils.pickFiles(type: FileType.image).then((value) {
-                    if (value.isNotEmpty) {
-                      appState.addPhoto(value.first);
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (ctx) => ImageCropScreen(file: value.first),
+                      ),
+                    ).then((v) {
+                      if (v != null) {
+                        appState.addPhoto(v);
+                      }
+                    });
                   });
                 },
                 child: DottedBorder(
