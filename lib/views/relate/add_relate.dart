@@ -102,12 +102,11 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
             ? Padding(
                 padding: const EdgeInsets.symmetric(vertical: 70),
                 child: FloatingActionButton.extended(
-                  label: haspermission
+                  label: !haspermission
                       ? GestureDetector(
                           onTap: () {
                             Utils.flutterToast(
-                              "Please allow location permission to save the prompt",
-                            );
+                                "Please allow location permission to save the prompt");
                           },
                           child: const DesignText(
                             "To Save Open Location Settings",
@@ -137,7 +136,6 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                       return;
                     }
                     if (_formKey.currentState?.validate() ?? false) {
-                      _formKey.currentState?.save();
                       if (pickImage == null) {
                         return Utils.flutterToast("Image is required");
                       }
@@ -209,6 +207,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          // Text(haspermission.toString()),
                           const DesignText(
                             "Add Prompt",
                             fontSize: 24,

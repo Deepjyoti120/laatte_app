@@ -4,7 +4,6 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:laatte/utils/enums.dart' as enums;
@@ -15,8 +14,8 @@ import 'dart:ui' as ui;
 
 class Utils {
   static flutterToast(msg) {
-    Fluttertoast.showToast(
-        msg: msg, backgroundColor: Colors.black.withOpacity(0.75));
+    // Fluttertoast.showToast(
+    //     msg: msg, backgroundColor: Colors.black.withOpacity(0.75));
   }
 
   static showSnackBar(BuildContext context, String message) {
@@ -679,7 +678,8 @@ class Utils {
     return await file.writeAsBytes(data);
   }
 
- static Future<File> convertUiImageToFile(ui.Image image, String filename) async {
+  static Future<File> convertUiImageToFile(
+      ui.Image image, String filename) async {
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
     if (byteData == null) {
