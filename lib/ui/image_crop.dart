@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:crop_image/crop_image.dart';
 import 'package:laatte/common_libs.dart';
+import 'package:laatte/ui/widgets/progress_circle.dart';
 import 'package:laatte/utils/utils.dart';
 import 'dart:ui' as ui;
 
@@ -16,13 +17,15 @@ class _ImageCropScreenState extends State<ImageCropScreen> {
     aspectRatio: 1,
     defaultCrop: const Rect.fromLTRB(0.1, 0.1, 0.9, 0.9),
   );
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(),
         floatingActionButton: FloatingActionButton(
           onPressed: _finished,
-          child: const Icon(Icons.done),
+          child: isLoading
+              ? const DesignProgress(color: Colors.white)
+              : const Icon(Icons.done),
         ),
         body: Center(
           child: CropImage(
@@ -116,10 +119,12 @@ class _ImageCropScreenState extends State<ImageCropScreen> {
 
   Future<File?> _finished() async {
     final goRouter = GoRouter.of(context);
+    setState(() => isLoading = true);
     final ui.Image image = await controller.croppedBitmap();
     if (mounted) {
       File file = await Utils.convertUiImageToFile(
           image, widget.file.path.split('/').last);
+      setState(() => isLoading = false);
       goRouter.pop(file);
     }
     return null;

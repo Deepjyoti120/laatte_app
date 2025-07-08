@@ -22,6 +22,7 @@ flutter build apk --release --split-per-abi --no-tree-shake-icons
 flutter build apk --release --no-tree-shake-icons
 flutter build apk --split-per-abi --no-tree-shake-icons
 flutter build appbundle --no-tree-shake-icons
+flutter build apk --no-tree-shake-icons
 
 $2y$10$98UVSXQ/hKke1j4iEaTae.P2nDwVAxblItmQCh2i4ecPYxiG3ub/O
 
@@ -49,3 +50,9 @@ storeFile=../../keystore.jks
 
 
 /Users/deepjyotibaishya/Library/Android/sdk --install "cmdline-tools;latest"
+
+
+why is banglore rainy today 
+prompt as per user location, music party
+location wise, food quality, order food,
+surranding is good ? another line then ...

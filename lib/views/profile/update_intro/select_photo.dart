@@ -11,9 +11,14 @@ import 'package:provider/provider.dart';
 import '../../../ui/theme/text.dart';
 import '../../../utils/design_colors.dart';
 
-class SelectPhoto extends StatelessWidget {
+class SelectPhoto extends StatefulWidget {
   const SelectPhoto({super.key});
 
+  @override
+  State<SelectPhoto> createState() => _SelectPhotoState();
+}
+
+class _SelectPhotoState extends State<SelectPhoto> {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<IntroProfileCubit>();
@@ -99,20 +104,7 @@ class SelectPhoto extends StatelessWidget {
                 );
               }
               return GestureDetector(
-                onTap: () {
-                  Utils.pickFiles(type: FileType.image).then((value) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (ctx) => ImageCropScreen(file: value.first),
-                      ),
-                    ).then((v) {
-                      if (v != null) {
-                        appState.addPhoto(v);
-                      }
-                    });
-                  });
-                },
+                onTap: _pickImage,
                 child: DottedBorder(
                   color: DesignColor.grey400,
                   strokeWidth: 2,
@@ -175,5 +167,21 @@ class SelectPhoto extends StatelessWidget {
         // ),
       ],
     );
+  }
+
+  void _pickImage() async {
+    final appState = context.read<IntroProfileCubit>();
+    final value = await Utils.pickFiles(type: FileType.image);
+    if (value.isEmpty) return;
+    if (!mounted) return;
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (ctx) => ImageCropScreen(file: value.first),
+      ),
+    );
+    if (result != null) {
+      appState.addPhoto(result);
+    }
   }
 }
