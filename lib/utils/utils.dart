@@ -6,6 +6,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:laatte/main.dart';
+import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/enums.dart' as enums;
 import 'package:ntp/ntp.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,9 +15,32 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui' as ui;
 
 class Utils {
-  static flutterToast(msg) {
+  static flutterToast(String msg) {
     // Fluttertoast.showToast(
     //     msg: msg, backgroundColor: Colors.black.withOpacity(0.75));
+    if (navigatorKey.currentContext != null) {
+      ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
+        content: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.info,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 6),
+            DesignText(
+              msg,
+              fontSize: 12,
+              fontWeight: 600,
+              color: Colors.white,
+            )
+          ],
+        ),
+        duration: const Duration(seconds: 30),
+        backgroundColor: Colors.black.withOpacity(0.85),
+        behavior: SnackBarBehavior.floating,
+      ));
+    }
   }
 
   static showSnackBar(BuildContext context, String message) {
