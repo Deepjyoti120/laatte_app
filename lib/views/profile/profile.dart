@@ -90,6 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               fontSize: 26,
                               textAlign: TextAlign.center,
                             ),
+                            // Text(widget.userReport.dob.toString()),
                             DesignText.title(
                               ", ${Utils.dateOfAge(widget.userReport.dob).toString()}",
                               color: DesignColor.latteyellowText,
