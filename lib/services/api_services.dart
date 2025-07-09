@@ -650,7 +650,7 @@ class ApiService {
         apiUrl,
         data: dataBody,
       );
-      if (res.statusCode == 200) {
+      if (res.statusCode == 201) {
         return true;
       }
     } on DioException catch (e) {

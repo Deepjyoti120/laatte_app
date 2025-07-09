@@ -144,29 +144,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   // ),
                   if (prompt.listPrompt.isNotEmpty)
                     Flexible(
-                      flex: 2,
+                      // flex: 1,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          // if (isEnd)
-                          //   SizedBox(
-                          //     width: double.infinity,
-                          //     child: Column(
-                          //       mainAxisAlignment: MainAxisAlignment.center,
-                          //       crossAxisAlignment: CrossAxisAlignment.center,
-                          //       children: [
-                          //         SvgPicture.asset(
-                          //           AssetsName.svgEmpty,
-                          //           width: 100,
-                          //           height: 100,
-                          //         ),
-                          //         const DesignText(
-                          //           "Please come back later",
-                          //           color: Colors.white,
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
                           if (!isEnd)
                             CardSwiper(
                               controller: _swiperController,
