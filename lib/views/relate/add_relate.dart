@@ -99,9 +99,9 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: isSubmittable
-            ? SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 70),
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 70),
+                child: SafeArea(
                   child: FloatingActionButton.extended(
                     label: !haspermission
                         ? GestureDetector(

@@ -574,7 +574,15 @@ class ApiService {
   }) async {
     try {
       String apiUrl = 'user/get-prompts';
-      var dataBody = {"irl": irl};
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best,
+        timeLimit: const Duration(seconds: 10),
+      );
+      var dataBody = {
+        "irl": irl,
+        "latitude": position.latitude,
+        "longitude": position.longitude,
+      };
       Response res = await dio.post(apiUrl, data: dataBody);
       if (res.statusCode == 200) {
         final listData = res.data['data'] as List;
@@ -645,6 +653,7 @@ class ApiService {
         "longitude": prompt.longitude,
         // "photo": prompt.photo,
         "tags": prompt.tags,
+        "irl": prompt.irl,
       };
       Response res = await dio.post(
         apiUrl,
@@ -744,11 +753,14 @@ class ApiService {
   Future<bool> irlVisit() async {
     String apiUrl = 'user/irl/visit';
     try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      double lat = position.latitude;
-      double lng = position.longitude;
-      var dataBody = {"lat": lat, "lng": lng};
+      // final position = await Geolocator.getCurrentPosition(
+      //   desiredAccuracy: LocationAccuracy.high,
+      //   timeLimit: const Duration(seconds: 10),
+      // );
+      // double lat = position.latitude;
+      // double lng = position.longitude;
+      // 91.7805418, 26.1753997
+      var dataBody = {"lat":26.1753997 , "lng": 91.7805418};
       Response res = await dio.post(
         apiUrl,
         data: dataBody,
