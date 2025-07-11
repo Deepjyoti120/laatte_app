@@ -111,13 +111,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                     ),
                   ),
-                // Positioned.fill(
-                //   child: BackdropFilter(
-                //       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                //       child: Container(
-                //         color: DesignColor.primary.withOpacity(0.1),
-                //       )),
-                // ),
               ],
             ),
           if (!showFullPreview)
@@ -126,25 +119,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Column(
                 children: [
                   const Spacer(),
-                  // if (prompt.isEmpty)
-                  // Column(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     const Row(),
-                  //     SvgPicture.asset(
-                  //       AssetsName.svgEmpty,
-                  //       width: 100,
-                  //       height: 100,
-                  //     ),
-                  //     const DesignText(
-                  //       "Please come back later",
-                  //       color: Colors.white,
-                  //     ),
-                  //   ],
-                  // ),
                   if (prompt.listPrompt.isNotEmpty)
                     Flexible(
-                      // flex: 1,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
@@ -235,7 +211,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   onChanged: (value) {
                     setState(() {
                       showFullPreview = value;
-                      // prompt.isEmpty = false;
                       context
                           .read<MyPromptsBloc>()
                           .add(const ListPromptsSetEmpty(isEmpty: false));
@@ -245,7 +220,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               ),
             ),
-          // if (prompt.listPrompt.isNotEmpty)
           Positioned(
             top: 60,
             right: 30,
@@ -269,7 +243,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ? FontAwesomeIcons.locationArrow
                         : FontAwesomeIcons.xmark,
                     onTap: () {
-                      // context.push(Routes.irlScreen);
                       appState.goIrl = !appState.goIrl;
                     },
                   ),

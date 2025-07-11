@@ -566,12 +566,10 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                     }
                                   });
                                 },
-                                child: Flexible(
-                                  child: DesignText(
-                                    _irl?.name ?? "",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                                child: DesignText(
+                                  _irl?.name ?? "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                           10.height,

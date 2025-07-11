@@ -109,52 +109,53 @@ class _IrlScreenState extends State<IrlScreen> {
               ),
             ),
             20.height,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (appState.irlPreLoad != null)
-                  Expanded(
-                    child: Row(
-                      children: [
-                        8.width,
-                        Expanded(
-                          child: SizedBox(
-                            height: 50,
-                            child: BlurBtn(
-                              title: "Use the IRL Feed",
-                              onTap: () {
-                                appState.setIrlToNull = false;
-                                appState.irl = appState.irlPreLoad;
-                                appState.goIrl = !appState.goIrl;
-                                context
-                                    .read<MyPromptsBloc>()
-                                    .add(ListPromptsFetched(irl: appState.irl));
-                              },
+            SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (appState.irlPreLoad != null)
+                    Expanded(
+                      child: Row(
+                        children: [
+                          8.width,
+                          Expanded(
+                            child: SizedBox(
+                              height: 50,
+                              child: BlurBtn(
+                                title: "Use the IRL Feed",
+                                onTap: () {
+                                  appState.setIrlToNull = false;
+                                  appState.irl = appState.irlPreLoad;
+                                  appState.goIrl = !appState.goIrl;
+                                  context.read<MyPromptsBloc>().add(
+                                      ListPromptsFetched(irl: appState.irl));
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        8.width,
-                      ],
+                          8.width,
+                        ],
+                      ),
+                    ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: BlurBtn(
+                        title: "Continue Normally",
+                        onTap: () {
+                          context
+                              .read<MyPromptsBloc>()
+                              .add(const ListPromptsFetched());
+                          appState.setIrlToNull = true;
+                          appState.irl = null;
+                          appState.goIrl = !appState.goIrl;
+                        },
+                      ),
                     ),
                   ),
-                Expanded(
-                  child: SizedBox(
-                    height: 50,
-                    child: BlurBtn(
-                      title: "Continue Normally",
-                      onTap: () {
-                        context
-                            .read<MyPromptsBloc>()
-                            .add(const ListPromptsFetched());
-                        appState.setIrlToNull = true;
-                        appState.irl = null;
-                        appState.goIrl = !appState.goIrl;
-                      },
-                    ),
-                  ),
-                ),
-                8.width,
-              ],
+                  8.width,
+                ],
+              ),
             ),
             90.height,
           ],
