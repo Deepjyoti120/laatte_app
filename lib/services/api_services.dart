@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:laatte/common_libs.dart';
+import 'package:laatte/main.dart';
+import 'package:laatte/routes.dart';
 import 'package:laatte/services/firebase_service.dart';
 import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/utils/constants.dart';
@@ -138,9 +141,9 @@ class ApiService {
       // final context = GlobalContext.appContext;
       // if (context != null) {
       // final goRouter = GoRouter.of(navigatorKey.currentContext!);
-      // await TokenHandler.resetJwt();
+      await TokenHandler.resetJwt();
       // // GlobalContext.appContext = null;
-      // navigatorKey.currentContext?.go(Routes.login);
+      navigatorKey.currentContext?.go(Routes.login);
       // Utils.flutterToast("Please Login again");
       // }
     } catch (e) {
@@ -753,14 +756,15 @@ class ApiService {
   Future<bool> irlVisit() async {
     String apiUrl = 'user/irl/visit';
     try {
-      // final position = await Geolocator.getCurrentPosition(
-      //   desiredAccuracy: LocationAccuracy.high,
-      //   timeLimit: const Duration(seconds: 10),
-      // );
-      // double lat = position.latitude;
-      // double lng = position.longitude;
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+        timeLimit: const Duration(seconds: 10),
+      );
+      double lat = position.latitude;
+      double lng = position.longitude;
       // 91.7805418, 26.1753997
-      var dataBody = {"lat":26.1753997 , "lng": 91.7805418};
+      // var dataBody = {"lat": 26.1753997 , "lng": 91.7805418};
+      var dataBody = {"lat": lat, "lng": lng};
       Response res = await dio.post(
         apiUrl,
         data: dataBody,

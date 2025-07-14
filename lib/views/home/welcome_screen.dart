@@ -153,17 +153,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                               onSwipe: (previousIndex, currentIndex,
                                   direction) async {
-                                selectedIndex = currentIndex ?? 0;
-                                setState(() {});
                                 Prompt data = prompt.listPrompt[previousIndex];
                                 bool isAd =
                                     PromptTypes.advertise.name == data.type;
                                 if (!isAd) {
                                   if (direction == CardSwiperDirection.right) {
-                                    return await acceptSwipe(previousIndex,
-                                        prompt: data);
+                                    await acceptSwipe(previousIndex,
+                                            prompt: data)
+                                        .then((v) {
+                                      if (v) {
+                                        selectedIndex = currentIndex ?? 0;
+                                        setState(() {});
+                                        return true;
+                                      }
+                                    });
+                                    return false;
                                   }
                                 }
+                                selectedIndex = currentIndex ?? 0;
+                                setState(() {});
                                 return true;
                               },
                               isLoop: false,
