@@ -584,8 +584,8 @@ class ApiService {
       );
       var dataBody = {
         "irl": irl,
-        "latitude": position.latitude,
-        "longitude": position.longitude,
+        "latitude": position.latitude, //26.1728
+        "longitude": position.longitude, //91.78306
       };
       Response res = await dio.post(apiUrl, data: dataBody);
       if (res.statusCode == 200) {
