@@ -793,7 +793,7 @@ class ApiService {
             appState.irlPreLoad = visitIrl.irl;
           }
         }
-        return data;
+        return data.where((e) => e.isAvailabe == true).toList();
       }
     } on DioException catch (e) {
       // Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
