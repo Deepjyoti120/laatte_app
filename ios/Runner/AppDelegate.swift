@@ -1,6 +1,5 @@
 import UIKit
 import Flutter
-import workmanager
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -9,9 +8,6 @@ import workmanager
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
-    WorkmanagerPlugin.setPluginRegistrantCallback { registry in
-        GeneratedPluginRegistrant.register(with: registry)
-    }
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
