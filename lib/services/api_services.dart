@@ -754,7 +754,7 @@ class ApiService {
     return false;
   }
 
-  Future<bool> irlVisit() async {
+  Future<bool> irlVisit({bool? isWorkManager}) async {
     String apiUrl = 'user/irl/visit';
     try {
       final position = await Geolocator.getCurrentPosition(
@@ -765,7 +765,12 @@ class ApiService {
       double lng = position.longitude;
       // 91.7805418, 26.1753997
       // var dataBody = {"lat": 26.1753997 , "lng": 91.7805418};
-      var dataBody = {"lat": lat, "lng": lng};
+      var dataBody = {
+        "lat": lat,
+        "lng": lng,
+        "is_work_manager": isWorkManager,
+        "platform": Platform.operatingSystem,
+      };
       Response res = await dio.post(
         apiUrl,
         data: dataBody,

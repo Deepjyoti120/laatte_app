@@ -71,10 +71,5 @@
 		<string>We need access to your location while the app is in use or running in the background to provide accurate real-time distance calculations. Rest assured, your data remains private and is not shared with third parties.</string>
 		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 		<string>We need access to your location to provide personalized services and improve your experience.</string>
-		<key>BGTaskSchedulerPermittedIdentifiers</key>
-		<array>
-			<string>task-identifier</string>
-			<string>dev.fluttercommunity.workmanagerExample.iOSBackgroundAppRefresh</string>
-		</array>
 	</dict>
 </plist>
