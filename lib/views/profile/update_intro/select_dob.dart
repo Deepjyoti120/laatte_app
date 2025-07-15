@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
 import 'package:laatte/ui/theme/container.dart';
+import 'package:laatte/utils/constants.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/cubit/intro_profile_cubit.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +55,11 @@ class SelectDob extends StatelessWidget {
               context: context,
               initialDate: appState.dateOfBirth,
               firstDate: DateTime(1900),
-              lastDate: DateTime.now(),
+              lastDate: DateTime(
+                DateTime.now().year - Constants.minAccountAge,
+                DateTime.now().month,
+                DateTime.now().day,
+              ),
             );
             if (pickedDate != null) {
               appState.dateOfBirth = pickedDate;

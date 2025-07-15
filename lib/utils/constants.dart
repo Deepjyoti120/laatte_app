@@ -11,7 +11,7 @@ class Constants {
   // For api Start
   // static const String apiUrl = "http://43.204.230.1:5001";
   static const String apiUrl =
-      kDebugMode ? "http://localhost:5001" : "http://43.204.230.1:5001";
+      !kDebugMode ? "http://localhost:5001" : "http://43.204.230.1:5001";
   static const String apiVersion = "/v1/api/";
   // For api End
   static PackageInfo? packageInfo;
@@ -85,4 +85,6 @@ class Constants {
       'https://sites.google.com/view/laatte/privacy-policy';
   static const String helpAndSupport =
       'https://sites.google.com/view/laatte-help';
+  
+  static const int minAccountAge = 21;
 }

@@ -557,6 +557,7 @@ class ApiService {
         "education": state.education.text,
         "bio": state.bio.text,
         "gender": state.gender.name,
+        "dob": state.dateOfBirth?.toIso8601String(),
         "photos": listOfPhotos.map((e) => e.toString()).toList(),
       };
       Response res = await dio.post(
