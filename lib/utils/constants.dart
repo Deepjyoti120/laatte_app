@@ -85,6 +85,7 @@ class Constants {
       'https://sites.google.com/view/laatte/privacy-policy';
   static const String helpAndSupport =
       'https://sites.google.com/view/laatte-help';
-  
+
   static const int minAccountAge = 21;
+  static const String workerstoreSheduleTaskName = 'storeCurrentIrlLocation';
 }
