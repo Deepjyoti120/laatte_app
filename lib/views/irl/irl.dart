@@ -5,6 +5,7 @@ import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
+import 'package:laatte/ui/widgets/progress_circle.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
@@ -33,10 +34,14 @@ class _IrlScreenState extends State<IrlScreen> {
     });
   }
 
+  bool continueIrlLoading = false;
+  bool normallyIrlLoading = false;
+
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppStateCubit>();
     final visits = context.watch<VisitIrlBloc>().state.visitIrls;
+    final myPromptsBloc = context.watch<MyPromptsBloc>();
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -125,12 +130,23 @@ class _IrlScreenState extends State<IrlScreen> {
                                 height: 50,
                                 child: BlurBtn(
                                   title: "Use the IRL Feed",
-                                  onTap: () {
+                                  onTap: () async {
                                     appState.setIrlToNull = false;
                                     appState.irl = appState.irlPreLoad;
+
+                                    setState(() {
+                                      continueIrlLoading = true;
+                                    });
+                                    final prompts = await ApiService()
+                                        .getPrompts(irl: appState.irlPreLoad);
+                                    myPromptsBloc.add(ListPromptsFetched(
+                                        irl: appState.irl, prompts: prompts));
+                                    if (mounted) {
+                                      setState(() {
+                                        continueIrlLoading = false;
+                                      });
+                                    }
                                     appState.goIrl = !appState.goIrl;
-                                    context.read<MyPromptsBloc>().add(
-                                        ListPromptsFetched(irl: appState.irl));
                                   },
                                 ),
                               ),
@@ -143,13 +159,25 @@ class _IrlScreenState extends State<IrlScreen> {
                       child: SizedBox(
                         height: 50,
                         child: BlurBtn(
-                          title: "Continue Normally",
-                          onTap: () {
-                            context
-                                .read<MyPromptsBloc>()
-                                .add(const ListPromptsFetched());
+                          title: continueIrlLoading
+                              ? "Loading..."
+                              : "Continue Normally",
+                          onTap: () async {
                             appState.setIrlToNull = true;
                             appState.irl = null;
+
+                            setState(() {
+                              continueIrlLoading = true;
+                            });
+                            final prompts = await ApiService()
+                                .getPrompts(irl: appState.irlPreLoad);
+                            myPromptsBloc.add(ListPromptsFetched(
+                                irl: appState.irl, prompts: prompts));
+                            if (mounted) {
+                              setState(() {
+                                continueIrlLoading = false;
+                              });
+                            }
                             appState.goIrl = !appState.goIrl;
                           },
                         ),

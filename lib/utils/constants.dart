@@ -10,8 +10,8 @@ class Constants {
   static Constants get instance => _instance;
   // For api Start
   // static const String apiUrl = "http://43.204.230.1:5001";
-  static const String apiUrl =
-      !kDebugMode ? "http://localhost:5001" : "http://43.204.230.1:5001";
+  // static const String apiUrl = "http://localhost:5001";
+  static const String apiUrl = "http://43.204.230.1:5001";
   static const String apiVersion = "/v1/api/";
   // For api End
   static PackageInfo? packageInfo;

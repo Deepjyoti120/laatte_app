@@ -74,7 +74,7 @@ class MyPromptsBloc extends Bloc<MyPromptsEvent, MyPromptsState> {
     Emitter<MyPromptsState> emit,
   ) async {
     emit(state.copyWith(listPrompt: []));
-    final prompts = await ApiService().getPrompts(irl: event.irl);
+    final prompts = event.prompts ?? await ApiService().getPrompts(irl: event.irl);
     return emit(state.copyWith(
       listPrompt: prompts,
       isEmpty: prompts.isEmpty,
