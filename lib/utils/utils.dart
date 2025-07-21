@@ -11,6 +11,7 @@ import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/enums.dart' as enums;
 import 'package:ntp/ntp.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui' as ui;
 
@@ -391,6 +392,7 @@ class Utils {
 
   static Future<bool> isAllowGPS() async {
     final location = await Geolocator.checkPermission();
+    await Permission.location.request();
     if (location == LocationPermission.always ||
         location == LocationPermission.whileInUse) {
       return true;
