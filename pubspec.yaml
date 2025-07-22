@@ -81,7 +81,7 @@ dependencies:
   # rive: ^0.13.20
   phosphor_flutter: ^2.1.0
   crop_image: ^1.0.16
-  workmanager: ^0.8.0
+  # workmanager: ^0.8.0
   permission_handler: ^12.0.1
   # fluttertoast: ^8.2.8
   # pro_image_editor: ^2.7.11

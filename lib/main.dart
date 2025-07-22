@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/app.dart';
 import 'package:laatte/firebase_options.dart';
-import 'package:laatte/services/background_service.dart';
 import 'package:laatte/services/storage.dart';
 import 'package:laatte/viewmodel/bloc/bloc_observer.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
@@ -15,29 +14,28 @@ import 'package:laatte/viewmodel/model/department.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
 import 'package:laatte/viewmodel/model/photo_model.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
-import 'package:workmanager/workmanager.dart';
 import 'utils/constants.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-@pragma('vm:entry-point')
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    return await BackgroundService.handleTask(task);
-  });
-}
+// @pragma('vm:entry-point')
+// void callbackDispatcher() {
+//   Workmanager().executeTask((task, inputData) async {
+//     return await BackgroundService.handleTask(task);
+//   });
+// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Workmanager().initialize(
-    callbackDispatcher,
-    // isInDebugMode: false,
-  );
-  Workmanager().registerPeriodicTask(
-    "task-identifier",
-    Constants.workerstoreSheduleTaskName,
-    frequency: const Duration(minutes: 15),
-  );
+  // Workmanager().initialize(
+  //   callbackDispatcher,
+  //   // isInDebugMode: false,
+  // );
+  // Workmanager().registerPeriodicTask(
+  //   "task-identifier",
+  //   Constants.workerstoreSheduleTaskName,
+  //   frequency: const Duration(minutes: 15),
+  // );
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
