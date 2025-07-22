@@ -168,7 +168,6 @@ class _IrlScreenState extends State<IrlScreen> {
                           onTap: () async {
                             appState.setIrlToNull = true;
                             appState.irl = null;
-
                             setState(() {
                               continueIrlLoading = true;
                             });
