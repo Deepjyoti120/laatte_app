@@ -75,39 +75,42 @@ class _IrlScreenState extends State<IrlScreen> {
                   if (visit == null) {
                     return const SizedBox();
                   }
-                  return DesignContainer(
-                    width: double.infinity,
-                    clipBehavior: Clip.antiAlias,
-                    color: DesignColor.latteDarkCard,
-                    isColor: true,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            height: 100,
-                            child: CachedNetworkImage(
-                              imageUrl: visit.irl?.profile ?? "",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 100,
-                            alignment: Alignment.center,
-                            color: DesignColor.latteDarkCard,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: DesignText(
-                                visit.irl?.name ?? "",
-                                color: DesignColor.latteYellowSmall,
-                                fontSize: 16,
-                                textAlign: TextAlign.center,
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: DesignContainer(
+                      width: double.infinity,
+                      clipBehavior: Clip.antiAlias,
+                      color: DesignColor.latteDarkCard,
+                      isColor: true,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 100,
+                              child: CachedNetworkImage(
+                                imageUrl: visit.irl?.profile ?? "",
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: Container(
+                              height: 100,
+                              alignment: Alignment.center,
+                              color: DesignColor.latteDarkCard,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: DesignText(
+                                  visit.irl?.name ?? "",
+                                  color: DesignColor.latteYellowSmall,
+                                  fontSize: 16,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -169,8 +172,7 @@ class _IrlScreenState extends State<IrlScreen> {
                             setState(() {
                               continueIrlLoading = true;
                             });
-                            final prompts = await ApiService()
-                                .getPrompts(irl: appState.irlPreLoad);
+                            final prompts = await ApiService().getPrompts();
                             myPromptsBloc.add(ListPromptsFetched(
                                 irl: appState.irl, prompts: prompts));
                             if (mounted) {
