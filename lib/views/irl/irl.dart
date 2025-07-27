@@ -5,7 +5,6 @@ import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
-import 'package:laatte/ui/widgets/progress_circle.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
@@ -42,6 +41,7 @@ class _IrlScreenState extends State<IrlScreen> {
     final appState = context.watch<AppStateCubit>();
     final visits = context.watch<VisitIrlBloc>().state.visitIrls;
     final myPromptsBloc = context.watch<MyPromptsBloc>();
+    final bottomPadding = MediaQuery.of(context).viewPadding.bottom;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -75,118 +75,133 @@ class _IrlScreenState extends State<IrlScreen> {
                   if (visit == null) {
                     return const SizedBox();
                   }
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: DesignContainer(
-                      width: double.infinity,
-                      clipBehavior: Clip.antiAlias,
-                      color: DesignColor.latteDarkCard,
-                      isColor: true,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              height: 100,
-                              child: CachedNetworkImage(
-                                imageUrl: visit.irl?.profile ?? "",
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: 100,
-                              alignment: Alignment.center,
-                              color: DesignColor.latteDarkCard,
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: DesignText(
-                                  visit.irl?.name ?? "",
-                                  color: DesignColor.latteYellowSmall,
-                                  fontSize: 16,
-                                  textAlign: TextAlign.center,
+                  bool isAvailable = visit.isAvailabe ?? false;
+                  return Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: DesignContainer(
+                          width: double.infinity,
+                          clipBehavior: Clip.antiAlias,
+                          color: DesignColor.latteDarkCard,
+                          isColor: true,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: SizedBox(
+                                  height: 100,
+                                  child: CachedNetworkImage(
+                                    imageUrl: visit.irl?.profile ?? "",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  alignment: Alignment.center,
+                                  color: DesignColor.latteDarkCard,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: DesignText(
+                                      visit.irl?.name ?? "",
+                                      color: DesignColor.latteYellowSmall,
+                                      fontSize: 16,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                      if (!isAvailable)
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            color: Colors.black.withValues(alpha: 0.6),
+                            alignment: Alignment.center,
+                          ),
+                        ),
+                    ],
                   );
                 },
               ),
             ),
             20.height,
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 90),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (appState.irlPreLoad != null)
-                      Expanded(
-                        child: Row(
-                          children: [
-                            8.width,
-                            Expanded(
-                              child: SizedBox(
-                                height: 50,
-                                child: BlurBtn(
-                                  title: "Use the IRL Feed",
-                                  onTap: () async {
-                                    appState.setIrlToNull = false;
-                                    appState.irl = appState.irlPreLoad;
-
+            Padding(
+              padding: EdgeInsets.only(bottom: bottomPadding + 60),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (appState.irlPreLoad != null)
+                    Expanded(
+                      child: Row(
+                        children: [
+                          8.width,
+                          Expanded(
+                            child: SizedBox(
+                              height: 50,
+                              child: BlurBtn(
+                                title: continueIrlLoading
+                                    ? "Loading..."
+                                    : "Use the IRL Feed",
+                                onTap: () async {
+                                  appState.setIrlToNull = false;
+                                  appState.irl = appState.irlPreLoad;
+                                  setState(() {
+                                    continueIrlLoading = true;
+                                  });
+                                  final prompts = await ApiService()
+                                      .getPrompts(irl: appState.irlPreLoad);
+                                  myPromptsBloc.add(ListPromptsFetched(
+                                      irl: appState.irl, prompts: prompts));
+                                  if (mounted) {
                                     setState(() {
-                                      continueIrlLoading = true;
+                                      continueIrlLoading = false;
                                     });
-                                    final prompts = await ApiService()
-                                        .getPrompts(irl: appState.irlPreLoad);
-                                    myPromptsBloc.add(ListPromptsFetched(
-                                        irl: appState.irl, prompts: prompts));
-                                    if (mounted) {
-                                      setState(() {
-                                        continueIrlLoading = false;
-                                      });
-                                    }
-                                    appState.goIrl = !appState.goIrl;
-                                  },
-                                ),
+                                  }
+                                  appState.goIrl = !appState.goIrl;
+                                },
                               ),
                             ),
-                            8.width,
-                          ],
-                        ),
-                      ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 50,
-                        child: BlurBtn(
-                          title: continueIrlLoading
-                              ? "Loading..."
-                              : "Continue Normally",
-                          onTap: () async {
-                            appState.setIrlToNull = true;
-                            appState.irl = null;
-                            setState(() {
-                              continueIrlLoading = true;
-                            });
-                            final prompts = await ApiService().getPrompts();
-                            myPromptsBloc.add(ListPromptsFetched(
-                                irl: appState.irl, prompts: prompts));
-                            if (mounted) {
-                              setState(() {
-                                continueIrlLoading = false;
-                              });
-                            }
-                            appState.goIrl = !appState.goIrl;
-                          },
-                        ),
+                          ),
+                          8.width,
+                        ],
                       ),
                     ),
-                    8.width,
-                  ],
-                ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: BlurBtn(
+                        title: normallyIrlLoading
+                            ? "Loading..."
+                            : "Continue Normally",
+                        onTap: () async {
+                          appState.setIrlToNull = true;
+                          appState.irl = null;
+                          setState(() {
+                            normallyIrlLoading = true;
+                          });
+                          final prompts = await ApiService().getPrompts();
+                          myPromptsBloc.add(ListPromptsFetched(
+                              irl: appState.irl, prompts: prompts));
+                          if (mounted) {
+                            setState(() {
+                              normallyIrlLoading = false;
+                            });
+                          }
+                          appState.goIrl = !appState.goIrl;
+                        },
+                      ),
+                    ),
+                  ),
+                  8.width,
+                ],
               ),
             ),
           ],

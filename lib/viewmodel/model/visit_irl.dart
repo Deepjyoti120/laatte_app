@@ -4,6 +4,7 @@ class VisitIrl {
 	String? id;
 	bool? isActive;
 	bool? isAvailabe;
+	bool? isWeekAvailabe;
 	String? latitude;
 	String? longitude;
 	String? visitDate;
@@ -17,6 +18,7 @@ class VisitIrl {
 		id = json['id'];
 		isActive = json['is_active'];
 		isAvailabe = json['is_availabe'];
+		isWeekAvailabe = json['is_week_availabe'];
 		latitude = json['latitude'];
 		longitude = json['longitude'];
 		visitDate = json['visit_date'];
@@ -30,6 +32,7 @@ class VisitIrl {
 		data['id'] = id;
 		data['is_active'] = isActive;
     data['is_availabe'] = isAvailabe;
+    data['is_week_availabe'] = isWeekAvailabe;
 		data['latitude'] = latitude;
 		data['longitude'] = longitude;
 		data['visit_date'] = visitDate;

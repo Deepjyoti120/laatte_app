@@ -18,7 +18,12 @@ class SelectIrl extends StatefulWidget {
 class _SelectIrlState extends State<SelectIrl> {
   @override
   Widget build(BuildContext context) {
-    final visits = context.watch<VisitIrlBloc>().state.visitIrls;
+    final visits = context
+        .watch<VisitIrlBloc>()
+        .state
+        .visitIrls
+        .where((e) => e?.isAvailabe ?? false)
+        .toList();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
