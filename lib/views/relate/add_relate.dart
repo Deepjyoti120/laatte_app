@@ -1,15 +1,12 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart' as file;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/ui/custom/custom_text_form.dart';
 import 'package:laatte/ui/theme/buttons.dart';
-import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
-import 'package:laatte/ui/widgets/interactiveview.dart';
 import 'package:laatte/ui/widgets/progress_circle.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
