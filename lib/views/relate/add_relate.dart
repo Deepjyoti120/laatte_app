@@ -522,9 +522,9 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                           //     ),
                           //   ],
                           // ),
-                          if (appState.irl != null)
+                          if (appState.isIrlMode)
                             if (_irl == null) 10.height,
-                          if (appState.irl != null)
+                          if (appState.isIrlMode)
                             if (_irl == null)
                               SizedBox(
                                 width: double.infinity,

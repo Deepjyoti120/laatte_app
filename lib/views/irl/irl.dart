@@ -138,7 +138,7 @@ class _IrlScreenState extends State<IrlScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (appState.irlPreLoad != null)
+                  if (appState.irlsPreLoad.isNotEmpty)
                     Expanded(
                       child: Row(
                         children: [
@@ -152,14 +152,14 @@ class _IrlScreenState extends State<IrlScreen> {
                                     : "Use the IRL Feed",
                                 onTap: () async {
                                   appState.setIrlToNull = false;
-                                  appState.irl = appState.irlPreLoad;
+                                  appState.isIrlMode = true;
                                   setState(() {
                                     continueIrlLoading = true;
                                   });
                                   final prompts = await ApiService()
-                                      .getPrompts(irl: appState.irlPreLoad);
-                                  myPromptsBloc.add(ListPromptsFetched(
-                                      irl: appState.irl, prompts: prompts));
+                                      .getPrompts(irls: appState.irlsPreLoad);
+                                  myPromptsBloc.add(
+                                      ListPromptsFetched(prompts: prompts));
                                   if (mounted) {
                                     setState(() {
                                       continueIrlLoading = false;
@@ -183,13 +183,14 @@ class _IrlScreenState extends State<IrlScreen> {
                             : "Continue Normally",
                         onTap: () async {
                           appState.setIrlToNull = true;
-                          appState.irl = null;
+                          appState.isIrlMode = false;
                           setState(() {
                             normallyIrlLoading = true;
                           });
-                          final prompts = await ApiService().getPrompts();
-                          myPromptsBloc.add(ListPromptsFetched(
-                              irl: appState.irl, prompts: prompts));
+                          final prompts =
+                              await ApiService().getPrompts(irls: []);
+                          myPromptsBloc
+                              .add(ListPromptsFetched(prompts: prompts));
                           if (mounted) {
                             setState(() {
                               normallyIrlLoading = false;

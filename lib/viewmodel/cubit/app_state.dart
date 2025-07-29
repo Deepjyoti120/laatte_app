@@ -10,9 +10,9 @@ class AppStateInitial extends AppStateState {
   final bool isOpenDrawer;
   final bool goIrl;
   final UserReport? userReport;
-  final Irl? irl;
+  final bool isIrlMode;
   final bool setIrlToNull;
-  final Irl? irlPreLoad;
+  final List<Irl> irlsPreLoad;
   // final List<String> activeCards;
   final BasicInfo? basicInfo;
   final bool isAllowNotification;
@@ -26,9 +26,9 @@ class AppStateInitial extends AppStateState {
     this.userReport,
     // this.activeCards = const [],
     this.basicInfo,
-    this.irl,
+    this.isIrlMode = false,
     this.setIrlToNull = false,
-    this.irlPreLoad,
+    this.irlsPreLoad = const [],
     this.isAllowNotification = true,
   });
 
@@ -41,9 +41,9 @@ class AppStateInitial extends AppStateState {
     // List<String>? activeCards,
     BasicInfo? basicInfo,
     bool? goIrl,
-    Irl? irl,
+    bool? isIrlMode,
     bool? setIrlToNull,
-    Irl? irlPreLoad,
+    List<Irl>? irlsPreLoad,
     bool? isAllowNotification,
   }) {
     return AppStateInitial(
@@ -55,9 +55,9 @@ class AppStateInitial extends AppStateState {
       // activeCards: activeCards ?? this.activeCards,
       basicInfo: basicInfo ?? this.basicInfo,
       goIrl: goIrl ?? this.goIrl,
-      irl: this.setIrlToNull ? null : (irl ?? this.irl),
+      isIrlMode: isIrlMode ?? this.isIrlMode,
       setIrlToNull: setIrlToNull ?? this.setIrlToNull,
-      irlPreLoad: irlPreLoad ?? this.irlPreLoad,
+      irlsPreLoad: irlsPreLoad ?? this.irlsPreLoad,
       isAllowNotification: isAllowNotification ?? this.isAllowNotification,
     );
   }

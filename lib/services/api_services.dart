@@ -574,7 +574,7 @@ class ApiService {
   }
 
   Future<List<Prompt>> getPrompts({
-    Irl? irl,
+    required List<Irl> irls,
   }) async {
     try {
       String apiUrl = 'user/get-prompts';
@@ -583,7 +583,7 @@ class ApiService {
         timeLimit: const Duration(seconds: 10),
       );
       var dataBody = {
-        "irl": irl,
+        "irl": irls,
         "latitude": position.latitude, //26.1728
         "longitude": position.longitude, //91.78306
       };
@@ -793,12 +793,13 @@ class ApiService {
         final listData = res.data['data'] as List;
         final data = listData.map((e) => VisitIrl.fromJson(e)).toList();
         if (data.isNotEmpty) {
-          final visitIrl = data.first;
-          if (visitIrl.isAvailabe ?? false) {
-            appState.irlPreLoad = visitIrl.irl;
-          }
+          //   final visitIrl = data.first;
+          //   if (visitIrl.isWeekAvailabe ?? false) {
+          appState.irlsPreLoad =
+              data.map((e) => e.irl).whereType<Irl>().toList();
+          //   }
         }
-        return data.where((e) => e.isAvailabe == true).toList();
+        return data.where((e) => e.isWeekAvailabe == true).toList();
       }
     } on DioException catch (e) {
       // Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");

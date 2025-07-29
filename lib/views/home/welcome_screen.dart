@@ -188,7 +188,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             ),
-          if (appState.irl != null)
+          if (appState.isIrlMode)
             Positioned(
               top: 110,
               left: 30,
@@ -201,7 +201,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                   6.width,
                   DesignText(
-                    appState.irl?.name ?? '',
+                    "appState.irl?.name" ?? '',
                     color: Colors.white,
                     fontSize: 20,
                   )
@@ -246,8 +246,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 SizedBox(
                   height: 26,
                   child: BlurBtn(
-                    title: appState.irl == null ? "Go IRL" : "Go Normal",
-                    icon: appState.irl == null
+                    title: !appState.isIrlMode ? "Go IRL" : "Go Normal",
+                    icon: !appState.isIrlMode
                         ? FontAwesomeIcons.locationArrow
                         : FontAwesomeIcons.xmark,
                     onTap: () {
