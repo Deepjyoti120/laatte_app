@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/app.dart';
 import 'package:laatte/firebase_options.dart';
+import 'package:laatte/services/location_tracker.dart';
 import 'package:laatte/services/storage.dart';
 import 'package:laatte/viewmodel/bloc/bloc_observer.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
@@ -50,6 +51,7 @@ void main() async {
   Hive.registerAdapter(CountryStateAdapter());
   Hive.registerAdapter(PhotoAdapter());
   await Storage.init();
+  await LocationTracker.start();
   runApp(
     BlocProvider<AppStateCubit>(
       create: (context) => AppStateCubit(context: context),

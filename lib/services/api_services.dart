@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:background_location/background_location.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -754,15 +755,18 @@ class ApiService {
     return false;
   }
 
-  Future<bool> irlVisit({bool? isWorkManager}) async {
+  Future<bool> irlVisit({bool? isWorkManager, Location? location}) async {
     String apiUrl = 'user/irl/visit';
     try {
-      final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        timeLimit: const Duration(seconds: 10),
-      );
-      double lat = position.latitude;
-      double lng = position.longitude;
+      Position? geoLocation;
+      if (location != null) {
+        geoLocation = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high,
+          timeLimit: const Duration(seconds: 10),
+        );
+      }
+      double lat = location?.latitude ?? geoLocation!.latitude;
+      double lng = location?.longitude ?? geoLocation!.longitude;
       // 91.7805418, 26.1753997
       // var dataBody = {"lat": 26.1753997 , "lng": 91.7805418};
       var dataBody = {
