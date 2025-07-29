@@ -200,11 +200,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     size: 20,
                   ),
                   6.width,
-                  DesignText(
-                    "appState.irl?.name" ?? '',
-                    color: Colors.white,
-                    fontSize: 20,
-                  )
+                  if (selectedIndex < prompt.listPrompt.length && !isEnd)
+                    DesignText(
+                      prompt.listPrompt[selectedIndex].irl?.name ?? '',
+                      color: Colors.white,
+                      fontSize: 20,
+                    )
                 ],
               ),
             ),

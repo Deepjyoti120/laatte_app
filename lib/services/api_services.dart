@@ -583,7 +583,7 @@ class ApiService {
         timeLimit: const Duration(seconds: 10),
       );
       var dataBody = {
-        "irl": irls,
+        "irls": irls,
         "latitude": position.latitude, //26.1728
         "longitude": position.longitude, //91.78306
       };
@@ -795,8 +795,11 @@ class ApiService {
         if (data.isNotEmpty) {
           //   final visitIrl = data.first;
           //   if (visitIrl.isWeekAvailabe ?? false) {
-          appState.irlsPreLoad =
-              data.map((e) => e.irl).whereType<Irl>().toList();
+          appState.irlsPreLoad = data
+              .where((e) => e.isAvailabe == true)
+              .map((e) => e.irl)
+              .whereType<Irl>()
+              .toList();
           //   }
         }
         return data.where((e) => e.isWeekAvailabe == true).toList();
