@@ -59,7 +59,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     final prompt = context.watch<MyPromptsBloc>().state;
     final appState = context.watch<AppStateCubit>();
     if (appState.goIrl) {
-      return const IrlScreen();
+      return IrlScreen(
+        onUpdate: () {
+          isEnd = false;
+          setState(() {});
+        },
+      );
     }
     return SizedBox(
       // color: Colors.black,

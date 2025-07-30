@@ -13,7 +13,8 @@ import 'package:laatte/viewmodel/cubit/app_cubit.dart';
 
 class IrlScreen extends StatefulWidget {
   static const String route = "/IrlScreen";
-  const IrlScreen({super.key});
+  const IrlScreen({super.key, this.onUpdate});
+  final VoidCallback? onUpdate;
 
   @override
   State<IrlScreen> createState() => _IrlScreenState();
@@ -165,6 +166,9 @@ class _IrlScreenState extends State<IrlScreen> {
                                       continueIrlLoading = false;
                                     });
                                   }
+                                  if (widget.onUpdate != null) {
+                                    widget.onUpdate!();
+                                  }
                                   appState.goIrl = !appState.goIrl;
                                 },
                               ),
@@ -195,6 +199,9 @@ class _IrlScreenState extends State<IrlScreen> {
                             setState(() {
                               normallyIrlLoading = false;
                             });
+                          }
+                          if (widget.onUpdate != null) {
+                            widget.onUpdate!();
                           }
                           appState.goIrl = !appState.goIrl;
                         },
