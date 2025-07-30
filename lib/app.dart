@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -18,6 +17,7 @@ import 'viewmodel/bloc/my_prompts_bloc.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
+
   @override
   State<App> createState() => _AppState();
 }
