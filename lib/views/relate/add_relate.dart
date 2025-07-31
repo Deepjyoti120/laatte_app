@@ -244,49 +244,49 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                             },
                           ),
                           if (_prePrompts.isNotEmpty) 10.height,
-                          if (_prePrompts.isNotEmpty)
-                            DAnimation(
-                              visible: _prePrompts.isNotEmpty,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: _prePrompts
-                                      .map(
-                                        (tag) => GestureDetector(
-                                          onTap: () {
-                                            _relate.text = tag;
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(2),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    Colors.black.withOpacity(0),
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                                border: Border.all(
-                                                  color: Colors.black
-                                                      .withOpacity(0.2),
-                                                ),
+                          // if (_prePrompts.isNotEmpty)
+                          DAnimation(
+                            visible: _prePrompts.isNotEmpty,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: _prePrompts
+                                    .map(
+                                      (tag) => GestureDetector(
+                                        onTap: () {
+                                          _relate.text = tag;
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  Colors.black.withOpacity(0),
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              border: Border.all(
+                                                color: Colors.black
+                                                    .withOpacity(0.2),
                                               ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        6, 2, 6, 2),
-                                                child: DesignText.body(
-                                                  tag,
-                                                  fontSize: 12,
-                                                  color: Colors.black,
-                                                ),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      6, 2, 6, 2),
+                                              child: DesignText.body(
+                                                tag,
+                                                fontSize: 12,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ),
                                         ),
-                                      )
-                                      .toList(),
-                                ),
+                                      ),
+                                    )
+                                    .toList(),
                               ),
                             ),
+                          ),
                           // SizedBox(
                           //   width: double.infinity,
                           //   height: 48,
