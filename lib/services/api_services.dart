@@ -832,7 +832,7 @@ class ApiService {
         data: dataBody,
       );
       if (res.statusCode == 200) {
-        final data = List<String>.from(res.data['data']);
+        final List<String> data = List<String>.from(res.data['data']);
         return data;
       }
     } on DioException catch (e) {
