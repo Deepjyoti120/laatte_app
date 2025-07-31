@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart' as file;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:laatte/common_libs.dart';
+import 'package:laatte/ui/animation/custom_animation.dart';
 import 'package:laatte/ui/custom/custom_text_form.dart';
 import 'package:laatte/ui/theme/buttons.dart';
 import 'package:laatte/ui/theme/text.dart';
@@ -38,6 +39,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   // List<String> tags = [];
   bool isGenerating = false;
   Irl? _irl;
+  List<String> _prePrompts = [];
 
   @override
   void initState() {
@@ -48,8 +50,11 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
   }
 
   runInit() async {
+    _prePrompts = await ApiService().getGeneratedPrompt();
     // _districts = await ApiService().districts;
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
     // Geolocator.getPositionStream().listen((v){
     //   print("object -> ${v.latitude}");
     //   _position = v;
@@ -238,54 +243,97 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                               return null;
                             },
                           ),
-                          10.height,
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: DesignButtons(
-                              color: DesignColor.latteyellowLight3,
-                              elevation: 0,
-                              fontSize: 16,
-                              fontWeight: 500,
-                              colorText: Colors.black,
-                              isTappedNotifier: ValueNotifier<bool>(false),
-                              onPressed: () async {
-                                setState(() {
-                                  isGenerating = true;
-                                });
-                                _relate.text = await ApiService()
-                                        .generatePrompt(text: _relate.text) ??
-                                    "";
-                                setState(() {
-                                  isGenerating = false;
-                                });
-                              },
-                              textLabel: 'Generate',
-                              child: isGenerating
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const DesignProgress.ai(
-                                            color: Colors.white),
-                                        6.width,
-                                        const DesignText(
-                                          "Generating",
-                                          fontSize: 16,
-                                          fontWeight: 500,
-                                          color: Colors.black,
+                          if (_prePrompts.isNotEmpty) 10.height,
+                          if (_prePrompts.isNotEmpty)
+                            DAnimation(
+                              visible: _prePrompts.isNotEmpty,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: _prePrompts
+                                      .map(
+                                        (tag) => GestureDetector(
+                                          onTap: () {
+                                            _relate.text = tag;
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    Colors.black.withOpacity(0),
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                                border: Border.all(
+                                                  color: Colors.black
+                                                      .withOpacity(0.2),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        6, 2, 6, 2),
+                                                child: DesignText.body(
+                                                  tag,
+                                                  fontSize: 12,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ],
-                                    )
-                                  : const DesignText(
-                                      "Generate",
-                                      fontSize: 16,
-                                      fontWeight: 500,
-                                      color: Colors.black,
-                                    ),
+                                      )
+                                      .toList(),
+                                ),
+                              ),
                             ),
-                          ),
+                          // SizedBox(
+                          //   width: double.infinity,
+                          //   height: 48,
+                          //   child: DesignButtons(
+                          //     color: DesignColor.latteyellowLight3,
+                          //     elevation: 0,
+                          //     fontSize: 16,
+                          //     fontWeight: 500,
+                          //     colorText: Colors.black,
+                          //     isTappedNotifier: ValueNotifier<bool>(false),
+                          //     onPressed: () async {
+                          //       setState(() {
+                          //         isGenerating = true;
+                          //       });
+                          //       _relate.text = await ApiService()
+                          //               .generatePrompt(text: _relate.text) ??
+                          //           "";
+                          //       setState(() {
+                          //         isGenerating = false;
+                          //       });
+                          //     },
+                          //     textLabel: 'Generate',
+                          //     child: isGenerating
+                          //         ? Row(
+                          //             mainAxisAlignment:
+                          //                 MainAxisAlignment.center,
+                          //             mainAxisSize: MainAxisSize.min,
+                          //             children: [
+                          //               const DesignProgress.ai(
+                          //                   color: Colors.white),
+                          //               6.width,
+                          //               const DesignText(
+                          //                 "Generating",
+                          //                 fontSize: 16,
+                          //                 fontWeight: 500,
+                          //                 color: Colors.black,
+                          //               ),
+                          //             ],
+                          //           )
+                          //         : const DesignText(
+                          //             "Generate",
+                          //             fontSize: 16,
+                          //             fontWeight: 500,
+                          //             color: Colors.black,
+                          //           ),
+                          //   ),
+                          // ),
                           10.height,
                           SizedBox(
                             width: double.infinity,
@@ -313,7 +361,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                                   setState(() {});
                                 }
                               },
-                              textLabel: 'Generate',
+                              textLabel: 'Upload a Photo',
                               child: pickImage == null
                                   ? Row(
                                       mainAxisAlignment:
