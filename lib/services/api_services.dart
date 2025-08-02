@@ -819,7 +819,7 @@ class ApiService {
     try {
       final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
-        timeLimit: const Duration(seconds: 10),
+        timeLimit: const Duration(seconds: 20),
       );
       double lat = position.latitude;
       double lng = position.longitude;
