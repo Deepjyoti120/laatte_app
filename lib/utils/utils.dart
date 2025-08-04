@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:developer' as developer;
 import 'dart:math';
@@ -722,4 +723,18 @@ class Utils {
     await file.writeAsBytes(pngBytes);
     return file;
   }
+
+ static Future<Position?> safeGetLocation({int timeoutSec = 15}) async {
+  try {
+    return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+      timeLimit: Duration(seconds: timeoutSec),
+    );
+  } on TimeoutException {
+    return await Geolocator.getLastKnownPosition();
+  } catch (e) {
+    return null;
+  }
+}
+
 }

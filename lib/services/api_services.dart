@@ -755,20 +755,22 @@ class ApiService {
   }
 
   Future<bool> irlVisit({bool? isWorkManager}) async {
-    String apiUrl = 'user/irl/visit';
+    String apiUrl = '${Constants.apiUrl}${Constants.apiVersion}user/irl/visit';
     try {
-      final permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        final requested = await Geolocator.requestPermission();
-        if (requested == LocationPermission.denied ||
-            requested == LocationPermission.deniedForever) {
-          throw Exception('Location permission not granted');
-        }
-      }
-      final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        timeLimit: const Duration(seconds: 10),
-      );
+      // final permission = await Geolocator.checkPermission();
+      // if (permission == LocationPermission.denied) {
+      //   final requested = await Geolocator.requestPermission();
+      //   if (requested == LocationPermission.denied ||
+      //       requested == LocationPermission.deniedForever) {
+      //     throw Exception('Location permission not granted');
+      //   }
+      // }
+      // final position = await Geolocator.getCurrentPosition(
+      //   desiredAccuracy: LocationAccuracy.high,
+      //   timeLimit: const Duration(seconds: 10),
+      // );
+      final position = await Utils.safeGetLocation();
+      if (position == null) return false;
       double lat = position.latitude;
       double lng = position.longitude;
       // 91.7805418, 26.1753997
@@ -904,7 +906,7 @@ class ApiService {
   }
 
   Future<bool> feedback(String feedback) async {
-    String apiUrl = 'feedback';
+    String apiUrl ='${Constants.apiUrl}${Constants.apiVersion}feedback';
     try {
       var dataBody = {
         "feedback": feedback,

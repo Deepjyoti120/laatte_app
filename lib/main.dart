@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/app.dart';
 import 'package:laatte/firebase_options.dart';
+import 'package:laatte/services/api_services.dart';
 import 'package:laatte/services/background_service.dart';
 import 'package:laatte/services/location_tracker.dart';
 import 'package:laatte/services/storage.dart';
@@ -25,20 +26,22 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) {
-    return BackgroundService.handleTask(task);
+  Workmanager().executeTask((task, inputData) async {
+    debugPrint("task: $task");
+    return await BackgroundService.handleTask(task);
   });
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await ApiService().feedback("This is Bckground Notification");
   Workmanager().initialize(
     callbackDispatcher,
-    // isInDebugMode: false,
+    // isInDebugMode: true,
   );
   Workmanager().registerPeriodicTask(
-    "task-identifier",
+    "task-identifier15",
     Constants.workerstoreSheduleTaskName,
     frequency: const Duration(minutes: 15),
   );

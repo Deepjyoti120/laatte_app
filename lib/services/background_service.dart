@@ -14,7 +14,6 @@ class BackgroundService {
   // }
   static Future<bool> handleTask(String task) async {
     if (task == Constants.workerstoreSheduleTaskName) {
-      unawaited(ApiService().feedback("This is Bckground Notification"));
       await ApiService().irlVisit(isWorkManager: true);
     }
     return Future.value(true);
