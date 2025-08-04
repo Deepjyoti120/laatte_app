@@ -32,6 +32,7 @@ void callbackDispatcher() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Workmanager().initialize(
     callbackDispatcher,
     // isInDebugMode: false,
@@ -41,7 +42,6 @@ void main() async {
     Constants.workerstoreSheduleTaskName,
     frequency: const Duration(minutes: 15),
   );
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Bloc.observer = SimpleBlocObserver();

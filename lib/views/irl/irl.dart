@@ -7,6 +7,7 @@ import 'package:laatte/ui/theme/container.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/bloc/visit_irl_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
@@ -42,7 +43,7 @@ class _IrlScreenState extends State<IrlScreen> {
     final appState = context.watch<AppStateCubit>();
     final visits = context.watch<VisitIrlBloc>().state.visitIrls;
     final myPromptsBloc = context.watch<MyPromptsBloc>();
-    final bottomPadding = MediaQuery.of(context).viewPadding.bottom;
+    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -135,7 +136,8 @@ class _IrlScreenState extends State<IrlScreen> {
             ),
             20.height,
             Padding(
-              padding: EdgeInsets.only(bottom: bottomPadding + 60),
+              padding: EdgeInsets.only(
+                  bottom: bottomPadding + (Utils.isIOS ? 100 : 120)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
