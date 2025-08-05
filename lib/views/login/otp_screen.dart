@@ -101,8 +101,9 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
   }
 
   Future<void> _getCurrentLocation() async {
-    _position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    // _position = await Geolocator.getCurrentPosition(
+    //     desiredAccuracy: LocationAccuracy.high);
+    _position =  await Utils.safeGetLocation();
   }
 
   @override

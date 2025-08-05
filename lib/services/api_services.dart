@@ -578,10 +578,8 @@ class ApiService {
   }) async {
     try {
       String apiUrl = 'user/get-prompts';
-      final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best,
-        timeLimit: const Duration(seconds: 10),
-      );
+      final position = await Utils.safeGetLocation();
+      if (position == null) return [];
       var dataBody = {
         "irls": irls,
         "latitude": position.latitude, //26.1728
@@ -827,10 +825,8 @@ class ApiService {
   Future<List<String>> getGeneratedPrompt() async {
     String apiUrl = 'get-generated-prompts';
     try {
-      final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        timeLimit: const Duration(seconds: 10),
-      );
+      final position = await Utils.safeGetLocation();
+      if (position == null) return [];
       double lat = position.latitude;
       double lng = position.longitude;
       var dataBody = {
