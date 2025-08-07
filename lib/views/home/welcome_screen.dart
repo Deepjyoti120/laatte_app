@@ -4,6 +4,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
+import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/blur_button.dart';
 import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
@@ -50,7 +51,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     //     setState(() {});
     //   }
     // });
-    context.read<MyPromptsBloc>().add(const ListPromptsFetched());
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final appState = context.read<AppStateCubit>().state;
+      final myPromptsBloc = context.read<MyPromptsBloc>();
+      final prompts = await ApiService()
+          .getPrompts(irls: appState.isIrlMode ? appState.irlsPreLoad : []);
+      myPromptsBloc.add(ListPromptsFetched(prompts: prompts));
+    });
   }
 
   @override
@@ -163,16 +170,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     PromptTypes.advertise.name == data.type;
                                 if (!isAd) {
                                   if (direction == CardSwiperDirection.right) {
-                                    await acceptSwipe(previousIndex,
-                                            prompt: data)
-                                        .then((v) {
-                                      if (v) {
-                                        selectedIndex = currentIndex ?? 0;
-                                        setState(() {});
-                                        return true;
-                                      }
-                                    });
-                                    return false;
+                                    bool isAccepted = await acceptSwipe(
+                                        previousIndex,
+                                        prompt: data);
+                                    selectedIndex = currentIndex ?? 0;
+                                    setState(() {});
+                                    return isAccepted;
                                   }
                                 }
                                 selectedIndex = currentIndex ?? 0;

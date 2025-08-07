@@ -30,11 +30,13 @@ class Utils {
               color: Colors.white,
             ),
             const SizedBox(width: 6),
-            DesignText(
-              msg,
-              fontSize: 12,
-              fontWeight: 600,
-              color: Colors.white,
+            Flexible(
+              child: DesignText(
+                msg,
+                fontSize: 12,
+                fontWeight: 600,
+                color: Colors.white,
+              ),
             )
           ],
         ),
@@ -724,17 +726,16 @@ class Utils {
     return file;
   }
 
- static Future<Position?> safeGetLocation({int timeoutSec = 15}) async {
-  try {
-    return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-      timeLimit: Duration(seconds: timeoutSec),
-    );
-  } on TimeoutException {
-    return await Geolocator.getLastKnownPosition();
-  } catch (e) {
-    return null;
+  static Future<Position?> safeGetLocation({int timeoutSec = 15}) async {
+    try {
+      return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+        timeLimit: Duration(seconds: timeoutSec),
+      );
+    } on TimeoutException {
+      return await Geolocator.getLastKnownPosition();
+    } catch (e) {
+      return null;
+    }
   }
-}
-
 }

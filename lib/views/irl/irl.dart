@@ -77,7 +77,7 @@ class _IrlScreenState extends State<IrlScreen> {
                   if (visit == null) {
                     return const SizedBox();
                   }
-                  bool isAvailable = visit.isAvailabe ?? false;
+                  bool? isAvailable = visit.isAvailabe;
                   return Stack(
                     children: [
                       Padding(
@@ -118,7 +118,7 @@ class _IrlScreenState extends State<IrlScreen> {
                           ),
                         ),
                       ),
-                      if (!isAvailable)
+                      if (isAvailable != null && !isAvailable)
                         Positioned(
                           top: 0,
                           left: 0,
