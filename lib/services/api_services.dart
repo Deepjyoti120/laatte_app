@@ -804,7 +804,7 @@ class ApiService {
           //   final visitIrl = data.first;
           //   if (visitIrl.isWeekAvailabe ?? false) {
           appState.irlsPreLoad = data
-              .where((e) => e.isAvailabe == true)
+              .where((e) => e.isWeekAvailabe == true)
               .map((e) => e.irl)
               .whereType<Irl>()
               .toList();
