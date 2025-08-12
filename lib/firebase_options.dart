@@ -66,13 +66,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDC_jg3gDOOMIsg0qFlCqOY6Ovn_q0uVx4',
-    appId: '1:479035682627:ios:3d2f5e740342440917c9f6',
+    appId: '1:479035682627:ios:8588d9cc835c639617c9f6',
     messagingSenderId: '479035682627',
     projectId: 'relate-5a0f9',
     storageBucket: 'relate-5a0f9.firebasestorage.app',
     androidClientId: '479035682627-8e02mh17j7gdqaer046es9qbm2atadkm.apps.googleusercontent.com',
-    iosClientId: '479035682627-b250kt93jbqo302hiue548upljfqpupd.apps.googleusercontent.com',
-    iosBundleId: 'com.relate.laattematch',
+    iosClientId: '479035682627-7f5bk9vl99gmrrdentkqe1pebo94nld1.apps.googleusercontent.com',
+    iosBundleId: 'com.relate.laatte',
   );
 
 }
