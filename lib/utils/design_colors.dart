@@ -206,7 +206,7 @@ class DesignColor {
   static const Color latteyellowDark2 = Color(0xFF694F35);
   static const Color latteyellowDark3 = Color(0xFF685441);
   static const Color latteBackground = Color(0xFFFDFAEF);
-  static const Color latteCream = Color(0xFFFDFAEF);
+  static const Color latteCream = Color(0xFFFDFAEF); //faf5ef
   static const Color latteGreyDark = Color(0xFFC6BFAD);
   static const Color latteGreyDarkText = Color(0xFF57554E);
 }

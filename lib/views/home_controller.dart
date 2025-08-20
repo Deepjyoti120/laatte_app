@@ -112,7 +112,7 @@ class _HomeControllerState extends State<HomeController> {
               left: 0,
               right: 0,
               child: Container(
-                padding: const EdgeInsets.only(bottom: 30, right: 12, left: 12),
+                padding: const EdgeInsets.only(bottom: 30, right: 6, left: 6),
                 // border radius: BorderRadius.circular(20),
                 child: BottomBarFloating(
                   items: const [

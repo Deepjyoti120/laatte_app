@@ -68,7 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
               padding: EdgeInsets.fromLTRB(20, 20, 20, Utils.isIOS ? 90 : 80),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: DesignColor.latteCream,
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Column(

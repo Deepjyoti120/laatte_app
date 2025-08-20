@@ -16,6 +16,7 @@ class RelateCard extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
           width: double.infinity,
+          height: 200,
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(26),
@@ -26,12 +27,13 @@ class RelateCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 DesignText.titleSemi(
                   (prompt.prompt ?? ""),
                   color: Colors.white,
+                  fontSize: 19,
                 ),
                 if (prompt.tags?.isNotEmpty ?? false) 6.height,
                 if (prompt.tags?.isNotEmpty ?? false)
