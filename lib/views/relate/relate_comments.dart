@@ -36,62 +36,84 @@ class _RelateCommentState extends State<RelateComment> {
             width: double.infinity,
           ),
           SafeArea(
-            child: ListView.builder(
-              itemCount: widget.prompt.comments?.length,
-              padding: const EdgeInsets.all(12),
-              itemBuilder: (context, index) {
-                final data = widget.prompt.comments?[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: GestureDetector(
-                    onTap: () {
-                      matchNow(index);
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(26),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(26),
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.2),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(60),
-                                  child: ImageFiltered(
-                                    imageFilter:
-                                        ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                                    child: Image.network(
-                                      data!.user!.profilePicture!,
-                                      height: 80,
-                                      width: 80,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20.0, 12, 20, 6),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      DesignText.titleSemi(
+                        "See who relates you",
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: 600,
+                      ),
+                    ],
+                  ),
+                ),
+                ListView.builder(
+                  itemCount: widget.prompt.comments?.length,
+                  padding: const EdgeInsets.all(12),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final data = widget.prompt.comments?[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: GestureDetector(
+                        onTap: () {
+                          matchNow(index);
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(26),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(26),
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.2),
                                 ),
-                                6.width,
-                                Flexible(
-                                    child: DesignText(
-                                  data.comment ?? "",
-                                  color: Colors.white,
-                                )),
-                              ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(60),
+                                      child: ImageFiltered(
+                                        imageFilter: ImageFilter.blur(
+                                            sigmaX: 5, sigmaY: 5),
+                                        child: Image.network(
+                                          data!.user!.profilePicture!,
+                                          height: 80,
+                                          width: 80,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    6.width,
+                                    Flexible(
+                                        child: DesignText(
+                                      data.comment ?? "",
+                                      color: Colors.white,
+                                    )),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ],

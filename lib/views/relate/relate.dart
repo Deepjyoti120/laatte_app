@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:laatte/common_libs.dart';
@@ -48,60 +50,83 @@ class _RelateScreenState extends State<RelateScreen> {
             width: double.infinity,
           ),
           SafeArea(
-            child: BlocBuilder<MyPromptsBloc, MyPromptsState>(
-              builder: (context, state) {
-                switch (state.status) {
-                  case ResponseStatus.failure:
-                    return const Center(child: Text('failed to fetch data'));
-                  case ResponseStatus.success:
-                    // if (state.prompts.isEmpty) {
-                    //   return Column(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     children: [
-                    //       const Row(),
-                    //       SvgPicture.asset(
-                    //         AssetsName.svgEmpty,
-                    //         width: 100,
-                    //         height: 100,
-                    //       ),
-                    //       const DesignText("Please come back later"),
-                    //     ],
-                    //   );
-                    // }
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(12),
-                      itemCount: state.hasReachedMax
-                          ? state.prompts.length
-                          : state.prompts.length + 1,
-                      controller: _scrollController,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index >= state.prompts.length) {
-                          return const Center(
-                            child: DesignProgress(color: Colors.white),
-                          );
-                        } else {
-                          final data = state.prompts[index];
-                          return GestureDetector(
-                            onTap: () {
-                              context.push(Routes.relateComment, extra: data);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 12),
-                              child: IntrinsicHeight(
-                                  child: RelateCard(prompt: data)),
-                            ),
-                          );
-                        }
-                      },
-                    );
-                  case ResponseStatus.initial:
-                    return const Center(child: DesignProgress());
-                  default:
-                    return const Center(child: DesignProgress());
-                }
-              },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20.0, 12, 20, 6),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      DesignText.titleSemi(
+                        "See your thoughts",
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: 600,
+                      ),
+                    ],
+                  ),
+                ),
+                BlocBuilder<MyPromptsBloc, MyPromptsState>(
+                  builder: (context, state) {
+                    switch (state.status) {
+                      case ResponseStatus.failure:
+                        return const Center(
+                            child: Text('failed to fetch data'));
+                      case ResponseStatus.success:
+                        // if (state.prompts.isEmpty) {
+                        //   return Column(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     crossAxisAlignment: CrossAxisAlignment.center,
+                        //     children: [
+                        //       const Row(),
+                        //       SvgPicture.asset(
+                        //         AssetsName.svgEmpty,
+                        //         width: 100,
+                        //         height: 100,
+                        //       ),
+                        //       const DesignText("Please come back later"),
+                        //     ],
+                        //   );
+                        // }
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.all(12),
+                          itemCount: state.hasReachedMax
+                              ? state.prompts.length
+                              : state.prompts.length + 1,
+                          controller: _scrollController,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index >= state.prompts.length) {
+                              return const Center(
+                                child: DesignProgress(color: Colors.white),
+                              );
+                            } else {
+                              final data = state.prompts[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  context.push(Routes.relateComment,
+                                      extra: data);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 12),
+                                  child: IntrinsicHeight(
+                                      child: RelateCard(prompt: data)),
+                                ),
+                              );
+                            }
+                          },
+                        );
+                      case ResponseStatus.initial:
+                        return const Center(child: DesignProgress());
+                      default:
+                        return const Center(child: DesignProgress());
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ],
