@@ -34,7 +34,7 @@ class Constants {
   static const String companyName = 'BaraxunTech';
   static const String companySite = 'https://baraxuntech.com/';
   static const String currencySymbol = '₹';
-  
+
   // for Hive
   static String storageBox = 'storageBox$buildNumber';
   static String basicInfoBox = 'topicBox$buildNumber';

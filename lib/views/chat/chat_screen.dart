@@ -227,7 +227,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                       padding: const EdgeInsets.fromLTRB(6, 6, 6, 6),
                       child: DesignText(
                         data?['message'] ?? "",
-                        fontSize: 13,
+                        fontSize: 14.5,
                         fontWeight: 700,
                         color: Colors.white,
                       ),

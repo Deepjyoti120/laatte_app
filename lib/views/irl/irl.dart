@@ -137,7 +137,7 @@ class _IrlScreenState extends State<IrlScreen> {
             20.height,
             Padding(
               padding: EdgeInsets.only(
-                  bottom: bottomPadding + (Utils.isIOS ? 100 : 120)),
+                  bottom: bottomPadding + (Utils.isIOS ? 90 : 120)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -214,7 +214,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                         children: [
                           // Text(haspermission.toString()),
                           const DesignText(
-                            "Add Prompt",
+                            "Add Your Thought",
                             fontSize: 24,
                             fontWeight: 600,
                           ),
