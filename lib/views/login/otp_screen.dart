@@ -70,6 +70,7 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
 
   Future<void> runInit() async {
     await FirebaseService().requestNotificationPermission();
+    FirebaseService().listenToForegroundMessages();
   }
 
   setDummyLoginDetails() {
@@ -103,7 +104,7 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
   Future<void> _getCurrentLocation() async {
     // _position = await Geolocator.getCurrentPosition(
     //     desiredAccuracy: LocationAccuracy.high);
-    _position =  await Utils.safeGetLocation();
+    _position = await Utils.safeGetLocation();
   }
 
   @override

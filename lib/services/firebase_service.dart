@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:laatte/common_libs.dart';
+import 'package:laatte/utils/utils.dart';
 
 class FirebaseService {
   final firebaseMessaging = FirebaseMessaging.instance;
@@ -7,6 +8,7 @@ class FirebaseService {
     try {
       return await firebaseMessaging.getToken();
     } catch (e) {
+      Utils.flutterToast(e.toString());
       return null;
     }
   }
@@ -29,5 +31,14 @@ class FirebaseService {
     } catch (e) {
       debugPrint('Error requesting notification permission: $e');
     }
+  }
+    /// 👇 Listen to messages in foreground and show toast
+  void listenToForegroundMessages() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      debugPrint("📩 Foreground message received: ${message.notification?.title}");
+      final title = message.notification?.title ?? "Notification";
+      final body = message.notification?.body ?? "No content";
+      Utils.flutterToast("$title: $body");
+    });
   }
 }
