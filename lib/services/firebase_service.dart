@@ -40,5 +40,17 @@ class FirebaseService {
       final body = message.notification?.body ?? "No content";
       Utils.flutterToast("$title: $body");
     });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      debugPrint("📩 Foreground message received: ${message.notification?.title}");
+      final title = message.notification?.title ?? "Notification";
+      final body = message.notification?.body ?? "No content";
+      Utils.flutterToast("$title: $body");
+    });
+    // FirebaseMessaging.onBackgroundMessage.listen((RemoteMessage message) {
+    //   debugPrint("📩 Foreground message received: ${message.notification?.title}");
+    //   final title = message.notification?.title ?? "Notification";
+    //   final body = message.notification?.body ?? "No content";
+    //   Utils.flutterToast("$title: $body");
+    // });
   }
 }

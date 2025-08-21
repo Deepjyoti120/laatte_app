@@ -70,7 +70,6 @@ class _OtpScreenState extends State<OtpScreen> with WidgetsBindingObserver {
 
   Future<void> runInit() async {
     await FirebaseService().requestNotificationPermission();
-    FirebaseService().listenToForegroundMessages();
   }
 
   setDummyLoginDetails() {

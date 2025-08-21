@@ -37,7 +37,7 @@ void main() async {
   // await ApiService().feedback("This is Bckground Notification");
   Workmanager().initialize(
     callbackDispatcher,
-    // isInDebugMode: true,
+    isInDebugMode: true,
   );
   Workmanager().registerPeriodicTask(
     "task-identifier15",
