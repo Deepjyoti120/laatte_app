@@ -37,6 +37,7 @@ class Constants {
 
   // for Hive
   static String storageBox = 'storageBox$buildNumber';
+  static String locationsBox = 'locationsBox$buildNumber';
   static String basicInfoBox = 'topicBox$buildNumber';
   static String basicInfoKey = 'basicInfoKey';
   static String profileBox = 'profileBox$buildNumber';

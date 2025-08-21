@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,20 +38,20 @@ class _HomeControllerState extends State<HomeController> {
   }
 
   runInit() async {
+    unawaited(ApiService().updateAllLocations());
     // socketService.connect();
     // socketService.listenForMessages((message) {
     //   if (mounted) {
     //     print(message);
     //   }
     // });
-
     // final appState = context.read<AppStateCubit>();
     // appState.basicInfo = await ApiService().getBasicInfo(appState);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       // context.read<UserReportBloc>().add(UserReportFetched());
       context.read<UserReportBloc>().add(UserReportFetched());
       context.read<SocketBloc>().add(const SocketFetched());
-      ApiService().irlVisit();
+      await ApiService().irlVisit();
     });
   }
 

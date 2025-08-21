@@ -14,7 +14,7 @@ class BackgroundService {
   // }
   static Future<bool> handleTask(String task) async {
     if (task == Constants.workerstoreSheduleTaskName) {
-      await ApiService().irlVisit(isWorkManager: true);
+      await ApiService().storeLocation();
     }
     return Future.value(true);
   }

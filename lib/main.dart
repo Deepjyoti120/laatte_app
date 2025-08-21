@@ -16,6 +16,7 @@ import 'package:laatte/viewmodel/model/basic_info.dart';
 import 'package:laatte/viewmodel/model/country_state.dart';
 import 'package:laatte/viewmodel/model/department.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
+import 'package:laatte/viewmodel/model/location_model.dart';
 import 'package:laatte/viewmodel/model/photo_model.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import 'package:workmanager/workmanager.dart';
@@ -56,6 +57,7 @@ void main() async {
   Hive.registerAdapter(CountryAdapter());
   Hive.registerAdapter(CountryStateAdapter());
   Hive.registerAdapter(PhotoAdapter());
+  Hive.registerAdapter(LocationModelAdapter());
   await Storage.init();
   // await LocationTracker.start();
   runApp(

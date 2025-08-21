@@ -20,6 +20,7 @@ import 'package:laatte/viewmodel/model/country_state.dart';
 import 'package:laatte/viewmodel/model/department.dart';
 import 'package:laatte/viewmodel/model/designation.dart';
 import 'package:laatte/viewmodel/model/irl.dart';
+import 'package:laatte/viewmodel/model/location_model.dart';
 import 'package:laatte/viewmodel/model/user_reports.dart';
 import 'package:laatte/viewmodel/model/visit_irl.dart';
 import '../utils/utils.dart';
@@ -752,7 +753,7 @@ class ApiService {
     return false;
   }
 
-  Future<bool> irlVisit({bool? isWorkManager}) async {
+  Future<bool> irlVisit({bool? isWorkManager, Position? p}) async {
     String apiUrl = '${Constants.apiUrl}${Constants.apiVersion}user/irl/visit';
     try {
       // final permission = await Geolocator.checkPermission();
@@ -767,7 +768,7 @@ class ApiService {
       //   desiredAccuracy: LocationAccuracy.high,
       //   timeLimit: const Duration(seconds: 10),
       // );
-      final position = await Utils.safeGetLocation();
+      final position = p ?? await Utils.safeGetLocation();
       if (position == null) return false;
       double lat = position.latitude;
       double lng = position.longitude;
@@ -902,7 +903,7 @@ class ApiService {
   }
 
   Future<bool> feedback(String feedback) async {
-    String apiUrl ='${Constants.apiUrl}${Constants.apiVersion}feedback';
+    String apiUrl = '${Constants.apiUrl}${Constants.apiVersion}feedback';
     try {
       var dataBody = {
         "feedback": feedback,
@@ -944,5 +945,47 @@ class ApiService {
       Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
     }
     return false;
+  }
+
+  Future<bool> storeLocation() async {
+    final position = await Utils.safeGetLocation();
+    if (position == null) return false;
+    double lat = position.latitude;
+    double lng = position.longitude;
+    final location = LocationModel(
+      latitude: lat,
+      longitude: lng,
+      timestamp: DateTime.now(),
+    );
+    final box = Hive.box<LocationModel>(Constants.locationsBox);
+    await box.add(location);
+    return true;
+  }
+
+  Future<bool> updateAllLocations() async {
+    final box = Hive.box<LocationModel>(Constants.locationsBox);
+    for (var key in box.keys.toList()) {
+      final e = box.get(key);
+      if (e == null) continue;
+      final success = await ApiService().irlVisit(
+        isWorkManager: true,
+        p: Position(
+          longitude: e.longitude,
+          latitude: e.latitude,
+          timestamp: e.timestamp,
+          accuracy: 0,
+          altitude: 0,
+          altitudeAccuracy: 0,
+          heading: 0,
+          headingAccuracy: 0,
+          speed: 0,
+          speedAccuracy: 0,
+        ),
+      );
+      if (success) {
+        await box.delete(key);
+      }
+    }
+    return true;
   }
 }
