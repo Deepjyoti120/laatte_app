@@ -393,15 +393,24 @@ class Utils {
     Geolocator.openLocationSettings();
   }
 
+  // static Future<bool> isAllowGPS() async {
+  //   // final location = await Geolocator.checkPermission();
+  //   final location = await Permission.locationAlways.request();
+  //   // if (location == PermissionStatus.always ||
+  //   //     location == LocationPermission.whileInUse) {
+  //   //   return true;
+  //   // } else {
+  //   //   return false;
+  //   // }
+  //   return location.isGranted;
+  // }
   static Future<bool> isAllowGPS() async {
-    final location = await Geolocator.checkPermission();
-    await Permission.location.request();
-    if (location == LocationPermission.always ||
-        location == LocationPermission.whileInUse) {
-      return true;
-    } else {
-      return false;
+    var status = await Permission.locationWhenInUse.request();
+    if (status.isGranted) {
+      var alwaysStatus = await Permission.locationAlways.request();
+      return alwaysStatus.isGranted || status.isGranted;
     }
+    return false;
   }
 
   static Future<bool> requestLocationPermission() async {
