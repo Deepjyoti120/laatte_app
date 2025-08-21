@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/ui/blur_button.dart';
@@ -11,6 +15,7 @@ import 'package:laatte/utils/utils.dart';
 import 'package:laatte/viewmodel/bloc/my_prompts_bloc.dart';
 import 'package:laatte/viewmodel/bloc/visit_irl_bloc.dart';
 import 'package:laatte/viewmodel/cubit/app_cubit.dart';
+import 'package:laatte/viewmodel/model/location_model.dart';
 
 class IrlScreen extends StatefulWidget {
   static const String route = "/IrlScreen";
@@ -49,10 +54,19 @@ class _IrlScreenState extends State<IrlScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            const DesignText(
-              "IRL",
-              color: DesignColor.latteYellowSmall,
-              fontSize: 30,
+            GestureDetector(
+              onTap: () async {
+                if (kDebugMode) {
+                  final box =
+                      await Hive.openBox<LocationModel>(Constants.locationsBox);
+                  Utils.flutterToast(box.values.length.toString());
+                }
+              },
+              child: const DesignText(
+                "IRL",
+                color: DesignColor.latteYellowSmall,
+                fontSize: 30,
+              ),
             ),
             const DesignText(
               "Start connecting with people \nat places you went today.",

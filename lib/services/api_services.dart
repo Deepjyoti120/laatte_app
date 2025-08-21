@@ -957,13 +957,13 @@ class ApiService {
       longitude: lng,
       timestamp: DateTime.now(),
     );
-    final box = Hive.box<LocationModel>(Constants.locationsBox);
+    final box = await Hive.openBox<LocationModel>(Constants.locationsBox);
     await box.add(location);
     return true;
   }
 
   Future<bool> updateAllLocations() async {
-    final box = Hive.box<LocationModel>(Constants.locationsBox);
+    final box = await Hive.openBox<LocationModel>(Constants.locationsBox);
     for (var key in box.keys.toList()) {
       final e = box.get(key);
       if (e == null) continue;
