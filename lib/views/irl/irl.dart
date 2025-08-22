@@ -57,9 +57,7 @@ class _IrlScreenState extends State<IrlScreen> {
             GestureDetector(
               onTap: () async {
                 // if (kDebugMode) {
-                final box =
-                    await Hive.openBox<LocationModel>(Constants.locationsBox);
-                Utils.flutterToast(box.values.length.toString());
+
                 // }
               },
               child: const DesignText(

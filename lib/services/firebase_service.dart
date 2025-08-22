@@ -32,16 +32,21 @@ class FirebaseService {
       debugPrint('Error requesting notification permission: $e');
     }
   }
-    /// 👇 Listen to messages in foreground and show toast
-  void listenToForegroundMessages() {
+
+  /// 👇 Listen to messages in foreground and show toast
+  void listenToForegroundMessages() async {
+    await FirebaseMessaging.instance.setAutoInitEnabled(true);
+    FirebaseMessaging.instance.requestPermission();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      debugPrint("📩 Foreground message received: ${message.notification?.title}");
+      debugPrint(
+          "📩 Foreground message received: ${message.notification?.title}");
       final title = message.notification?.title ?? "Notification";
       final body = message.notification?.body ?? "No content";
       Utils.flutterToast("$title: $body");
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      debugPrint("📩 Foreground message received: ${message.notification?.title}");
+      debugPrint(
+          "📩 Foreground message received: ${message.notification?.title}");
       final title = message.notification?.title ?? "Notification";
       final body = message.notification?.body ?? "No content";
       Utils.flutterToast("$title: $body");
