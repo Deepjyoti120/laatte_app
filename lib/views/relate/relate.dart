@@ -113,7 +113,10 @@ class _RelateScreenState extends State<RelateScreen> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(bottom: 12),
                                   child: IntrinsicHeight(
-                                      child: RelateCard(prompt: data)),
+                                    child: RelateCard(
+                                      prompt: data,
+                                    ),
+                                  ),
                                 ),
                               );
                             }

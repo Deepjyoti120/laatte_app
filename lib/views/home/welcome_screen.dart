@@ -153,6 +153,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     const Spacer(flex: 2),
                                     RelateCard(
                                       prompt: prompt.listPrompt[index],
+                                      height: 200,
                                     ),
                                     const Spacer(),
                                   ],

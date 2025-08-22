@@ -5,8 +5,9 @@ import 'package:laatte/utils/extensions.dart';
 import 'package:laatte/viewmodel/model/prompt.dart';
 
 class RelateCard extends StatelessWidget {
-  const RelateCard({super.key, required this.prompt});
+  const RelateCard({super.key, required this.prompt, this.height});
   final Prompt prompt;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class RelateCard extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
           width: double.infinity,
-          height: 200,
+          height: height,
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(26),
