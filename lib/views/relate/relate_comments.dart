@@ -41,7 +41,7 @@ class _RelateCommentState extends State<RelateComment> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Padding(
-                  padding: EdgeInsets.fromLTRB(20.0, 12, 20, 6),
+                  padding: EdgeInsets.fromLTRB(20.0, 20, 20, 6),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
