@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:laatte/routes.dart';
 import 'package:laatte/services/api_services.dart';
 import 'package:laatte/services/storage.dart';
@@ -14,6 +15,7 @@ import 'package:laatte/utils/assets_names.dart';
 import 'package:laatte/utils/design_colors.dart';
 import 'package:laatte/utils/utils.dart';
 import 'package:laatte/utils/extensions.dart';
+import 'package:laatte/viewmodel/model/location_model.dart';
 import '../services/token_handler.dart';
 import '../utils/constants.dart';
 import '../viewmodel/cubit/app_cubit.dart';
@@ -128,10 +130,19 @@ class _SplashScreenState extends State<SplashScreen> {
                                     tag: AssetsName.appLogo,
                                     child: SlideAnimation(
                                       verticalOffset: 20.0,
-                                      child: Image.asset(
-                                        AssetsName.appLogo,
-                                        height: 80,
-                                        width: 80,
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          final box =
+                                              await Hive.openBox<LocationModel>(
+                                                  Constants.locationsBox);
+                                          Utils.flutterToast(
+                                              box.values.length.toString());
+                                        },
+                                        child: Image.asset(
+                                          AssetsName.appLogo,
+                                          height: 80,
+                                          width: 80,
+                                        ),
                                       ),
                                     ),
                                   ),
