@@ -15,6 +15,7 @@ class FirebaseService {
 
   Future<void> requestNotificationPermission() async {
     try {
+      await firebaseMessaging.setAutoInitEnabled(true);
       NotificationSettings settings = await firebaseMessaging.requestPermission(
         alert: true,
         badge: true,
