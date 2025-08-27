@@ -227,7 +227,7 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                             minLines: 6,
                             borderRadius: BorderRadius.circular(30),
                             maxLength: 180,
-                            autofocus: true,
+                            // autofocus: true,
                             style: const TextStyle(color: Colors.black),
                             labelStyle: const TextStyle(color: Colors.black),
                             fillColor: DesignColor.latteyellowLight3,
