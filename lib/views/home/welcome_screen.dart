@@ -174,8 +174,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     bool isAccepted = await acceptSwipe(
                                         previousIndex,
                                         prompt: data);
-                                    selectedIndex = currentIndex ?? 0;
-                                    setState(() {});
+                                    if (isAccepted) {
+                                      selectedIndex = currentIndex ?? 0;
+                                      setState(() {});
+                                    }
                                     return isAccepted;
                                   }
                                 }

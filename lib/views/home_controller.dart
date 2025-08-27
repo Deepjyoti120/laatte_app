@@ -33,11 +33,12 @@ class _HomeControllerState extends State<HomeController> {
   void initState() {
     super.initState();
     // GlobalContext.init(context);
-    FirebaseService().listenToForegroundMessages();
+    
     runInit();
   }
 
   runInit() async {
+    FirebaseService().listenToForegroundMessages();
     unawaited(ApiService().updateAllLocations());
     // socketService.connect();
     // socketService.listenForMessages((message) {
