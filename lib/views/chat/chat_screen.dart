@@ -81,6 +81,7 @@ class _ChatMessagesState extends State<ChatMessages> {
       //   messageController.text.trim(),
       // );
       messageController.clear();
+      // textFieldFocus.unfocus();
     }
     setState(() => isLoading = false);
   }

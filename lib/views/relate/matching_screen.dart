@@ -57,8 +57,8 @@ class _MatchingScreenState extends State<MatchingScreen> {
                             child: Image.network(
                               widget.chatStart.user1?.profilePicture ??
                                   "https://avatar.iran.liara.run/public/boy?username=Ash",
-                              height: 80,
-                              width: 80,
+                              height: 120,
+                              width: 120,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -84,8 +84,8 @@ class _MatchingScreenState extends State<MatchingScreen> {
                             child: Image.network(
                               widget.chatStart.user2?.profilePicture ??
                                   "https://avatar.iran.liara.run/public/boy?username=Deepjyoti",
-                              height: 80,
-                              width: 80,
+                              height: 120,
+                              width: 120,
                               fit: BoxFit.cover,
                             ),
                           ),
