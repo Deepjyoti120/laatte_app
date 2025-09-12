@@ -226,6 +226,27 @@ class ApiService {
     return null;
   }
 
+  Future fcmUpdate({
+    required String fcmToken,
+  }) async {
+    try {
+      String apiUrl = 'user/fcm_token';
+      var dataBody = {
+        "fcm_token": fcmToken,
+      };
+      Response res = await dio.post(
+        apiUrl,
+        data: dataBody,
+      );
+      if (res.statusCode == 200) {
+        return true;
+      }
+    } on DioException catch (e) {
+      Utils.flutterToast(e.response?.data?["message"] ?? "Please try again.");
+    }
+    return null;
+  }
+
   Future<bool> accountCreate({
     required String fullName,
     required String email,

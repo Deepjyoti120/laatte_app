@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/utils/utils.dart';
 
 class FirebaseService {
-  final firebaseMessaging = FirebaseMessaging.instance;
+   final firebaseMessaging = FirebaseMessaging.instance;
   Future<String?> get getDeviceToken async {
     try {
+      if (Platform.isIOS) {
+        final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+        debugPrint("APNS Token: $apnsToken");
+      }
       return await firebaseMessaging.getToken();
     } catch (e) {
       Utils.flutterToast(e.toString());

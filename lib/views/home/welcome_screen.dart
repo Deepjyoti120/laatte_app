@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
@@ -52,6 +53,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     //   }
     // });
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
+        ApiService().fcmUpdate(fcmToken: newToken);
+      });
       final appState = context.read<AppStateCubit>().state;
       final myPromptsBloc = context.read<MyPromptsBloc>();
       final prompts = await ApiService()
