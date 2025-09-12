@@ -5,16 +5,20 @@ import 'package:laatte/common_libs.dart';
 import 'package:laatte/utils/utils.dart';
 
 class FirebaseService {
-   final firebaseMessaging = FirebaseMessaging.instance;
+  final firebaseMessaging = FirebaseMessaging.instance;
+  
   Future<String?> get getDeviceToken async {
     try {
+      await requestNotificationPermission();
+      final fcmToken = await firebaseMessaging.getToken();
+      debugPrint("📱 FCM Token: $fcmToken");
       if (Platform.isIOS) {
-        final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-        debugPrint("APNS Token: $apnsToken");
+        final apnsToken = await firebaseMessaging.getAPNSToken();
+        debugPrint("🍏 APNS Token: $apnsToken");
       }
-      return await firebaseMessaging.getToken();
+      return fcmToken;
     } catch (e) {
-      Utils.flutterToast(e.toString());
+      debugPrint("Error getting token: $e");
       return null;
     }
   }
