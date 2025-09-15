@@ -405,22 +405,17 @@ class Utils {
   //   return location.isGranted;
   // }
   static Future<bool> isAllowGPS() async {
+    final status = await Permission.location.status;
+    return status.isGranted;
+  }
+
+  static Future<bool> requestLocationPermission() async {
     var status = await Permission.locationWhenInUse.request();
     if (status.isGranted) {
       var alwaysStatus = await Permission.locationAlways.request();
       return alwaysStatus.isGranted || status.isGranted;
     }
     return false;
-  }
-
-  static Future<bool> requestLocationPermission() async {
-    LocationPermission permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   // static Future<String> getLatLngToAddress(LatLng? latLng) async {
