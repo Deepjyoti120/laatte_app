@@ -405,15 +405,24 @@ class Utils {
   //   return location.isGranted;
   // }
   static Future<bool> isAllowGPS() async {
-    final status = await Permission.location.status;
-    return status.isGranted;
+    final whenInUse = await Permission.locationWhenInUse.status;
+    final always = await Permission.locationAlways.status;
+    if (always.isGranted) return true;
+    if (whenInUse.isGranted) return true;
+    return false;
   }
 
   static Future<bool> requestLocationPermission() async {
     var status = await Permission.locationWhenInUse.request();
+    print(status.name);
     if (status.isGranted) {
-      var alwaysStatus = await Permission.locationAlways.request();
-      return alwaysStatus.isGranted || status.isGranted;
+      var alwaysStatus = await Permission.locationAlways.status;
+      if (alwaysStatus.isGranted) {
+        return true;
+      } else {
+        await openAppSettings();
+        return false;
+      }
     }
     return false;
   }
