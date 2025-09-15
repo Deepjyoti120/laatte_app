@@ -404,27 +404,49 @@ class Utils {
   //   // }
   //   return location.isGranted;
   // }
+  // static Future<bool> isAllowGPS() async {
+  //   final whenInUse = await Permission.locationWhenInUse.status;
+  //   final always = await Permission.locationAlways.status;
+  //   if (always.isGranted) return true;
+  //   if (whenInUse.isGranted) return true;
+  //   return false;
+  // }
+
+  // static Future<bool> requestLocationPermission() async {
+  //   var status = await Permission.locationWhenInUse.request();
+  //   var getStatus = await Geolocator.requestPermission();
+  //   if (status.isGranted || getStatus == LocationPermission.whileInUse) {
+  //     var alwaysStatus = await Permission.locationAlways.status;
+  //     if (alwaysStatus.isGranted) {
+  //       return true;
+  //     } else {
+  //       await Geolocator.openLocationSettings();
+  //       return false;
+  //     }
+  //   }
+  //   return false;
+  // }
+
   static Future<bool> isAllowGPS() async {
-    final whenInUse = await Permission.locationWhenInUse.status;
-    final always = await Permission.locationAlways.status;
-    if (always.isGranted) return true;
-    if (whenInUse.isGranted) return true;
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      return true;
+    }
     return false;
   }
 
   static Future<bool> requestLocationPermission() async {
-    var status = await Permission.locationWhenInUse.request();
-    print(status.name);
-    if (status.isGranted) {
-      var alwaysStatus = await Permission.locationAlways.status;
-      if (alwaysStatus.isGranted) {
-        return true;
-      } else {
-        await openAppSettings();
-        return false;
-      }
+    LocationPermission permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.always) {
+      return true;
+    } else if (permission == LocationPermission.whileInUse) {
+      Utils.flutterToast("Please Allow Always Permission");
+      await Geolocator.openLocationSettings();
+      return false;
+    } else {
+      return false;
     }
-    return false;
   }
 
   // static Future<String> getLatLngToAddress(LatLng? latLng) async {
