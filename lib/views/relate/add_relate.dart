@@ -134,8 +134,8 @@ class _AddRelateState extends State<AddRelate> with WidgetsBindingObserver {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // Text(haspermission.toString()),
-                          DesignText(
-                            _position?.latitude?.toString() ?? '',
+                          const DesignText(
+                          "Add Your Thought",
                             fontSize: 24,
                             fontWeight: 600,
                           ),
