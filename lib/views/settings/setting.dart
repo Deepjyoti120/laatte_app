@@ -74,6 +74,13 @@ class _SettingScreenState extends State<SettingScreen> {
                         } else {
                           unawaited(ApiService().fcmUpdate());
                         }
+                        // if (!value) {
+                        //   unawaited(ApiService().fcmUpdate(
+                        //       fcmToken:
+                        //           await FirebaseService().getDeviceToken));
+                        // } else {
+                        //   unawaited(ApiService().fcmUpdate());
+                        // }
                       },
                     ),
                   ),
