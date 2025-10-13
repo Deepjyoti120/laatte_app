@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
@@ -66,10 +68,11 @@ class _SettingScreenState extends State<SettingScreen> {
                       onChanged: (value) async {
                         appState.isAllowNotification = value;
                         if (value) {
-                          ApiService().fcmUpdate(
-                              fcmToken: await FirebaseService().getDeviceToken);
+                          unawaited(ApiService().fcmUpdate(
+                              fcmToken:
+                                  await FirebaseService().getDeviceToken));
                         } else {
-                          ApiService().fcmUpdate();
+                          unawaited(ApiService().fcmUpdate());
                         }
                       },
                     ),
