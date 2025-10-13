@@ -2,6 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laatte/common_libs.dart';
 import 'package:laatte/routes.dart';
+import 'package:laatte/services/api_services.dart';
+import 'package:laatte/services/firebase_service.dart';
 import 'package:laatte/services/token_handler.dart';
 import 'package:laatte/ui/theme/text.dart';
 import 'package:laatte/utils/design_colors.dart';
@@ -61,8 +63,14 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Switch(
                       activeColor: DesignColor.primary,
                       value: appState.isAllowNotification,
-                      onChanged: (value) {
+                      onChanged: (value) async {
                         appState.isAllowNotification = value;
+                        if (value) {
+                          ApiService().fcmUpdate(
+                              fcmToken: await FirebaseService().getDeviceToken);
+                        } else {
+                          ApiService().fcmUpdate();
+                        }
                       },
                     ),
                   ),

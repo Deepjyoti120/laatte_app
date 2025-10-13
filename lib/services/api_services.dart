@@ -227,7 +227,7 @@ class ApiService {
   }
 
   Future fcmUpdate({
-    required String fcmToken,
+     String? fcmToken,
   }) async {
     try {
       String apiUrl = 'user/fcm_token';
